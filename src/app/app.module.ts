@@ -13,12 +13,23 @@ import { AppRoutingModule } from './app-routing.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { ElectronService } from './providers/electron.service';
+import { ElectronService } from './services/electron.service';
 
 import { WebviewDirective } from './directives/webview.directive';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
+
+import { NgZorroAntdModule } from 'ng-zorro-antd';
+
+/**
+ * register language package
+ */
+ import { registerLocaleData } from '@angular/common';
+ import en from '@angular/common/locales/en';
+ registerLocaleData(en);
+ import { NZ_I18N, en_US } from 'ng-zorro-antd';
+
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -36,6 +47,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
+    NgZorroAntdModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -44,7 +56,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [ElectronService],
-  bootstrap: [AppComponent]
+  providers: [ElectronService, { provide: NZ_I18N, useValue: en_US }],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

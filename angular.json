@@ -25,7 +25,8 @@
               "src/favicon.512x512.png"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ng-zorro-antd/src/ng-zorro-antd.css"
             ],
             "scripts": []
           },
@@ -95,7 +96,8 @@
             "karmaConfig": "src/karma.conf.js",
             "scripts": [],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ng-zorro-antd/src/ng-zorro-antd.css"
             ],
             "assets": [
               "src/assets",
