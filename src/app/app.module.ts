@@ -31,6 +31,9 @@ import { HomeComponent } from './components/home/home.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { HexoService } from './services/hexo.service';
+import { PostComponent } from './pages/dashboard/post/post.component';
+import { PostService } from './services/post.service';
+import { HexoInitGuard } from './guard/hexo-init.guard';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -43,7 +46,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     WebviewDirective,
     SidebarComponent,
-    DashboardComponent
+    DashboardComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,
@@ -63,6 +67,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     ElectronService,
     HexoService,
+    PostService,
+    HexoInitGuard,
     { provide: NZ_I18N, useValue: en_US }
   ],
   bootstrap: [AppComponent],

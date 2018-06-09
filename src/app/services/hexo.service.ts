@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as Hexo from 'hexo';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,7 @@ import * as Hexo from 'hexo';
 export class HexoService {
 
   public _hexo: typeof Hexo;
+  public isInit$: Subject<boolean> = new Subject();
 
   constructor() { }
 
@@ -17,9 +19,13 @@ export class HexoService {
     // init
     return this._hexo.init().then(() => {
       // load sources and watching changes
-      return this._hexo.watch().then(function() {
-        console.log('hexo change', arguments);
+      return this._hexo.watch().then((...arg) => {
+        this.isInit$.next(true);
       });
     });
+  }
+
+  public end() {
+    this._hexo.unwatch();
   }
 }
