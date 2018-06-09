@@ -14,7 +14,9 @@ export class HexoService {
 
   public init() {
     const _Hexo = window.require('hexo');
-    this._hexo = new _Hexo('/Users/guang/projects/blog');
+    this._hexo = new _Hexo('/Users/guang/projects/blog', {
+      drafts: true
+    });
 
     // init
     return this._hexo.init().then(() => {
