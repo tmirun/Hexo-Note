@@ -1,3 +1,19 @@
-<div class="dashboard" fxFlexFill>
-  dashboard works!
+<div class="dashboard" fxLayout="row" fxLayoutAlign="start stretch" fxFlexFill>
+  <app-sidebar></app-sidebar>
+  <div fxFlex="500px">
+    <nz-list [nzDataSource]="data" [nzRenderItem]="item" [nzItemLayout]="'horizontal'">
+      <ng-template #item let-item>
+        <nz-list-item>
+          <nz-list-item-meta
+            [nzTitle]="nzTitle"
+            nzDescription="Ant Design, a design language for background applications">
+            <ng-template #nzTitle>
+              <a href="https://ng.ant.design">{{item.title}}</a>
+            </ng-template>
+          </nz-list-item-meta>
+        </nz-list-item>
+      </ng-template>
+    </nz-list>
+  </div>
+  <router-outlet></router-outlet>
 </div>

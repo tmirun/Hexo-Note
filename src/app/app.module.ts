@@ -4,10 +4,19 @@ import '../polyfills';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
+import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
+/**
+ * register language package
+ */
+import { registerLocaleData } from '@angular/common';
+import en from '@angular/common/locales/en';
+registerLocaleData(en);
+import { NZ_I18N, en_US } from 'ng-zorro-antd';
+
 
 // NG Translate
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -19,17 +28,9 @@ import { WebviewDirective } from './directives/webview.directive';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
-
-import { NgZorroAntdModule } from 'ng-zorro-antd';
-
-/**
- * register language package
- */
- import { registerLocaleData } from '@angular/common';
- import en from '@angular/common/locales/en';
- registerLocaleData(en);
- import { NZ_I18N, en_US } from 'ng-zorro-antd';
-
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { HexoService } from './services/hexo.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -40,7 +41,9 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
     HomeComponent,
-    WebviewDirective
+    WebviewDirective,
+    SidebarComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +51,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     AppRoutingModule,
     NgZorroAntdModule.forRoot(),
+    FlexLayoutModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -56,7 +60,11 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [ElectronService, { provide: NZ_I18N, useValue: en_US }],
+  providers: [
+    ElectronService,
+    HexoService,
+    { provide: NZ_I18N, useValue: en_US }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
