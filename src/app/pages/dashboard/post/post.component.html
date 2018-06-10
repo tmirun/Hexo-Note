@@ -1,0 +1,19 @@
+<div fxFlex="column" fxFlexFill class="post">
+  <div class="post-sidebar">
+    <div> fdsafds</div>
+    <nz-list [nzDataSource]="posts" [nzRenderItem]="item" [nzItemLayout]="'horizontal'">
+      <ng-template #item let-item>
+        <nz-list-item>
+          <nz-list-item-meta
+            [nzTitle]="nzTitle"
+            nzDescription="{{item.date.format('YYYY-MM-DD')}}">
+            <ng-template #nzTitle>
+              <a href="https://ng.ant.design">{{item.title}}</a>
+            </ng-template>
+          </nz-list-item-meta>
+        </nz-list-item>
+      </ng-template>
+    </nz-list>
+  </div>
+  <router-outlet></router-outlet>
+</div>
