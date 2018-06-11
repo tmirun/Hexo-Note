@@ -10,24 +10,31 @@ import { Post } from '../../../Models/Post.interface';
 export class PostComponent implements OnInit, OnDestroy {
 
   public posts: Post[];
+  public drafts: Post[];
+  public test = 'fdsa';
 
-  private postSubscription;
+  private postsSubscription;
+  private draftsSubscription;
 
   constructor(
     private postService: PostService
   ) {
 
-    this.postSubscription = this.postService.posts$.subscribe((posts: Post[]) => {
+    this.postsSubscription = this.postService.posts$.subscribe((posts: Post[]) => {
       this.posts = posts;
+    });
+
+    this.draftsSubscription = this.postService.posts$.subscribe((drafts: Post[]) => {
+      this.drafts = drafts;
     });
   }
 
   ngOnInit() {
-    console.log(this.postService.getArticles());
+    this.postService.getArticles();
   }
 
   ngOnDestroy() {
-    this.postSubscription.unsubscribe();
+    this.postsSubscription.unsubscribe();
+    this.draftsSubscription.unsubscribe();
   }
-
 }

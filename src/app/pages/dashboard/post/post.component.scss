@@ -1,0 +1,34 @@
+@import "../../../../styles";
+
+:host {
+  .post-sidebar {
+    overflow-y: auto;
+    height: 100%;
+    width: $help-sidebar-width;
+    border-right: $grey-3 solid thin;
+
+    .post-sidebar-list-title {
+      padding: $spacing-xs $spacing-m ;
+      border-bottom: $grey-3 solid thin;
+      font-weight: bold;
+    }
+
+    .post-item {
+      padding: $spacing-xs $spacing-m ;
+
+      .post-item-draft-icon {
+        padding-right: $spacing-s;
+      }
+
+      .post-item-title {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .post-item-subtitle {
+        color: $grey-7;
+      }
+    }
+  }
+}

@@ -13,9 +13,7 @@ export class PostService {
 
   constructor(
     private hexoService: HexoService
-  ) {
-    console.log(this.hexoService._hexo.locals.toObject());
-  }
+  ) {}
 
   public getArticles() {
     const articles: Post[] = this.hexoService._hexo.locals.get('posts');
