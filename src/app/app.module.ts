@@ -35,6 +35,7 @@ import { HexoService } from './services/hexo.service';
 import { PostComponent } from './pages/dashboard/post/post.component';
 import { PostService } from './services/post.service';
 import { HexoInitGuard } from './guard/hexo-init.guard';
+import { PostDetailComponent } from './pages/dashboard/post/post-detail/post-detail.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -48,7 +49,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     WebviewDirective,
     SidebarComponent,
     DashboardComponent,
-    PostComponent
+    PostComponent,
+    PostDetailComponent
   ],
   imports: [
     BrowserModule,
