@@ -22,10 +22,12 @@ export class PostComponent implements OnInit, OnDestroy {
 
     this.postsSubscription = this.postService.posts$.subscribe((posts: Post[]) => {
       this.posts = posts;
+      this.posts.sort((a, b) =>  b.date.valueOf() - a.date.valueOf());
     });
 
     this.draftsSubscription = this.postService.posts$.subscribe((drafts: Post[]) => {
       this.drafts = drafts;
+      this.drafts.sort((a, b) =>  b.date.valueOf() - a.date.valueOf());
     });
   }
 
