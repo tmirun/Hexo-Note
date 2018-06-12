@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PostService } from '../../../services/post.service';
 import { Post } from '../../../Models/Post.interface';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-post',
@@ -11,10 +12,9 @@ export class PostComponent implements OnInit, OnDestroy {
 
   public posts: Post[];
   public drafts: Post[];
-  public test = 'fdsa';
 
-  private postsSubscription;
-  private draftsSubscription;
+  private postsSubscription: Subscription;
+  private draftsSubscription: Subscription;
 
   constructor(
     private postService: PostService
