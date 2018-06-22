@@ -9,6 +9,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 
 /**
  * register language package
@@ -62,6 +63,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FlexLayoutModule,
     BrowserAnimationsModule,
     NoopAnimationsModule,
+    CodemirrorModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
