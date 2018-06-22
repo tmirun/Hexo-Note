@@ -1,3 +1,16 @@
-<p>
-  post-detail works!
-</p>
+<div class="post-detail" fxLayout="column" fxFlexFill >
+  <form [formGroup]="form" nz-form fxFill fxLayout="column" (ngSubmit)="submitForm()">
+    <div fxFlex="none">
+      <button nz-button nzType="primary"> Submit </button>
+    </div>
+    <div fxFlex class="post-detail-content-wrapper">
+      <ngx-codemirror
+        formControlName="raw"
+        [options]="{
+          theme: 'material',
+          mode: 'markdown'
+        }"
+      ></ngx-codemirror>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,21 @@
+@import "../../../../../style/index";
+$editor-toolbar-height: 48px;
+
+:host {
+  .post-detail {
+    .post-detail-content {
+
+    }
+  }
+
+  .post-detail-content-wrapper {
+    position: relative;
+    /deep/ .CodeMirror {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
