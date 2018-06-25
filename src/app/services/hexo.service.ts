@@ -22,7 +22,6 @@ export class HexoService {
     return this._hexo.init().then(() => {
       // load sources and watching changes
       return this._hexo.load().then((...arg) => {
-        console.log('watch change', arg);
         this.isInit$.next(true);
       });
     });
