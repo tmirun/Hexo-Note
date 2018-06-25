@@ -21,7 +21,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
 
   public form: FormGroup;
   public post: Post;
-  public raw: string;
+  public raw = '';
   public title: string;
   public tags: string;
   public categories: string;
@@ -45,7 +45,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.routeSubscription = this.route.params
       .switchMap(params => {
-        return this.postService.posts$
+        return this.postService.articles$
           .map(posts => posts.find(post =>  post._id === params.id));
       })
       .subscribe((post) => {
@@ -68,7 +68,10 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   }
 
   submitForm() {
-    // this.postService.update(this.post.path);
+    this.postService.update({
+      ...this.post,
+      raw: this.form.value.raw
+    });
   }
 
 }

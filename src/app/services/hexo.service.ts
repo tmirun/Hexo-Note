@@ -14,14 +14,14 @@ export class HexoService {
 
   public init() {
     const _Hexo = window.require('hexo');
-    this._hexo = new _Hexo('/Users/guang/projects/blog', {
+    this._hexo = new _Hexo('/Users/guang/projects/blog2', {
       drafts: true
     });
 
     // init
     return this._hexo.init().then(() => {
       // load sources and watching changes
-      return this._hexo.watch().then((...arg) => {
+      return this._hexo.load().then((...arg) => {
         console.log('watch change', arg);
         this.isInit$.next(true);
       });
