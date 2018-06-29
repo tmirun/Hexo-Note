@@ -2,7 +2,6 @@ import 'zone.js/dist/zone-mix';
 import 'reflect-metadata';
 import '../polyfills';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -64,8 +63,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule,
     NgZorroAntdModule.forRoot(),
     FlexLayoutModule,
-    BrowserAnimationsModule,
-    NoopAnimationsModule,
     CodemirrorModule,
     TranslateModule.forRoot({
       loader: {
