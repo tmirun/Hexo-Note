@@ -5,15 +5,15 @@ import { PostDetailComponent } from './pages/dashboard/post/post-detail/post-det
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HexoInitGuard } from './guard/hexo-init.guard';
+import { SettingsComponent } from './pages/dashboard/settings/settings.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   {
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [ HexoInitGuard],
     children: [
-      { path: '', redirectTo: 'post', pathMatch: 'full' },
+      { path: 'settings', component: SettingsComponent },
       {
         path: 'post',
         component: PostComponent,
@@ -21,12 +21,14 @@ const routes: Routes = [
           { path: ':id', component: PostDetailComponent },
         ]
       },
+      { path: '', redirectTo: 'post', pathMatch: 'full' },
     ]
-  }
+  },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, {useHash: true})],
+    imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
 })
 export class AppRoutingModule { }

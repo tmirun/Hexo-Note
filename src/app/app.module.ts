@@ -38,7 +38,7 @@ import { PostService } from './services/post.service';
 import { HexoInitGuard } from './guard/hexo-init.guard';
 import { PostDetailComponent } from './pages/dashboard/post/post-detail/post-detail.component';
 import { SystemSettingsService } from './services/system-settings.service';
-import { SettingsComponent } from './pages/settings/settings.component';
+import { SettingsComponent } from './pages/dashboard/settings/settings.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
