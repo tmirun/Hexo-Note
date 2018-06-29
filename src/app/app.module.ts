@@ -37,6 +37,8 @@ import { PostComponent } from './pages/dashboard/post/post.component';
 import { PostService } from './services/post.service';
 import { HexoInitGuard } from './guard/hexo-init.guard';
 import { PostDetailComponent } from './pages/dashboard/post/post-detail/post-detail.component';
+import { SystemSettingsService } from './services/system-settings.service';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -51,7 +53,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SidebarComponent,
     DashboardComponent,
     PostComponent,
-    PostDetailComponent
+    PostDetailComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -76,6 +79,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ElectronService,
     HexoService,
     PostService,
+    SystemSettingsService,
     HexoInitGuard,
     { provide: NZ_I18N, useValue: en_US }
   ],
