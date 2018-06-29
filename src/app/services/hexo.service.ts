@@ -44,7 +44,7 @@ export class HexoService {
   public checkHexoPath() {
     if (!this.isHexoProjectPath()) {
       this.systemSettings.showSelectHexoPath();
-      if (this.isHexoProjectPath()) {
+      if (!this.isHexoProjectPath()) {
         this.showNotHexoProjectPathAlert();
       }
       this.checkHexoPath();
