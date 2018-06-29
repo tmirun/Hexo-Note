@@ -20,8 +20,6 @@ export class HexoService {
   public init() {
     const _Hexo = window.require('hexo');
 
-    this.systemSettings.saveHexoPath('');
-
     this.checkHexoPath();
 
     this._hexo = new _Hexo(this.systemSettings.getHexoPath(), {
