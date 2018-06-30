@@ -38,6 +38,8 @@ import { HexoInitGuard } from './guard/hexo-init.guard';
 import { PostDetailComponent } from './pages/dashboard/post/post-detail/post-detail.component';
 import { SystemSettingsService } from './services/system-settings.service';
 import { SettingsComponent } from './pages/dashboard/settings/settings.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ConfigService } from './services/config.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -76,6 +78,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ElectronService,
     HexoService,
     PostService,
+    ConfigService,
     SystemSettingsService,
     HexoInitGuard,
     { provide: NZ_I18N, useValue: en_US }
