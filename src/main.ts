@@ -5,6 +5,7 @@ import { AppModule } from './app/app.module';
 import { AppConfig } from './environments/environment';
 
 import 'codemirror/mode/markdown/markdown';
+import 'codemirror/mode/yaml/yaml';
 
 if (AppConfig.production) {
   enableProdMode();

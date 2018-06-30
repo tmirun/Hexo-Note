@@ -1,15 +1,69 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators
+} from '@angular/forms';
+import { SystemSettingsService } from '../../../services/system-settings.service';
+import { ConfigService } from '../../../services/config.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  public hexoPath = '';
+  public configYmlForm: FormGroup;
+
+  private configYmlSubscription: Subscription;
+
+  constructor(
+    private fb: FormBuilder,
+    private systemSettingsService: SystemSettingsService,
+    private configService: ConfigService
+  ) {
+
+    this.hexoPath = this.systemSettingsService.getHexoPath();
+    this.configService.getConfigYml();
+
+    this.configYmlForm = this.fb.group({
+      configYml: ''
+    });
+  }
 
   ngOnInit() {
+    this.configYmlSubscription = this.configService.configYml$.subscribe((configYml) => {
+      this.configYmlForm.setValue({
+        configYml
+      });
+    });
+  }
+
+  ngOnDestroy() {
+    console.log('destroy');
+    this.configYmlSubscription.unsubscribe();
+  }
+
+  public showSelectHexoPath() {
+    const path = this.systemSettingsService.showSelectHexoPath();
+    if (!path) { return; }
+    if (this.systemSettingsService.isHexoProjectPath(path)) {
+      this.hexoPath = path;
+    } else {
+      this.systemSettingsService.showNotHexoProjectPathAlert();
+      this.showSelectHexoPath();
+    }
+  }
+
+  public submitConfigYmlForm() {
+    this.configService.updateConfigYml(this.configYmlForm.value.configYml);
+    // this.postService.update({
+    //   ...this.post,
+    //   raw: this.form.value.raw
+    // });
   }
 
 }
