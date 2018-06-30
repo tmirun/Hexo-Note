@@ -18,7 +18,7 @@ export class SystemSettingsService {
     }
   }
 
-  showSelectHexoPath(): string {
+  showSelectHexoPath(): string | undefined {
     const remote = this.electronService.remote;
     const dialog = remote.dialog;
 
@@ -27,7 +27,7 @@ export class SystemSettingsService {
     });
 
     if (!paths) {
-      remote.getCurrentWindow().close();
+      return paths as undefined;
     }
 
     const path = paths[0];
@@ -35,6 +35,21 @@ export class SystemSettingsService {
     return path;
   }
 
+  showNotHexoProjectPathAlert() {
+    const remote = this.electronService.remote;
+    const dialog = this.electronService.remote.dialog;
+    dialog.showMessageBox(
+      remote.getCurrentWindow(),
+      {
+        type: 'warning',
+        title: 'ALERT',
+        message: 'THE FOLDER DONT HEAVE _config.yml FILE, PLIZ CHOOSE THE CORRECT HEXO PROJECT FOLDER?'
+      });
+  }
+
+  isHexoProjectPath(path): boolean {
+    return  this.electronService.fs.existsSync(`${path}/_config.yml`);
+  }
 
   getHexoPath(): string {
     return this._settings.get('hexoPath');

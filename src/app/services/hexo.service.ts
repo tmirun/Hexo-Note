@@ -40,31 +40,16 @@ export class HexoService {
   }
 
   public checkHexoPath() {
-    if (!this.isHexoProjectPath()) {
-      this.systemSettings.showSelectHexoPath();
-      if (!this.isHexoProjectPath()) {
-        this.showNotHexoProjectPathAlert();
+    if (!this.systemSettings.getHexoPath() || !this.systemSettings.isHexoProjectPath(this.systemSettings.getHexoPath())) {
+      const path = this.systemSettings.showSelectHexoPath();
+      if (! path ) {
+        this.electronService.remote.getCurrentWindow().close();
+        return;
+      }
+      if (!this.systemSettings.isHexoProjectPath(path)) {
+        this.systemSettings.showNotHexoProjectPathAlert();
       }
       this.checkHexoPath();
     }
-  }
-
-  public showNotHexoProjectPathAlert() {
-    const remote = this.electronService.remote;
-    const dialog = this.electronService.remote.dialog;
-    dialog.showMessageBox(
-      remote.getCurrentWindow(),
-      {
-        type: 'warning',
-        title: 'ALERT',
-        message: 'THE FOLDER DONT HEAVE _config.yml FILE, PLIZ CHOOSE THE CORRECT HEXO PROJECT FOLDER?'
-      });
-  }
-
-  private isHexoProjectPath(): boolean {
-    const hexoPath = this.systemSettings.getHexoPath();
-    const existConfigFile = this.electronService.fs.existsSync(`${this.systemSettings.getHexoPath()}/_config.yml`);
-
-    return hexoPath && existConfigFile;
   }
 }
