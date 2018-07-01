@@ -1,5 +1,11 @@
+@import '../../../style/index';
+
 :host {
   .sidebar {
     height: 100%;
+  }
+
+  .ant-menu-item {
+    outline: none;
   }
 }
