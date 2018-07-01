@@ -40,6 +40,7 @@ import { SystemSettingsService } from './services/system-settings.service';
 import { SettingsComponent } from './pages/dashboard/settings/settings.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfigService } from './services/config.service';
+import {  } from './services/config.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
