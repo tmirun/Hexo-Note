@@ -67,4 +67,10 @@ export class PostService {
 
     this.articles$.next(articles);
   }
+
+  public renderArticle(post: Post) {
+    console.log(this.hexoService._hexo.post.render('test.md', {content: post.raw}).then((...arg) => {
+      console.log(arg);
+    }));
+  }
 }
