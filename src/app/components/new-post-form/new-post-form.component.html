@@ -1,0 +1,20 @@
+<form nz-form class="new-post-form" [formGroup]="form">
+  <nz-form-item>
+    <nz-form-control>
+      <input type="text" nz-input formControlName="title" placeholder="TITLE">
+      <nz-form-explain *ngIf="form.get('title').dirty && form.get('title').errors">PLEASE REQUIRE TITLE</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <label nz-checkbox formControlName="published">
+        <span>PUBLISHED</span>
+      </label>
+    </nz-form-control>
+  </nz-form-item>
+  <label nz-checkbox >
+    <span>PUBLISHED</span>
+  </label>
+
+  <label nz-checkbox>Checkbox</label>` })
+</form>

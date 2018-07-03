@@ -8,14 +8,29 @@ $editor-toolbar-height: 48px;
     }
   }
 
-  .post-detail-content-wrapper {
-    position: relative;
-    /deep/ .CodeMirror {
+  .post-detail-form {
+
+    .post-detail-action-bar {
       position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 100%;
-      height: 100%;
+      right: $spacing-m;
+      top: $spacing-m;
+      z-index: 99;
+    }
+
+    .post-detail-editor-toolbar {
+      padding: $spacing-m;
+      border-bottom: $grey-4 solid thin;
+    }
+
+    .post-detail-content-wrapper {
+      position: relative;
+      /deep/ .CodeMirror {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 }

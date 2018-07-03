@@ -1,7 +1,11 @@
-<div class="post-detail" fxLayout="column" fxFlexFill >
-  <form [formGroup]="form" nz-form fxFill fxLayout="column" (ngSubmit)="submitForm()">
-    <div fxFlex="none">
+<div class="post-detail" fxFill >
+  <form class="post-detail-form" [formGroup]="form" nz-form
+        fxFill fxLayout="column">
+    <div class="post-detail-action-bar">
       <button nz-button nzType="primary"> Submit </button>
+    </div>
+    <div class="post-detail-editor-toolbar">
+      TOOLD BAR
     </div>
     <div fxFlex class="post-detail-content-wrapper">
       <ngx-codemirror

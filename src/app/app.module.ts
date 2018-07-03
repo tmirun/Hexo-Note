@@ -40,7 +40,7 @@ import { SystemSettingsService } from './services/system-settings.service';
 import { SettingsComponent } from './pages/dashboard/settings/settings.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfigService } from './services/config.service';
-import {  } from './services/config.service';
+import { NewPostFormComponent } from './components/new-post-form/new-post-form.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -56,7 +56,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     DashboardComponent,
     PostComponent,
     PostDetailComponent,
-    SettingsComponent
+    SettingsComponent,
+    NewPostFormComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +65,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    NgZorroAntdModule.forRoot(),
+    BrowserAnimationsModule,
+    NgZorroAntdModule,
     FlexLayoutModule,
     CodemirrorModule,
     TranslateModule.forRoot({

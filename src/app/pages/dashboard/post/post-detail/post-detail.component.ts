@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PostService } from '../../../../services/post.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Post } from '../../../../Models/Post.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
@@ -21,7 +21,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
 
   public form: FormGroup;
   public post: Post;
-  public raw = '';
+  public isNewPost = false;
   public title: string;
   public tags: string;
   public categories: string;
@@ -38,8 +38,11 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     private fb: FormBuilder
   ) {
     this.form = this.fb.group({
-      raw:  [ this.raw, [ Validators.required ] ]
+      raw:  [ '', [ Validators.required ] ]
     });
+    // this.form.valueChanges.subscribe((value) => {
+    //   console.log(value);
+    // });
   }
 
   ngOnInit() {
@@ -54,11 +57,10 @@ export class PostDetailComponent implements OnInit, OnDestroy {
           return ;
         }
         this.post = post;
-        this.raw = this.post.raw;
         this.path = this.post.path;
 
         this.form.setValue({
-          raw: this.raw,
+          raw: this.post.raw || '',
         });
       });
   }
@@ -67,11 +69,15 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     this.routeSubscription.unsubscribe();
   }
 
-  submitForm() {
+  public submitForm() {
+    if (!this.isNewPost) { this.isNewPost = true}
     this.postService.update({
       ...this.post,
       raw: this.form.value.raw
     });
+  }
+
+  public previewClick() {
   }
 
 }
