@@ -6,6 +6,8 @@ import {
   Validators
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { PostService } from '../../services/post.service';
+import { NzModalService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-new-post-form',
@@ -21,7 +23,9 @@ export class NewPostFormComponent implements OnInit, OnDestroy {
   private formSubscription: Subscription;
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private postService: PostService,
+    private modalService: NzModalService
   ) {
     this.form = this.fb.group({
       title: [ '', [ Validators.required ] ],
@@ -31,7 +35,6 @@ export class NewPostFormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.formSubscription = this.form.valueChanges.subscribe(value => {
-      console.log(value);
       this.postChange.emit(value);
     });
   }
@@ -40,4 +43,18 @@ export class NewPostFormComponent implements OnInit, OnDestroy {
     this.formSubscription.unsubscribe();
   }
 
+  public onSubmit() {
+    for (const i in this.form.controls) {
+      if (this.form.controls) {
+        this.form.controls[ i ].markAsDirty();
+        this.form.controls[ i ].updateValueAndValidity();
+      }
+    }
+    this.postService.create({
+      title: this.form.value.title,
+      layout: this.form.value.published ? 'post' : 'draft'
+    }).then(() => {
+      this.modalService.closeAll();
+    });
+  }
 }

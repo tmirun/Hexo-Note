@@ -20,10 +20,11 @@ export class SidebarComponent implements OnInit {
     // this.createModal();
   }
 
-  public createModal(): void {
+  public createModal(tplContet): void {
     this.modalService.create({
-      nzTitle: 'Modal Title',
-      nzContent: 'string, will close after 1 sec',
+      nzTitle: 'NEW POST',
+      nzContent: tplContet,
+      nzFooter: null,
       nzClosable: false,
       nzOnOk: () => new Promise((resolve) => window.setTimeout(resolve, 1000))
     });

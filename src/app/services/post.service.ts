@@ -45,10 +45,13 @@ export class PostService {
   }
 
   public create(post: Post) {
-    return this.hexoService._hexo.post.create(post, true).then(function() {
-      console.log('ok', arguments);
-    }).catch(function () {
-      console.log('ko', arguments);
+    return this.hexoService._hexo.post.create(post, true).then((data) => {
+      setTimeout(() => {
+        this.hexoService.load().then(() => {
+          this.getArticles();
+        });
+      }, 1000);
+      return data;
     });
   }
 
