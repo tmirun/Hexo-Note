@@ -1,3 +1,10 @@
 <div class="app" fxFlexFill>
   <router-outlet></router-outlet>
+  <div class="app-content-loading" *ngIf="isLoading" fxLayout fxLayoutAlign="center center">
+    <ng-template #indicatorTemplate>
+      <i class="anticon anticon-spin anticon-loading app-content-loading-icon"></i>
+    </ng-template>
+    <nz-spin [nzIndicator]="indicatorTemplate">
+    </nz-spin>
+  </div>
 </div>

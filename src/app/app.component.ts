@@ -4,6 +4,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { AppConfig } from '../environments/environment';
 import { HexoService } from './services/hexo.service';
 import { ScaffoldService } from './services/scaffold.service';
+import { timer } from 'rxjs';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/delayWhen';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +14,9 @@ import { ScaffoldService } from './services/scaffold.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  public isLoading = false;
+
   constructor(
     public electronService: ElectronService,
     private translate: TranslateService,
@@ -27,6 +33,12 @@ export class AppComponent {
     } else {
       console.log('Mode web');
     }
+
+    this.hexoService.isLoading$.delayWhen((isLoading) => {
+      return isLoading ? timer(10) : timer(3000);
+    }).subscribe((isLoading) => {
+      this.isLoading = isLoading;
+    });
 
     this.hexoService.init().then(() => {
       this.scaffoldService.getDraftTemplate();

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as Hexo from 'hexo';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { SystemSettingsService } from './system-settings.service';
 import { ElectronService } from './electron.service';
 
@@ -10,6 +10,7 @@ import { ElectronService } from './electron.service';
 export class HexoService {
 
   public _hexo: typeof Hexo;
+  public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false)
   public isInit$: Subject<boolean> = new Subject();
 
   constructor(
@@ -29,9 +30,16 @@ export class HexoService {
     // init
     return this._hexo.init().then(() => {
       // load sources and watching changes
-      return this._hexo.load().then((...arg) => {
+      return this.load().then(() => {
         this.isInit$.next(true);
       });
+    });
+  }
+
+  public load() {
+    this.isLoading$.next(true);
+    return this._hexo.load().then(() => {
+      this.isLoading$.next(false);
     });
   }
 
