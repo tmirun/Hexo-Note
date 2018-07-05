@@ -35,7 +35,7 @@ export class AppComponent {
     }
 
     this.hexoService.isLoading$.delayWhen((isLoading) => {
-      return isLoading ? timer(10) : timer(3000);
+      return isLoading ? timer(10) : timer(1000);
     }).subscribe((isLoading) => {
       this.isLoading = isLoading;
     });
