@@ -60,6 +60,16 @@ export class PostService {
     });
   }
 
+  public delete(path: string) {
+    // TODO Remove folder if exist
+    const pathWithoutExtension = path.replace(/\.[^/.]+$/, '');
+    return this.electronService.fs.unlink(path).then(() => {
+      this.hexoService.load().then(() => {
+        this.getArticles();
+      });
+    });
+  }
+
   public _updateLocalArticle(updatePost: Post) {
     const articles = this.articles$.getValue();
 
