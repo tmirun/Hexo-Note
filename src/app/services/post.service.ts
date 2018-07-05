@@ -46,11 +46,9 @@ export class PostService {
 
   public create(post: Post) {
     return this.hexoService._hexo.post.create(post, true).then((data) => {
-      setTimeout(() => {
-        this.hexoService.load().then(() => {
-          this.getArticles();
-        });
-      }, 1000);
+      this.hexoService.load().then(() => {
+        this.getArticles();
+      });
       return data;
     });
   }
