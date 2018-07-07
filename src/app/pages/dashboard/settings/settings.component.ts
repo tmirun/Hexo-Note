@@ -43,7 +43,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log('destroy');
     this.configYmlSubscription.unsubscribe();
   }
 
@@ -60,10 +59,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   public submitConfigYmlForm() {
     this.configService.updateConfigYml(this.configYmlForm.value.configYml);
-    // this.postService.update({
-    //   ...this.post,
-    //   raw: this.form.value.raw
-    // });
   }
 
 }
