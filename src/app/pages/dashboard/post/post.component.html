@@ -5,13 +5,18 @@
       <ng-template #draftItemTmp let-item>
         <nz-list-item [nzContent]="draftItem">
           <ng-template #draftItem>
-            <a [routerLink]="item._id" class="post-item" fxLayout="row" fxLayoutAlign="start center" fxFill>
-              <i fxFlex="none" class="anticon anticon-exception post-item-draft-icon"></i>
-              <div fxFlex>
-                <div class="post-item-title"> {{item.title}} </div>
-                <div class="post-item-subtitle"> {{item.date.format('YYYY-MM-DD')}} </div>
+            <div fxLayout fxLayoutAlign="start center" class="post-item" fxFill>
+              <a [routerLink]="item._id" fxLayout="row" fxFlex fxLayoutAlign="start center" fxFill>
+                <i fxFlex="none" class="anticon anticon-exception post-item-draft-icon"></i>
+                <div fxFlex>
+                  <div class="post-item-title"> {{item.title}} </div>
+                  <div class="post-item-subtitle"> {{item.date.format('YYYY-MM-DD')}} </div>
+                </div>
+              </a>
+              <div fxFlex="none" fxLayout>
+                <i class="anticon anticon-delete post-item-remove" (click)="removeArticle(item)"></i>
               </div>
-            </a>
+            </div>
           </ng-template>
         </nz-list-item>
       </ng-template>

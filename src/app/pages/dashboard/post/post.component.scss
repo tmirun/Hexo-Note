@@ -29,6 +29,10 @@
       .post-item-subtitle {
         color: $grey-7;
       }
+
+      .post-item-remove {
+        cursor: pointer;
+      }
     }
   }
 }
