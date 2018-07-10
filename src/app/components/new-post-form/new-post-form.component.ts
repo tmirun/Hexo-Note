@@ -8,6 +8,7 @@ import {
 import { Subscription } from 'rxjs';
 import { PostService } from '../../services/post.service';
 import { NzModalService } from 'ng-zorro-antd';
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'app-new-post-form',
@@ -21,6 +22,7 @@ export class NewPostFormComponent implements OnInit, OnDestroy {
 
   public form: FormGroup;
   private formSubscription: Subscription;
+  private formTitleChangeSubscription: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -34,9 +36,22 @@ export class NewPostFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.formSubscription = this.form.valueChanges.subscribe(value => {
-      this.postChange.emit(value);
-    });
+    this.formTitleChangeSubscription = this.form.controls['title']
+      .valueChanges
+      .debounceTime(300)
+      .subscribe(title => {
+        const isTitleExist = this.postService.checkIfExistPost(title);
+        if (isTitleExist) {
+          this.form.controls['title'].setErrors( {'exist': true});
+        } else if (!this.form.controls['title'].errors) {
+          this.form.controls['title'].setErrors( null);
+        }
+      });
+
+    this.formSubscription = this.form.valueChanges
+      .subscribe(value => {
+        this.postChange.emit(value);
+      });
   }
 
   ngOnDestroy() {

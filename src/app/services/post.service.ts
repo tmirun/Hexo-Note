@@ -44,6 +44,13 @@ export class PostService {
     return this.articles$.getValue().find( (post) => post._id === postId);
   }
 
+  public checkIfExistPost(articleTitle: string): boolean {
+    const articles = this.articles$.getValue();
+    return articles.findIndex(article => {
+      return article.title === articleTitle;
+    }) === -1 ? false : true;
+  }
+
   public create(post: Post) {
     return this.hexoService._hexo.post.create(post, true).then((data) => {
       this.hexoService.load().then(() => {

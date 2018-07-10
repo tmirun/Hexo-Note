@@ -2,7 +2,8 @@
   <nz-form-item>
     <nz-form-control>
       <input type="text" nz-input formControlName="title" placeholder="TITLE">
-      <nz-form-explain *ngIf="form.get('title').dirty && form.get('title').errors">PLEASE REQUIRE TITLE</nz-form-explain>
+      <nz-form-explain *ngIf="form.get('title').dirty && form.controls['title'].errors?.required">PLEASE REQUIRE TITLE</nz-form-explain>
+      <nz-form-explain *ngIf="form.get('title').dirty && form.controls['title'].errors?.exist">THIS TITLE JUST EXIST</nz-form-explain>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
