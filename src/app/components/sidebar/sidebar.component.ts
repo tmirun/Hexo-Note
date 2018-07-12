@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../../services/post.service';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd';
+import { UtilsService } from './../../services/utils.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,7 +14,8 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private postService: PostService,
-    private modalService: NzModalService
+    private modalService: NzModalService,
+    private utilsService: UtilsService
   ) { }
 
   ngOnInit() {
@@ -28,6 +30,10 @@ export class SidebarComponent implements OnInit {
       nzClosable: false,
       nzOnOk: () => new Promise((resolve) => window.setTimeout(resolve, 1000))
     });
+  }
+
+  public openTerminal() {
+    this.utilsService.openTerminal();
   }
 
 }

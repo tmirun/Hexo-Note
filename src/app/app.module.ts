@@ -40,6 +40,7 @@ import { SystemSettingsService } from './services/system-settings.service';
 import { SettingsComponent } from './pages/dashboard/settings/settings.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfigService } from './services/config.service';
+import { UtilsService } from './services/utils.service';
 import { NewPostFormComponent } from './components/new-post-form/new-post-form.component';
 
 // AoT requires an exported function for factories
@@ -83,6 +84,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     PostService,
     ConfigService,
     SystemSettingsService,
+    UtilsService,
     HexoInitGuard,
     { provide: NZ_I18N, useValue: en_US }
   ],

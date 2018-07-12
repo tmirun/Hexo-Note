@@ -2,15 +2,16 @@
   <button nz-button nzType="primary" fxFlex="none" nzShape="circle" (click)="createModal(tplNewPost)">
     <i class="anticon anticon-plus"></i>
   </button>
+  <button nz-button nzType="primary" fxFlex="none" nzShape="circle" (click)="openTerminal()">
+    <i class="anticon anticon-code-o"></i>
+  </button>
+  <button nz-button nzType="primary" fxFlex="none" nzShape="circle">
+    <i class="anticon anticon-cloud-upload-o"></i>
+  </button>
   <ul nz-menu nzTheme="dark" nzInlineCollapsed fxFlex>
     <li nz-menu-item routerLink="/dashboard/post">
       <span title>
         <i class="anticon anticon-copy"></i>
-      </span>
-    </li>
-    <li nz-menu-item>
-      <span title>
-        <i class="anticon anticon-cloud-upload-o"></i>
       </span>
     </li>
     <li nz-menu-item routerLink="/dashboard/settings">
@@ -19,7 +20,6 @@
       </span>
     </li>
   </ul>
-
   <ng-template #tplNewPost>
     <app-new-post-form></app-new-post-form>
   </ng-template>
