@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ElectronService } from './electron.service';
 import { SystemSettingsService } from './system-settings.service';
+import { HexoService } from './hexo.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ export class UtilsService {
 
   constructor(
     private electronService: ElectronService,
-    private systemSettingsService: SystemSettingsService
+    private systemSettingsService: SystemSettingsService,
+    private hexoService: HexoService
   ) {
   }
 
@@ -31,5 +33,19 @@ export class UtilsService {
         // openTerminalAtPath.on ('error', (err) => { console.log (err); });
         break;
     }
+  }
+
+  deploy() {
+    return new Promise((resolve, reject) => {
+      this.hexoService._hexo.call('deploy', {}, function (err) {
+        if (err) {
+          console.error('deploy error', err);
+          reject(err);
+        } else {
+          console.log('deploy ok', err);
+          resolve();
+        }
+      });
+    });
   }
 }
