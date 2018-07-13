@@ -51,6 +51,13 @@ export class PostService {
     }) === -1 ? false : true;
   }
 
+  public findPostBySlug(slug: string): Post {
+    const articles = this.articles$.getValue();
+    return articles.find(article => {
+      return article.slug === slug;
+    });
+  }
+
   public create(post: Post): Promise<any> {
     return this.hexoService._hexo.post.create(post, true)
       .then((data) => {
@@ -102,6 +109,21 @@ export class PostService {
     articles[articleIndex] = { ...articles[articleIndex], ...updatePost};
 
     this.articles$.next(articles);
+  }
+
+  public publish(post: Post): Promise<any> {
+    return this.hexoService._hexo.post.publish({slug: post.slug}, true)
+      .then((data) => {
+        console.log('publish draft ok');
+        this.hexoService.load().then(() => {
+          this.getArticles();
+        });
+        return data;
+      })
+      .catch((error) => {
+        console.error('publish draft error', error);
+        throw error;
+      });
   }
 
   public renderArticle(post: Post) {

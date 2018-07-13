@@ -1,11 +1,14 @@
 <div class="post-detail" fxFill >
   <form class="post-detail-form" [formGroup]="form" nz-form
-        fxFill fxLayout="column">
+        fxFill fxLayout="column" (submit)="submitForm()">
     <div class="post-detail-action-bar">
       <button nz-button nzType="primary"> Submit </button>
     </div>
     <div class="post-detail-editor-toolbar">
       TOOLD BAR
+      <button nz-button (click)="publish()" *ngIf="!post?.published">
+        PUBLISH
+      </button>
     </div>
     <div fxFlex class="post-detail-content-wrapper">
       <ngx-codemirror

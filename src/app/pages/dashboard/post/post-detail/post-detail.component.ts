@@ -11,6 +11,7 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-post-detail',
@@ -35,7 +36,8 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     private postService: PostService,
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private message: NzMessageService
   ) {
     this.form = this.fb.group({
       raw:  [ '', [ Validators.required ] ]
@@ -48,6 +50,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.routeSubscription = this.route.params
       .switchMap(params => {
+        console.log('change url', params)
         return this.postService.articles$
           .map(posts => posts.find(post =>  post._id === params.id));
       })
@@ -69,12 +72,24 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     this.routeSubscription.unsubscribe();
   }
 
+  public publish() {
+    const loadingMessageId = this.message.loading('SAVING').messageId;
+    this.postService.publish(this.post)
+      .then(() => this.message.success('SAVING OK'))
+      .catch(() => this.message.error('SAVING ERROR'))
+      .finally( () => this.message.remove(loadingMessageId));
+  }
+
   public submitForm() {
-    if (!this.isNewPost) { this.isNewPost = true}
+    const loadingMessageId = this.message.loading('SAVING').messageId;
+    if (!this.isNewPost) { this.isNewPost = true; }
     this.postService.update({
       ...this.post,
       raw: this.form.value.raw
-    });
+    })
+      .then(() => this.message.success('SAVING OK'))
+      .catch(() => this.message.error('SAVING ERROR'))
+      .finally( () => this.message.remove(loadingMessageId));
   }
 
   public previewClick() {
