@@ -15,7 +15,7 @@ export class UtilsService {
   ) {
   }
 
-  openTerminal() {
+  public openTerminal() {
     const path = this.systemSettingsService.getHexoPath();
     const childProcess = this.electronService.childProcess;
     const { spawn } = childProcess;
@@ -35,7 +35,7 @@ export class UtilsService {
     }
   }
 
-  deploy() {
+  public deploy(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.hexoService._hexo.call('deploy', {}, function (err) {
         if (err) {

@@ -40,7 +40,7 @@ export class PostService {
     return _hexoArticles;
   }
 
-  public getArticleLocalById$(postId: string) {
+  public getArticleLocalById(postId: string) {
     return this.articles$.getValue().find( (post) => post._id === postId);
   }
 
@@ -51,30 +51,48 @@ export class PostService {
     }) === -1 ? false : true;
   }
 
-  public create(post: Post) {
-    return this.hexoService._hexo.post.create(post, true).then((data) => {
-      this.hexoService.load().then(() => {
-        this.getArticles();
+  public create(post: Post): Promise<any> {
+    return this.hexoService._hexo.post.create(post, true)
+      .then((data) => {
+        console.log('create article ok');
+        this.hexoService.load().then(() => {
+          this.getArticles();
+        });
+        return data;
+      })
+      .catch((error) => {
+        console.error('create article error', error);
+        throw error;
       });
-      return data;
-    });
   }
 
   public update(updatePost: Post): Promise<any> {
-    return this.electronService.fs.writeFile(updatePost.full_source, updatePost.raw).then(() => {
-      this._updateLocalArticle(updatePost);
-      return true;
-    });
+    return this.electronService.fs.writeFile(updatePost.full_source, updatePost.raw)
+      .then(() => {
+        console.log('update article ok');
+        this._updateLocalArticle(updatePost);
+        return true;
+      })
+      .catch((error) => {
+        console.error('update article error', error);
+        throw error;
+      });
   }
 
-  public delete(path: string) {
+  public delete(path: string): Promise<any> {
     // TODO Remove folder if exist
     const pathWithoutExtension = path.replace(/\.[^/.]+$/, '');
-    return this.electronService.fs.unlink(path).then(() => {
-      this.hexoService.load().then(() => {
-        this.getArticles();
+    return this.electronService.fs.unlink(path)
+      .then(() => {
+        console.log('delete article ok');
+        this.hexoService.load().then(() => {
+          this.getArticles();
+        });
+      })
+      .catch((error) => {
+        console.log('delete article error', error);
+        throw error;
       });
-    });
   }
 
   public _updateLocalArticle(updatePost: Post) {

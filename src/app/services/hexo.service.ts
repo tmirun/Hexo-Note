@@ -18,7 +18,7 @@ export class HexoService {
     private electronService: ElectronService
   ) { }
 
-  public init() {
+  public init(): Promise<any> {
     const _Hexo = window.require('hexo');
 
     this.checkHexoPath();
@@ -28,26 +28,38 @@ export class HexoService {
     });
 
     // init
-    return this._hexo.init().then(() => {
-      // load sources and watching changes
-      return this.load().then(() => {
-        this.isInit$.next(true);
+    return this._hexo.init()
+      .then(() => {
+        console.log('hexo init ok');
+        // load sources and watching changes
+        return this.load().then(() => {
+          this.isInit$.next(true);
+        });
+      })
+      .catch((error) => {
+        console.log('hexo init error', error);
+        throw error;
       });
-    });
   }
 
-  public load() {
+  public load(): Promise<any> {
     this.isLoading$.next(true);
-    return this._hexo.load().then(() => {
-      this.isLoading$.next(false);
-    });
+    return this._hexo.load()
+      .then(() => {
+        console.log('hexo load ok');
+        this.isLoading$.next(false);
+      })
+      .catch((error) => {
+        console.log('hexo load error', error);
+        throw error;
+      });
   }
 
   public end() {
     this._hexo.unwatch();
   }
 
-  public checkHexoPath() {
+  public checkHexoPath(): boolean {
     if (!this.systemSettings.getHexoPath() || !this.systemSettings.isHexoProjectPath(this.systemSettings.getHexoPath())) {
       const path = this.systemSettings.showSelectHexoPath();
       if (! path ) {

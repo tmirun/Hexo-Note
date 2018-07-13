@@ -18,10 +18,16 @@ export class ConfigService {
   ) { }
 
   public getConfigYml (): string {
-    return this.electronService.fs.readFile(this.getConfigYmlPath(), 'utf8').then((confitYmlData) => {
-      this.configYml$.next(confitYmlData);
-      return confitYmlData;
-    });
+    return this.electronService.fs.readFile(this.getConfigYmlPath(), 'utf8')
+      .then((confitYmlData) => {
+        this.configYml$.next(confitYmlData);
+        console.log('get config yml');
+        return confitYmlData;
+      })
+      .catch((error) => {
+        console.error(error);
+        throw error;
+      });
   }
 
   public getConfigYmlPath(): string | undefined {
@@ -31,10 +37,11 @@ export class ConfigService {
   }
 
   public updateConfigYml(content: string): Promise<string> {
-    return this.electronService.fs.writeFile(this.getConfigYmlPath(), content).then(() => {
-      this.configYml$.next(content);
-      this.hexoService.load();
-      return content;
-    });
+    return this.electronService.fs.writeFile(this.getConfigYmlPath(), content)
+      .then(() => {
+        this.configYml$.next(content);
+        this.hexoService.load();
+        return content;
+      });
   }
 }

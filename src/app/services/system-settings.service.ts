@@ -18,7 +18,7 @@ export class SystemSettingsService {
     }
   }
 
-  showSelectHexoPath(): string | undefined {
+  public showSelectHexoPath(): string | undefined {
     const remote = this.electronService.remote;
     const dialog = remote.dialog;
 
@@ -35,7 +35,7 @@ export class SystemSettingsService {
     return path;
   }
 
-  showNotHexoProjectPathAlert() {
+  public showNotHexoProjectPathAlert() {
     const remote = this.electronService.remote;
     const dialog = this.electronService.remote.dialog;
     dialog.showMessageBox(
@@ -47,15 +47,15 @@ export class SystemSettingsService {
       });
   }
 
-  isHexoProjectPath(path): boolean {
-    return  this.electronService.fs.existsSync(`${path}/_config.yml`);
+  public isHexoProjectPath(path): boolean {
+    return this.electronService.fs.existsSync(`${path}/_config.yml`);
   }
 
-  getHexoPath(): string {
+  public getHexoPath(): string {
     return this._settings.get('hexoPath');
   }
 
-  saveHexoPath(path: string) {
+  public saveHexoPath(path: string) {
     this._settings.set('hexoPath', path);
   }
 
