@@ -3,6 +3,7 @@ import { PostService } from '../../services/post.service';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd';
 import { UtilsService } from './../../services/utils.service';
 import { NzMessageService } from 'ng-zorro-antd';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,16 +13,18 @@ import { NzMessageService } from 'ng-zorro-antd';
 export class SidebarComponent implements OnInit {
 
   public tplModal: NzModalRef;
+  public currentLink: string;
+  private routeSubscription: Subscription;
 
   constructor(
     private postService: PostService,
     private modalService: NzModalService,
     private utilsService: UtilsService,
     private message: NzMessageService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
-    // this.createModal();
   }
 
   public createModal(tplContet): void {

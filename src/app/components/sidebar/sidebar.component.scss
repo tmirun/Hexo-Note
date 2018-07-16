@@ -3,6 +3,23 @@
 :host {
   .sidebar {
     height: 100%;
+    background-color: $sidebar-color;
+    padding: $spacing-m 0;
+
+    button {
+      margin-top: $spacing-xs;
+      margin-bottom: $spacing-xs;
+    }
+
+    hr {
+      width: 100%;
+      display: block;
+      height: 1px;
+      border: 0;
+      border-top: 1px solid $grey-4;
+      padding: 0;
+      margin: $spacing-m;
+    }
   }
 
   .ant-menu-item {

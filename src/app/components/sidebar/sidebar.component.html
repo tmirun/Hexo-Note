@@ -1,25 +1,27 @@
 <div class="sidebar" fxLayout="column" fxFlexFill fxLayoutAlign="start center">
-  <button nz-button nzType="primary" fxFlex="none" nzShape="circle" (click)="createModal(tplNewPost)">
+  <button nz-button nzType="primary" fxFlex="none" nzShape="circle" nzSize="large" (click)="createModal(tplNewPost)">
     <i class="anticon anticon-plus"></i>
   </button>
-  <button nz-button nzType="primary" fxFlex="none" nzShape="circle" (click)="openTerminal()">
-    <i class="anticon anticon-code-o"></i>
-  </button>
-  <button nz-button nzType="primary" fxFlex="none" nzShape="circle" (click)="deploy()">
-    <i class="anticon anticon-cloud-upload-o"></i>
-  </button>
-  <ul nz-menu nzTheme="dark" nzInlineCollapsed fxFlex>
-    <li nz-menu-item routerLink="/dashboard/post">
+  <hr/>
+  <ul nz-menu nzTheme="dark" nzInlineCollapsed fxFlex="none">
+    <li nz-menu-item routerLink="/dashboard/post" routerLinkActive="ant-menu-item-selected">
       <span title>
         <i class="anticon anticon-copy"></i>
       </span>
     </li>
-    <li nz-menu-item routerLink="/dashboard/settings">
+    <li nz-menu-item routerLink="/dashboard/settings" routerLinkActive="ant-menu-item-selected">
       <span title>
         <i class="anticon anticon-setting"></i>
       </span>
     </li>
   </ul>
+  <hr/>
+  <button nz-button fxFlex="none" nzGhost nzShape="circle" nzSize="large" (click)="openTerminal()">
+    <i class="anticon anticon-code-o"></i>
+  </button>
+  <button nz-button fxFlex="none" nzGhost nzShape="circle" nzSize="large" (click)="deploy()">
+    <i class="anticon anticon-cloud-upload-o"></i>
+  </button>
   <ng-template #tplNewPost>
     <app-new-post-form></app-new-post-form>
   </ng-template>
