@@ -7,6 +7,9 @@ import { AppConfig } from './environments/environment';
 import 'codemirror/mode/markdown/markdown';
 import 'codemirror/mode/yaml/yaml';
 
+import { shim } from 'promise.prototype.finally';
+shim();
+
 if (AppConfig.production) {
   enableProdMode();
 }
