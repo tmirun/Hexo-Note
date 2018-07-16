@@ -50,7 +50,6 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.routeSubscription = this.route.params
       .switchMap(params => {
-        console.log('change url', params)
         return this.postService.articles$
           .map(posts => posts.find(post =>  post._id === params.id));
       })
