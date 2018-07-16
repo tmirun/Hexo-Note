@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { PostService } from '../../services/post.service';
-import { NzModalService } from 'ng-zorro-antd';
+import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import 'rxjs/add/operator/debounceTime';
 
 @Component({
@@ -27,7 +27,8 @@ export class NewPostFormComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private postService: PostService,
-    private modalService: NzModalService
+    private modalService: NzModalService,
+    private message: NzMessageService
   ) {
     this.form = this.fb.group({
       title: [ '', [ Validators.required ] ],
@@ -69,6 +70,7 @@ export class NewPostFormComponent implements OnInit, OnDestroy {
       title: this.form.value.title,
       layout: this.form.value.published ? 'post' : 'draft'
     }).then(() => {
+      this.message.success('CREATE POST OK');
       this.modalService.closeAll();
     });
   }
