@@ -6,32 +6,42 @@
     width: $help-sidebar-width;
     border-right: $grey-3 solid thin;
 
-    .post-sidebar-list-title {
-      padding: $spacing-xs $spacing-m ;
-      border-bottom: $grey-3 solid thin;
-      font-weight: bold;
+    .post-sidebar-search {
+      padding: $spacing-s;
+      border-bottom: $grey-6 solid thin;
     }
 
-    .post-item {
-      padding: $spacing-xs $spacing-m ;
+    .post-sidebar-list-wrapper {
+      overflow: scroll;
 
-      .post-item-draft-icon {
-        color: $danger;
-        padding-right: $spacing-s;
+      .post-sidebar-list-title {
+        padding: $spacing-xs $spacing-m ;
+        border-bottom: $grey-3 solid thin;
+        font-weight: bold;
+        background-color: $grey-1;
       }
 
-      .post-item-title {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
+      .post-item {
+        padding: $spacing-xs $spacing-m ;
 
-      .post-item-subtitle {
-        color: $grey-7;
-      }
+        .post-item-draft-icon {
+          color: $danger;
+          padding-right: $spacing-s;
+        }
 
-      .post-item-remove {
-        cursor: pointer;
+        .post-item-title {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .post-item-subtitle {
+          color: $grey-7;
+        }
+
+        .post-item-remove {
+          cursor: pointer;
+        }
       }
     }
   }

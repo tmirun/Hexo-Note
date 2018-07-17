@@ -3,6 +3,8 @@ import { PostService } from '../../../services/post.service';
 import { Post } from '../../../Models/Post.interface';
 import { Subscription } from 'rxjs';
 import { NzModalService } from 'ng-zorro-antd';
+import { FormControl } from '@angular/forms';
+import 'rxjs/add/operator/shareReplay';
 
 @Component({
   selector: 'app-post',
@@ -13,6 +15,8 @@ export class PostComponent implements OnInit, OnDestroy {
 
   public posts: Post[];
   public drafts: Post[];
+  public searchFormControl = new FormControl('');
+  public searchOptions: string[] = [];
 
   private postsSubscription: Subscription;
   private draftsSubscription: Subscription;
@@ -22,15 +26,31 @@ export class PostComponent implements OnInit, OnDestroy {
     private modalService: NzModalService
   ) {
 
-    this.postsSubscription = this.postService.posts$.subscribe((posts: Post[]) => {
-      this.posts = posts;
-      this.posts.sort((a, b) =>  b.date.valueOf() - a.date.valueOf());
-    });
+    const searchFormObservable = this.searchFormControl.valueChanges.shareReplay(1).debounceTime(300);
+    this.searchFormControl.patchValue('');
 
-    this.draftsSubscription = this.postService.drafts$.subscribe((drafts: Post[]) => {
-      this.drafts = drafts;
-      this.drafts.sort((a, b) =>  b.date.valueOf() - a.date.valueOf());
-    });
+    this.postsSubscription = this.postService.posts$
+      .switchMap( (posts: Post[]) => {
+        return searchFormObservable.map((query) => {
+          console.log(query);
+          return posts.filter(post => post.title.includes(query));
+        });
+      })
+      .subscribe((posts: Post[]) => {
+        this.posts = posts;
+        this.posts.sort((a, b) =>  b.date.valueOf() - a.date.valueOf());
+      });
+
+    this.draftsSubscription = this.postService.drafts$
+      .switchMap( (drafts: Post[]) => {
+        return searchFormObservable.map((query) => {
+          return drafts.filter(draft => draft.title.includes(query));
+        });
+      })
+      .subscribe((drafts: Post[]) => {
+        this.drafts = drafts;
+        this.drafts.sort((a, b) =>  b.date.valueOf() - a.date.valueOf());
+      });
   }
 
   public removeArticle(article: Post) {

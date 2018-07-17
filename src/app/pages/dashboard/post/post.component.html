@@ -1,45 +1,52 @@
 <div fxLayout="row" fxLayoutAlign="start stretch" fxFlexFill class="post">
-  <div class="post-sidebar">
-    <div class="post-sidebar-list-title"> DRAFTS </div>
-    <nz-list [nzDataSource]="drafts" [nzRenderItem]="draftItemTmp" [nzItemLayout]="'horizontal'">
-      <ng-template #draftItemTmp let-item>
-        <nz-list-item [nzContent]="draftItem">
-          <ng-template #draftItem>
-            <div fxLayout fxLayoutAlign="start center" class="post-item" fxFill>
-              <a [routerLink]="item._id" fxLayout="row" fxFlex fxLayoutAlign="start center" fxFill>
-                <i fxFlex="none" class="anticon anticon-exception post-item-draft-icon"></i>
-                <div fxFlex>
+  <div class="post-sidebar" fxLayout="column">
+    <div class="post-sidebar-search" fxFlex="none">
+      <input placeholder="SEARCH" nz-input [formControl]="searchFormControl" [nzAutocomplete]="searchAutocomplete">
+      <nz-autocomplete [nzDataSource]="searchOptions" #searchAutocomplete>
+      </nz-autocomplete>
+    </div>
+    <div class="post-sidebar-list-wrapper" fxFlex>
+      <div class="post-sidebar-list-title" > DRAFTS </div>
+      <nz-list [nzDataSource]="drafts" [nzRenderItem]="draftItemTmp" [nzItemLayout]="'horizontal'">
+        <ng-template #draftItemTmp let-item>
+          <nz-list-item [nzContent]="draftItem">
+            <ng-template #draftItem>
+              <div fxLayout fxLayoutAlign="start center" class="post-item" fxFill>
+                <a [routerLink]="item._id" fxLayout="row" fxFlex fxLayoutAlign="start center" fxFill>
+                  <i fxFlex="none" class="anticon anticon-exception post-item-draft-icon"></i>
+                  <div fxFlex>
+                    <div class="post-item-title"> {{item.title}} </div>
+                    <div class="post-item-subtitle"> {{item.date.format('YYYY-MM-DD')}} </div>
+                  </div>
+                </a>
+                <div fxFlex="none" fxLayout>
+                  <i class="anticon anticon-delete post-item-remove" (click)="removeArticle(item)"></i>
+                </div>
+              </div>
+            </ng-template>
+          </nz-list-item>
+        </ng-template>
+      </nz-list>
+
+      <div class="post-sidebar-list-title"> POSTS </div>
+      <nz-list [nzDataSource]="posts" [nzRenderItem]="postItemTmp" [nzItemLayout]="'horizontal'">
+        <ng-template #postItemTmp let-item>
+          <nz-list-item [nzContent]="postItem">
+            <ng-template #postItem>
+              <div fxLayout fxLayoutAlign="start center" class="post-item" fxFill>
+                <a [routerLink]="item._id" fxFlex>
                   <div class="post-item-title"> {{item.title}} </div>
                   <div class="post-item-subtitle"> {{item.date.format('YYYY-MM-DD')}} </div>
+                </a>
+                <div fxFlex="none" fxLayout>
+                  <i class="anticon anticon-delete" (click)="removeArticle(item)"></i>
                 </div>
-              </a>
-              <div fxFlex="none" fxLayout>
-                <i class="anticon anticon-delete post-item-remove" (click)="removeArticle(item)"></i>
               </div>
-            </div>
-          </ng-template>
-        </nz-list-item>
-      </ng-template>
-    </nz-list>
-
-    <div class="post-sidebar-list-title"> POSTS </div>
-    <nz-list [nzDataSource]="posts" [nzRenderItem]="postItemTmp" [nzItemLayout]="'horizontal'">
-      <ng-template #postItemTmp let-item>
-        <nz-list-item [nzContent]="postItem">
-          <ng-template #postItem>
-            <div fxLayout fxLayoutAlign="start center" class="post-item" fxFill>
-              <a [routerLink]="item._id" fxFlex>
-                <div class="post-item-title"> {{item.title}} </div>
-                <div class="post-item-subtitle"> {{item.date.format('YYYY-MM-DD')}} </div>
-              </a>
-              <div fxFlex="none" fxLayout>
-                <i class="anticon anticon-delete" (click)="removeArticle(item)"></i>
-              </div>
-            </div>
-          </ng-template>
-        </nz-list-item>
-      </ng-template>
-    </nz-list>
+            </ng-template>
+          </nz-list-item>
+        </ng-template>
+      </nz-list>
+    </div>
   </div>
   <div fxFlex>
     <router-outlet>
