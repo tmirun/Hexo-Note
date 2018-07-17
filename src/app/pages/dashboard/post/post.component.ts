@@ -27,7 +27,6 @@ export class PostComponent implements OnInit, OnDestroy {
   ) {
 
     const searchFormObservable = this.searchFormControl.valueChanges.shareReplay(1).debounceTime(300);
-    this.searchFormControl.patchValue('');
 
     this.postsSubscription = this.postService.posts$
       .switchMap( (posts: Post[]) => {
@@ -51,6 +50,8 @@ export class PostComponent implements OnInit, OnDestroy {
         this.drafts = drafts;
         this.drafts.sort((a, b) =>  b.date.valueOf() - a.date.valueOf());
       });
+
+    this.searchFormControl.patchValue('');
   }
 
   public removeArticle(article: Post) {
