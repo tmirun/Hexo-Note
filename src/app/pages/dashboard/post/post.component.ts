@@ -31,7 +31,6 @@ export class PostComponent implements OnInit, OnDestroy {
     this.postsSubscription = this.postService.posts$
       .switchMap( (posts: Post[]) => {
         return searchFormObservable.map((query) => {
-          console.log(query);
           return posts.filter(post => post.title.includes(query));
         });
       })

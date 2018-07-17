@@ -1,9 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="start stretch" fxFlexFill class="post">
   <div class="post-sidebar" fxLayout="column">
     <div class="post-sidebar-search" fxFlex="none">
-      <input placeholder="SEARCH" nz-input [formControl]="searchFormControl" [nzAutocomplete]="searchAutocomplete">
-      <nz-autocomplete [nzDataSource]="searchOptions" #searchAutocomplete>
-      </nz-autocomplete>
+      <input placeholder="SEARCH" nz-input [formControl]="searchFormControl">
     </div>
     <div class="post-sidebar-list-wrapper" fxFlex>
       <div class="post-sidebar-list-title" > DRAFTS </div>
@@ -12,13 +10,13 @@
           <nz-list-item [nzContent]="draftItem">
             <ng-template #draftItem>
               <div fxLayout fxLayoutAlign="start center" class="post-item" fxFill>
-                <a [routerLink]="item._id" fxLayout="row" fxFlex fxLayoutAlign="start center" fxFill>
+                <div [routerLink]="item._id" routerLinkActive="active" fxLayout="row" fxFlex fxLayoutAlign="start center" fxFill>
                   <i fxFlex="none" class="anticon anticon-exception post-item-draft-icon"></i>
                   <div fxFlex>
                     <div class="post-item-title"> {{item.title}} </div>
                     <div class="post-item-subtitle"> {{item.date.format('YYYY-MM-DD')}} </div>
                   </div>
-                </a>
+                </div>
                 <div fxFlex="none" fxLayout>
                   <i class="anticon anticon-delete post-item-remove" (click)="removeArticle(item)"></i>
                 </div>
@@ -31,15 +29,18 @@
       <div class="post-sidebar-list-title"> POSTS </div>
       <nz-list [nzDataSource]="posts" [nzRenderItem]="postItemTmp" [nzItemLayout]="'horizontal'">
         <ng-template #postItemTmp let-item>
-          <nz-list-item [nzContent]="postItem">
+          <nz-list-item [nzContent]="postItem" [routerLink]="item._id" routerLinkActive="active">
             <ng-template #postItem>
               <div fxLayout fxLayoutAlign="start center" class="post-item" fxFill>
-                <a [routerLink]="item._id" fxFlex>
-                  <div class="post-item-title"> {{item.title}} </div>
-                  <div class="post-item-subtitle"> {{item.date.format('YYYY-MM-DD')}} </div>
-                </a>
+                <div fxLayout="row" fxFlex fxLayoutAlign="start center" fxFill >
+                  <i fxFlex="none" class="anticon anticon-file-text post-item-post-icon"></i>
+                  <div fxFlex>
+                    <div class="post-item-title"> {{item.title}} </div>
+                    <div class="post-item-subtitle"> {{item.date.format('YYYY-MM-DD')}} </div>
+                  </div>
+                </div>
                 <div fxFlex="none" fxLayout>
-                  <i class="anticon anticon-delete" (click)="removeArticle(item)"></i>
+                  <i class="anticon anticon-delete post-item-remove" (click)="removeArticle(item)"></i>
                 </div>
               </div>
             </ng-template>
