@@ -28,6 +28,17 @@
       nz-list-item {
         cursor: pointer;
         padding: $spacing-m $spacing-m ;
+        &.active {
+          background: $blue-5;
+
+          * {
+            color: white;
+          }
+
+          .post-item-title, .post-item-subtitle {
+            color: white;
+          }
+        }
 
         .post-item-post-icon, .post-item-draft-icon {
           padding-right: $spacing-s;
@@ -45,7 +56,7 @@
         }
 
         .post-item-subtitle {
-          color: $grey-9;
+          color: $grey-6;
         }
 
         &:hover {

@@ -7,10 +7,10 @@
       <div class="post-sidebar-list-title" > DRAFTS </div>
       <nz-list [nzDataSource]="drafts" [nzRenderItem]="draftItemTmp" [nzItemLayout]="'horizontal'">
         <ng-template #draftItemTmp let-item>
-          <nz-list-item [nzContent]="draftItem">
+          <nz-list-item [nzContent]="draftItem" [routerLink]="item._id" routerLinkActive="active">
             <ng-template #draftItem>
               <div fxLayout fxLayoutAlign="start center" class="post-item" fxFill>
-                <div [routerLink]="item._id" routerLinkActive="active" fxLayout="row" fxFlex fxLayoutAlign="start center" fxFill>
+                <div fxLayout="row" fxFlex fxLayoutAlign="start center" fxFill>
                   <i fxFlex="none" class="anticon anticon-exception post-item-draft-icon"></i>
                   <div fxFlex>
                     <div class="post-item-title"> {{item.title}} </div>
