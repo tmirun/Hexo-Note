@@ -21,10 +21,9 @@ const routes: Routes = [
           { path: ':id', component: PostDetailComponent },
         ]
       },
-      { path: '', redirectTo: 'post', pathMatch: 'full' },
     ]
   },
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard/post', pathMatch: 'full' },
 ];
 
 @NgModule({
