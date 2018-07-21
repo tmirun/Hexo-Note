@@ -11,10 +11,9 @@ $editor-toolbar-height: 48px;
   .post-detail-form {
 
     .post-detail-action-bar {
-      position: absolute;
-      right: $spacing-m;
-      top: $spacing-m;
-      z-index: 99;
+      > * {
+        margin-left: $spacing-m;
+      }
     }
 
     .post-detail-editor-toolbar {

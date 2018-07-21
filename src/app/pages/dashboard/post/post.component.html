@@ -1,7 +1,9 @@
 <div fxLayout="row" fxLayoutAlign="start stretch" fxFlexFill class="post">
   <div class="post-sidebar" fxLayout="column">
     <div class="post-sidebar-search" fxFlex="none">
-      <input placeholder="SEARCH" nz-input [formControl]="searchFormControl">
+      <nz-input-group nzSuffixIcon="anticon anticon-search">
+        <input type="text" nz-input [formControl]="searchFormControl" placeholder="input search text">
+      </nz-input-group>
     </div>
     <div class="post-sidebar-list-wrapper" fxFlex>
       <div class="post-sidebar-list-title" > DRAFTS </div>
