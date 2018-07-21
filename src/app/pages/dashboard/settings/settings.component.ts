@@ -7,6 +7,7 @@ import {
 import { SystemSettingsService } from '../../../services/system-settings.service';
 import { ConfigService } from '../../../services/config.service';
 import { Subscription } from 'rxjs';
+import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-settings',
@@ -23,7 +24,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private systemSettingsService: SystemSettingsService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private message: NzMessageService
   ) {
 
     this.hexoPath = this.systemSettingsService.getHexoPath();
@@ -59,6 +61,12 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   public submitConfigYmlForm() {
     this.configService.updateConfigYml(this.configYmlForm.value.configYml);
+    const loadingMessageId = this.message.loading('SAVING').messageId;
+
+    this.configService.updateConfigYml(this.configYmlForm.value.configYml)
+      .then(() => this.message.success('SAVING OK'))
+      .catch(() => this.message.error('SAVING ERROR'))
+      .finally( () => this.message.remove(loadingMessageId));
   }
 
 }
