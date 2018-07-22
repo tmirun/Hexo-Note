@@ -31,7 +31,7 @@ export class PostComponent implements OnInit, OnDestroy {
     this.postsSubscription = this.postService.posts$
       .switchMap( (posts: Post[]) => {
         return searchFormObservable.map((query) => {
-          return posts.filter(post => post.title.includes(query));
+          return posts.filter(post => query ? !post.title.search(new RegExp(query, 'i')) : true);
         });
       })
       .subscribe((posts: Post[]) => {
@@ -42,7 +42,7 @@ export class PostComponent implements OnInit, OnDestroy {
     this.draftsSubscription = this.postService.drafts$
       .switchMap( (drafts: Post[]) => {
         return searchFormObservable.map((query) => {
-          return drafts.filter(draft => draft.title.includes(query));
+          return drafts.filter(draft =>  query ? !draft.title.search(new RegExp(query, 'i')) : true);
         });
       })
       .subscribe((drafts: Post[]) => {
