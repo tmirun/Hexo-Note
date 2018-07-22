@@ -17,6 +17,7 @@ import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 registerLocaleData(en);
 import { NZ_I18N, en_US } from 'ng-zorro-antd';
+import { MarkdownModule } from 'ngx-markdown';
 
 
 // NG Translate
@@ -70,6 +71,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgZorroAntdModule,
     FlexLayoutModule,
     CodemirrorModule,
+    MarkdownModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

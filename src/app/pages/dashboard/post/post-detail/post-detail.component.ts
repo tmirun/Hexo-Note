@@ -12,6 +12,7 @@ import {
   Validators
 } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
+import { SystemSettingsService } from '../../../../services/system-settings.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -29,6 +30,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   public toc: boolean;
   public path: string;
   public date: moment.Moment;
+  public isActivePreview = false;
 
   public routeSubscription: Subscription;
 
@@ -37,14 +39,14 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private systemSettingsService: SystemSettingsService
   ) {
     this.form = this.fb.group({
       raw:  [ '', [ Validators.required ] ]
     });
-    // this.form.valueChanges.subscribe((value) => {
-    //   console.log(value);
-    // });
+
+    this.isActivePreview = this.systemSettingsService.getIsActivePreview();
   }
 
   ngOnInit() {
@@ -91,7 +93,8 @@ export class PostDetailComponent implements OnInit, OnDestroy {
       .finally( () => this.message.remove(loadingMessageId));
   }
 
-  public previewClick() {
+  public onPreviewClick() {
+    this.systemSettingsService.saveIsActivePreview(this.isActivePreview);
   }
 
 }

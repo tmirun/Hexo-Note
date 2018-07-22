@@ -59,4 +59,12 @@ export class SystemSettingsService {
     this._settings.set('hexoPath', path);
   }
 
+  public getIsActivePreview(): boolean {
+    return this._settings.get('isActivePreview') || false;
+  }
+
+  public saveIsActivePreview(isActive: boolean = false) {
+    this._settings.set('isActivePreview', isActive);
+  }
+
 }

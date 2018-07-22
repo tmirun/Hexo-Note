@@ -1,25 +1,38 @@
-<div class="post-detail" fxFill >
-  <form class="post-detail-form" [formGroup]="form" nz-form
-        fxFill fxLayout="column" (submit)="submitForm()">
-    <div class="post-detail-editor-toolbar" fxLayout>
-      <div fxFlex>
-        TOOLD BAR
-      </div>
-      <div class="post-detail-action-bar" fxFlex="none">
-        <button nz-button (click)="publish()" *ngIf="!post?.published">
-          PUBLISH
-        </button>
-        <button nz-button nzType="primary"> SAVE </button>
-      </div>
+<div class="post-detail" fxFill fxLayout="column">
+  <div class="post-detail-editor-toolbar" fxLayout="row" fxFlex="none">
+    <div fxFlex>
+      TOOLD BAR
     </div>
-    <div fxFlex class="post-detail-content-wrapper">
-      <ngx-codemirror
-        formControlName="raw"
-        [options]="{
-          theme: 'material',
-          mode: 'markdown'
-        }"
-      ></ngx-codemirror>
+    <div class="post-detail-action-bar" fxFlex="none" fxFlexAlign="center center">
+      <span>
+        <nz-switch [(ngModel)]="isActivePreview"
+                   [nzCheckedChildren]="tmpSwitchCheckedPreview"
+                   [nzUnCheckedChildren]="tmpSwitchUncheckedPreview"
+                   (click)="onPreviewClick()"
+        ></nz-switch>
+        <ng-template #tmpSwitchCheckedPreview><i class="anticon anticon-eye"></i></ng-template>
+        <ng-template #tmpSwitchUncheckedPreview><i class="anticon anticon-eye-o"></i></ng-template>
+      </span>
+      <button nz-button (click)="publish()" *ngIf="!post?.published">
+        PUBLISH
+      </button>
+      <button nz-button nzType="primary" (click)="submitForm()"> SAVE </button>
     </div>
-  </form>
+  </div>
+  <div fxLayout fxLayoutAlign="start stretch" fxFlex>
+    <form nz-form class="post-detail-form" [formGroup]="form" fxLayout="column" fxFlex>
+      <div fxFlex class="post-detail-content-wrapper">
+        <ngx-codemirror
+          formControlName="raw"
+          [options]="{
+            theme: 'material',
+            mode: 'markdown'
+          }"
+        ></ngx-codemirror>
+      </div>
+    </form>
+
+    <markdown fxFlex *ngIf="isActivePreview" ngPreserveWhitespaces [data]="this.form.value.raw" class="post-detail-markdown-preview">
+    </markdown>
+  </div>
 </div>
