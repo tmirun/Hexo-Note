@@ -1,7 +1,34 @@
 <div class="post-detail" fxFill fxLayout="column">
   <div class="post-detail-editor-toolbar" fxLayout="row" fxFlex="none">
-    <div fxFlex>
-      TOOLD BAR
+    <div fxFlex fxLayout fxLayoutAlign="start center">
+      <nz-button-group flex="none">
+        <button nz-button nzSize="small" (click)="replaceSelection('bold')"><i class="fa fa-bold"></i></button>
+        <button nz-button nzSize="small" (click)="replaceSelection('italic')"><i class="fa fa-italic"></i></button>
+        <button nz-button nzSize="small" (click)="replaceSelection('strikeThrough')"><i class="fa fa-strikethrough"></i></button>
+      </nz-button-group>
+
+      <nz-button-group flex="none">
+        <button nz-button nzSize="small" (click)="replaceSelection('heading1')">H1</button>
+        <button nz-button nzSize="small" (click)="replaceSelection('heading2')">H2</button>
+        <button nz-button nzSize="small" (click)="replaceSelection('heading3')">H3</button>
+        <button nz-button nzSize="small" (click)="replaceSelection('heading4')">H4</button>
+        <button nz-button nzSize="small" (click)="replaceSelection('heading5')">H5</button>
+        <button nz-button nzSize="small" (click)="replaceSelection('heading6')">H6</button>
+      </nz-button-group>
+
+      <nz-button-group flex="none">
+        <button nz-button nzSize="small" (click)="replaceSelection('orderedList')"><i class="fa fa-list-ol"></i></button>
+        <button nz-button nzSize="small" (click)="replaceSelection('unorderedList')"><i class="fa fa-list-ul"></i></button>
+      </nz-button-group>
+
+      <nz-button-group flex="none">
+        <button nz-button nzSize="small" (click)="replaceSelection('code')"><i class="fa fa-code"></i></button>
+        <button nz-button nzSize="small" (click)="replaceSelection('quote')"><i class="fa fa-chevron-right"></i></button>
+        <button nz-button nzSize="small" (click)="replaceSelection('link')"><i class="fa fa-link"></i></button>
+        <button nz-button nzSize="small" (click)="replaceSelection('image')"><i class="fa fa-image"></i></button>
+        <button nz-button nzSize="small" (click)="replaceSelection('table')"><i class="fa fa-table"></i></button>
+        <button nz-button nzSize="small" (click)="replaceSelection('horizontalRule')">_</button>
+      </nz-button-group>
     </div>
     <div class="post-detail-action-bar" fxFlex="none" fxFlexAlign="center center">
       <span>
@@ -19,15 +46,14 @@
       <button nz-button nzType="primary" (click)="submitForm()"> SAVE </button>
     </div>
   </div>
-  <div fxLayout fxLayoutAlign="start stretch" fxFlex>
+  <nz-divider fxFlex="none" class="post-detail-divider"></nz-divider>
+  <div fxLayout fxLayoutAlign="start stretch" fxFlex class="post-detail-form-wrapper">
     <form nz-form class="post-detail-form" [formGroup]="form" fxLayout="column" fxFlex>
       <div fxFlex class="post-detail-content-wrapper">
         <ngx-codemirror
+          #editor
           formControlName="raw"
-          [options]="{
-            theme: 'material',
-            mode: 'markdown'
-          }"
+          [options]="codeMirrorOptions"
         ></ngx-codemirror>
       </div>
     </form>

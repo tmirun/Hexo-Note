@@ -3,6 +3,7 @@ $editor-toolbar-height: 48px;
 
 :host {
   .post-detail {
+    padding: $spacing-m;
     .post-detail-content {
 
     }
@@ -18,26 +19,39 @@ $editor-toolbar-height: 48px;
     }
 
     .post-detail-editor-toolbar {
-      padding: $spacing-m;
-      border-bottom: $grey-4 solid thin;
-    }
-
-    .post-detail-form {
-
-      .post-detail-content-wrapper {
-        position: relative;
-        /deep/ .CodeMirror {
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          width: 100%;
-          height: 100%;
+      /deep/ .ant-btn-group {
+        margin-right: $spacing-xs;
+        > .ant-btn {
+          line-height: initial;
         }
       }
     }
 
-    /deep/ .post-detail-markdown-preview {
-      padding: $spacing-xs;
+    .post-detail-divider {
+      margin-top: $spacing-s;
+      margin-bottom: $spacing-s;
+    }
+
+    .post-detail-form-wrapper {
+      border: thin solid $grey-3;
+      border-top: none;
+      .post-detail-form {
+        .post-detail-content-wrapper {
+          position: relative;
+          /deep/ .CodeMirror {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+      /deep/ .post-detail-markdown-preview {
+        background: $grey-1;
+        padding: $spacing-xs;
+        overflow: scroll;
+      }
     }
   }
 }

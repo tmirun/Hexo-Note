@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { PostService } from '../../../../services/post.service';
 import { Observable, Subscription } from 'rxjs';
 import { Post } from '../../../../Models/Post.interface';
@@ -21,6 +21,8 @@ import { SystemSettingsService } from '../../../../services/system-settings.serv
 })
 export class PostDetailComponent implements OnInit, OnDestroy {
 
+  @ViewChild('editor') editor: any;
+
   public form: FormGroup;
   public post: Post;
   public isNewPost = false;
@@ -31,6 +33,10 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   public path: string;
   public date: moment.Moment;
   public isActivePreview = false;
+  public codeMirrorOptions = {
+    theme: 'material',
+    mode: 'markdown'
+  };
 
   public routeSubscription: Subscription;
 
@@ -97,4 +103,67 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     this.systemSettingsService.saveIsActivePreview(this.isActivePreview);
   }
 
+  private replaceSelection(type) {
+    const selectedText = this.editor.codeMirror.getSelection() || 'someValue';
+    let resultText = '';
+    switch (type) {
+      case 'bold':
+        resultText = `**${selectedText}**`; break;
+      case 'italic':
+        resultText = `*${selectedText}*`; break;
+      case 'strikeThrough':
+        resultText = `~~${selectedText}~~`; break;
+      case 'heading1':
+        resultText = `# ${selectedText}`; break;
+      case 'heading2':
+        resultText = `## ${selectedText}`; break;
+      case 'heading3':
+        resultText = `### ${selectedText}`; break;
+      case 'heading4':
+        resultText = `#### ${selectedText}`; break;
+      case 'heading5':
+        resultText = `###### ${selectedText}`; break;
+      case 'heading6':
+        resultText = `####### ${selectedText}`; break;
+      case 'code':
+resultText = `\`\`\`
+  ${selectedText}
+\`\`\``; break;
+      case 'quote':
+        resultText = `> ${selectedText}`; break;
+      case 'unorderedList':
+        resultText = `- ${selectedText}`; break;
+      case 'orderedList':
+        resultText = `1. ${selectedText}`; break;
+      case 'link':
+        if (this._isURL(selectedText)) {
+          resultText = `[](${selectedText})`;
+        } else {
+          resultText = `[${selectedText}](https://)`;
+        }
+        break;
+      case 'image':
+        resultText = `![](${selectedText})`; break;
+      case 'table':
+resultText = `
+header1 | header2 | header3
+--- | --- | ---
+text1 | text2 | text3`; break;
+      case 'horizontalRule':
+        resultText = `---`; break;
+    }
+
+    this.editor.codeMirror.replaceSelection(resultText);
+  }
+
+
+  private _isURL(str) {
+    const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+      '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+    return pattern.test(str);
+  }
 }
