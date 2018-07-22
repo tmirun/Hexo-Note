@@ -53,6 +53,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     if (!path) { return; }
     if (this.systemSettingsService.isHexoProjectPath(path)) {
       this.hexoPath = path;
+      location.reload();
     } else {
       this.systemSettingsService.showNotHexoProjectPathAlert();
       this.showSelectHexoPath();
