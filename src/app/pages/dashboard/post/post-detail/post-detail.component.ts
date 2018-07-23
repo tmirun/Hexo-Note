@@ -89,10 +89,10 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   }
 
   public publish() {
-    const loadingMessageId = this.message.loading('SAVING').messageId;
+    const loadingMessageId = this.message.loading('PUBLISH').messageId;
     this.postService.publish(this.post)
-      .then(() => this.message.success('SAVING OK'))
-      .catch(() => this.message.error('SAVING ERROR'))
+      .then(() => this.message.success('PUBLISH OK'))
+      .catch(() => this.message.error('PUBLISH ERROR'))
       .finally( () => this.message.remove(loadingMessageId));
   }
 
@@ -103,7 +103,10 @@ export class PostDetailComponent implements OnInit, OnDestroy {
       ...this.post,
       raw: this.form.value.raw
     })
-      .then(() => this.message.success('SAVING OK'))
+      .then(() => {
+        this.message.success('SAVING OK');
+        this.isEditorChanged = false;
+      })
       .catch(() => this.message.error('SAVING ERROR'))
       .finally( () => this.message.remove(loadingMessageId));
   }
@@ -135,9 +138,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
       case 'heading6':
         resultText = `####### ${selectedText}`; break;
       case 'code':
-resultText = `\`\`\`
-  ${selectedText}
-\`\`\``; break;
+        resultText = '\n ``` Language\n' + selectedText + '\n```\n'; break;
       case 'quote':
         resultText = `> ${selectedText}`; break;
       case 'unorderedList':
@@ -154,12 +155,14 @@ resultText = `\`\`\`
       case 'image':
         resultText = `![](${selectedText})`; break;
       case 'table':
-resultText = `
-header1 | header2 | header3
---- | --- | ---
-text1 | text2 | text3`; break;
+        resultText =
+        '\nheader1 | header2 | header3\n' +
+        '--- | --- | ---\n' +
+        'text1 | text2 | text3\n'; break;
       case 'horizontalRule':
         resultText = `---`; break;
+      case 'readMore':
+        resultText = '\n<!-- more -->\n'; break;
     }
 
     this.editor.codeMirror.replaceSelection(resultText);
