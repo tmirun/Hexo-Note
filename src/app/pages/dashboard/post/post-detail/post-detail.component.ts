@@ -33,12 +33,14 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   public path: string;
   public date: moment.Moment;
   public isActivePreview = false;
+  public isEditorChanged = false;
   public codeMirrorOptions = {
     theme: 'material',
     mode: 'markdown'
   };
 
   public routeSubscription: Subscription;
+  public formSubscription: Subscription;
 
   constructor(
     private postService: PostService,
@@ -50,6 +52,10 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   ) {
     this.form = this.fb.group({
       raw:  [ '', [ Validators.required ] ]
+    });
+
+    this.formSubscription = this.form.valueChanges.subscribe(() => {
+      this.isEditorChanged = true;
     });
 
     this.isActivePreview = this.systemSettingsService.getIsActivePreview();
@@ -72,11 +78,14 @@ export class PostDetailComponent implements OnInit, OnDestroy {
         this.form.setValue({
           raw: this.post.raw || '',
         });
+
+        this.isEditorChanged = false;
       });
   }
 
   ngOnDestroy() {
     this.routeSubscription.unsubscribe();
+    this.formSubscription.unsubscribe();
   }
 
   public publish() {
