@@ -72,4 +72,43 @@ export class HexoService {
       this.checkHexoPath();
     }
   }
+
+  public deploy(): Promise<any> {
+    const _Hexo = window.require('hexo');
+    const _hexo = new _Hexo(this.systemSettings.getHexoPath(), {});
+
+    return new Promise((resolve, reject) => {
+      Promise.all([_hexo.init, _hexo.load])
+        .then(() => {
+          this._hexo.call('clean', {}, (cleanError) => {
+            if (cleanError) {
+              console.error('clean error', cleanError);
+              reject(cleanError);
+              return;
+            }
+            console.log('clean ok');
+            this._hexo.call('generate', {}, (generateError) => {
+              if (generateError) {
+                console.error('generate error', generateError);
+                reject(generateError);
+                return;
+              }
+              console.log('generate ok');
+              this._hexo.call('deploy', {}, (deployError) => {
+                if (deployError) {
+                  console.error('deploy error', deployError);
+                  reject(deployError);
+                } else {
+                  console.log('deploy ok');
+                  resolve();
+                }
+              });
+            });
+          });
+        })
+        .catch((initError) => {
+          reject(initError);
+        });
+    });
+  }
 }

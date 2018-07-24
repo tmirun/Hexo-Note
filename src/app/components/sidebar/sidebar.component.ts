@@ -4,6 +4,7 @@ import { NzModalRef, NzModalService } from 'ng-zorro-antd';
 import { UtilsService } from './../../services/utils.service';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Subscription } from 'rxjs';
+import {HexoService} from '../../services/hexo.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,6 +21,7 @@ export class SidebarComponent implements OnInit {
     private postService: PostService,
     private modalService: NzModalService,
     private utilsService: UtilsService,
+    private hexoService: HexoService,
     private message: NzMessageService
   ) {
   }
@@ -43,7 +45,7 @@ export class SidebarComponent implements OnInit {
 
   public deploy() {
     const deployMessageId = this.message.loading('Action in progress..', { nzDuration: 0 }).messageId;
-    this.utilsService.deploy().then(() => {
+    this.hexoService.deploy().then(() => {
       this.message.success('DEPLOY OK');
       this.message.remove(deployMessageId);
     }).catch((error) => {

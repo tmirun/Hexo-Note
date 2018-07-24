@@ -34,18 +34,4 @@ export class UtilsService {
         break;
     }
   }
-
-  public deploy(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.hexoService._hexo.call('deploy', {}, function (err) {
-        if (err) {
-          console.error('deploy error', err);
-          reject(err);
-        } else {
-          console.log('deploy ok', err);
-          resolve();
-        }
-      });
-    });
-  }
 }
