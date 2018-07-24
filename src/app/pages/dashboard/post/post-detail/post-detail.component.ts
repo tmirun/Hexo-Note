@@ -36,7 +36,9 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   public isEditorChanged = false;
   public codeMirrorOptions = {
     theme: 'material',
-    mode: 'markdown'
+    mode: 'markdown',
+    lineWrapping: true,
+    lineNumbers: true
   };
 
   public routeSubscription: Subscription;
