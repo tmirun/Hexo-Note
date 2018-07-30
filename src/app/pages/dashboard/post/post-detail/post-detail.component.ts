@@ -117,7 +117,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     this.systemSettingsService.saveIsActivePreview(this.isActivePreview);
   }
 
-  private replaceSelection(type) {
+  public replaceSelection(type) {
     const selectedText = this.editor.codeMirror.getSelection() || 'someValue';
     let resultText = '';
     switch (type) {
