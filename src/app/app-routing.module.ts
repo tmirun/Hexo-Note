@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HexoInitGuard } from './guard/hexo-init.guard';
 import { SettingsComponent } from './pages/dashboard/settings/settings.component';
+import { CanDeactivateGuard } from './guard/can-deactivate.guard';
 
 const routes: Routes = [
   {
@@ -18,7 +19,10 @@ const routes: Routes = [
         path: 'post',
         component: PostComponent,
         children: [
-          { path: ':id', component: PostDetailComponent },
+          { path: ':id',
+            component: PostDetailComponent,
+            canDeactivate: [CanDeactivateGuard],
+          },
         ]
       },
     ]

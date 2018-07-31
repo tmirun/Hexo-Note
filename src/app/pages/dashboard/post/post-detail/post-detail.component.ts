@@ -13,13 +13,15 @@ import {
 } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
 import { SystemSettingsService } from '../../../../services/system-settings.service';
+import { CanDeactivateGuard } from '../../../../guard/can-deactivate.guard';
+import { NzModalService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-post-detail',
   templateUrl: './post-detail.component.html',
   styleUrls: ['./post-detail.component.scss']
 })
-export class PostDetailComponent implements OnInit, OnDestroy {
+export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuard {
 
   @ViewChild('editor') editor: any;
 
@@ -50,7 +52,8 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     private router: Router,
     private fb: FormBuilder,
     private message: NzMessageService,
-    private systemSettingsService: SystemSettingsService
+    private systemSettingsService: SystemSettingsService,
+    private modalService: NzModalService
   ) {
     this.form = this.fb.group({
       raw:  [ '', [ Validators.required ] ]
@@ -88,6 +91,18 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.routeSubscription.unsubscribe();
     this.formSubscription.unsubscribe();
+  }
+
+  canDeactivate() {
+    if ( this.isEditorChanged ) {
+      return this.modalService.confirm({
+        nzTitle   : 'YOU HAVE CHANGED SOME THINK',
+        nzContent : 'DO YOU WANT SURE TO LEAVE THIS PAGE?',
+        nzOnOk    : () => true,
+      }).afterClose;
+    } else {
+      return true;
+    }
   }
 
   public publish() {

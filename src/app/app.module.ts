@@ -43,6 +43,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfigService } from './services/config.service';
 import { UtilsService } from './services/utils.service';
 import { NewPostFormComponent } from './components/new-post-form/new-post-form.component';
+import { CanDeactivateGuard } from './guard/can-deactivate.guard';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -88,6 +89,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SystemSettingsService,
     UtilsService,
     HexoInitGuard,
+    CanDeactivateGuard,
     { provide: NZ_I18N, useValue: en_US }
   ],
   bootstrap: [AppComponent],
