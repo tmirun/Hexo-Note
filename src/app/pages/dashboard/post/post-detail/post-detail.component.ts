@@ -155,7 +155,7 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
       case 'heading6':
         resultText = `####### ${selectedText}`; break;
       case 'code':
-        resultText = '\n ``` Language\n' + selectedText + '\n```\n'; break;
+        resultText = '\n``` language\n' + selectedText + '\n```\n'; break;
       case 'quote':
         resultText = `> ${selectedText}`; break;
       case 'unorderedList':
@@ -182,7 +182,8 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
         resultText = '\n<!-- more -->\n'; break;
     }
 
-    this.editor.codeMirror.replaceSelection(resultText);
+    this.editor.codeMirror.replaceSelection(resultText, 'end');
+    this.editor.codeMirror.focus();
   }
 
 
