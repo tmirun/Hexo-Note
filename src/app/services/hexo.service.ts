@@ -3,6 +3,7 @@ import * as Hexo from 'hexo';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { SystemSettingsService } from './system-settings.service';
 import { ElectronService } from './electron.service';
+import { UtilsService } from './utils.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,8 @@ export class HexoService {
 
   constructor(
     private systemSettings: SystemSettingsService,
-    private electronService: ElectronService
+    private electronService: ElectronService,
+    private utilsService: UtilsService
   ) { }
 
   public init(): Promise<any> {
@@ -73,6 +75,29 @@ export class HexoService {
     }
   }
 
+  public deployChildProcess(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      if (this.utilsService.isWindows()) {
+        console.error('TODO: child_process Command for windows')
+        reject();
+      } else {
+        this.electronService.childProcess
+          .exec(`cd ${this.systemSettings.getHexoPath()} && hexo c && hexo g && hexo d`,
+            function (error, stdout, stderr) {
+              if (error !== null) {
+                reject();
+                console.log('exec error: ' + error);
+              }
+              resolve();
+            }
+          );
+      }
+    });
+  }
+
+  /*
+  * ! Is very slow use hexo call to deploy
+  * */
   public deploy(): Promise<any> {
     const _Hexo = window.require('hexo');
     const _hexo = new _Hexo(this.systemSettings.getHexoPath(), {});
@@ -80,21 +105,21 @@ export class HexoService {
     return new Promise((resolve, reject) => {
       Promise.all([_hexo.init, _hexo.load])
         .then(() => {
-          this._hexo.call('clean', {}, (cleanError) => {
+          _hexo.call('clean', {}, (cleanError) => {
             if (cleanError) {
               console.error('clean error', cleanError);
               reject(cleanError);
               return;
             }
             console.log('clean ok');
-            this._hexo.call('generate', {}, (generateError) => {
+            _hexo.call('generate', {}, (generateError) => {
               if (generateError) {
                 console.error('generate error', generateError);
                 reject(generateError);
                 return;
               }
               console.log('generate ok');
-              this._hexo.call('deploy', {}, (deployError) => {
+              _hexo.call('deploy', {}, (deployError) => {
                 if (deployError) {
                   console.error('deploy error', deployError);
                   reject(deployError);

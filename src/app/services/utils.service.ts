@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ElectronService } from './electron.service';
 import { SystemSettingsService } from './system-settings.service';
-import { HexoService } from './hexo.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +10,11 @@ export class UtilsService {
   constructor(
     private electronService: ElectronService,
     private systemSettingsService: SystemSettingsService,
-    private hexoService: HexoService
   ) {
+  }
+
+  public isWindows() {
+    return process.platform === 'win32';
   }
 
   public openTerminal() {

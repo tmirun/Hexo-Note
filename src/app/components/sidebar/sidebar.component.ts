@@ -44,8 +44,8 @@ export class SidebarComponent implements OnInit {
   }
 
   public deploy() {
-    const deployMessageId = this.message.loading('Action in progress..', { nzDuration: 0 }).messageId;
-    this.hexoService.deploy().then(() => {
+    const deployMessageId = this.message.loading('Deploy in process..', { nzDuration: 0 }).messageId;
+    this.hexoService.deployChildProcess().then(() => {
       this.message.success('DEPLOY OK');
       this.message.remove(deployMessageId);
     }).catch((error) => {
