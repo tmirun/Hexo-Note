@@ -63,6 +63,7 @@ TODO
     * 标题 DONE
     * 按分类
     * 按 Tag
+* 启动 HEXO 服务器 DONE
 * 软件偏好设置 -- yml DONE
 * 一键编译、发布博客 DONE
 * 预览博客 DONE
@@ -70,5 +71,5 @@ TODO
 * 将文章保存为草稿 DONE
 * 自动保存文章
 * 多语言
-* 自动编译上传
+* 自动编译上传 DONE
 
