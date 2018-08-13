@@ -77,25 +77,20 @@ export class HexoService {
 
   public deployChildProcess(): Promise<any> {
     return new Promise((resolve, reject) => {
-      if (this.utilsService.isWindows()) {
-        console.error('TODO: child_process Command for windows')
-        reject();
-      } else {
-        this.electronService.childProcess
-          .exec(`hexo clean && hexo g && hexo d`, {
-              cwd: this.systemSettings.getHexoPath()
-            },
-            function (error, stdout, stderr) {
-              console.log('stdout: ' + stdout);
-              console.log('stderr: ' + stderr);
-              if (error !== null) {
-                console.log('exec error: ' + error);
-                reject();
-              }
-              resolve();
+      this.electronService.childProcess
+        .exec(`hexo clean && hexo g && hexo d`, {
+            cwd: this.systemSettings.getHexoPath()
+          },
+          function (error, stdout, stderr) {
+            console.log('stdout: ' + stdout);
+            console.log('stderr: ' + stderr);
+            if (error !== null) {
+              console.log('exec error: ' + error);
+              reject();
             }
-          );
-      }
+            resolve();
+          }
+        );
     });
   }
 
