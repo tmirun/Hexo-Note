@@ -82,11 +82,15 @@ export class HexoService {
         reject();
       } else {
         this.electronService.childProcess
-          .exec(`cd ${this.systemSettings.getHexoPath()} && hexo c && hexo g && hexo d`,
+          .exec(`hexo clean && hexo g && hexo d`, {
+              cwd: this.systemSettings.getHexoPath()
+            },
             function (error, stdout, stderr) {
+              console.log('stdout: ' + stdout);
+              console.log('stderr: ' + stderr);
               if (error !== null) {
-                reject();
                 console.log('exec error: ' + error);
+                reject();
               }
               resolve();
             }
