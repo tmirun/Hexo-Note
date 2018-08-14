@@ -9,7 +9,9 @@ import { SystemSettingsService } from './system-settings.service';
 export class ServerService {
 
   public isServerRunning = false;
+  public isServerLoading = false;
   private _serverRunningChildProcess = null;
+  private _startServerWaitingTime = 3000;
 
   constructor(
     private electronService: ElectronService,
@@ -20,6 +22,8 @@ export class ServerService {
 
     console.log('starting server');
     this.isServerRunning = true;
+    this.isServerLoading = true;
+    setTimeout(() => {this.isServerLoading = false}, this._startServerWaitingTime);
 
     return new Promise((resolve, reject) => {
       this._serverRunningChildProcess = this.electronService.childProcess
@@ -32,8 +36,9 @@ export class ServerService {
             this.isServerRunning = false;
             reject(error);
             console.log('exec error: ' + error);
+          } else {
+            resolve();
           }
-          resolve();
         });
     });
   }
@@ -41,7 +46,7 @@ export class ServerService {
   public stopServer() {
     console.log('stop server');
     this.isServerRunning = false;
-    this._serverRunningChildProcess.kill();
+    this._serverRunningChildProcess.kill('SIGINT');
   }
 
 }
