@@ -29,7 +29,7 @@
   </button>
   <button nzTitle="HEXO SERVER" nzPlacement="right" nz-tooltip [disabled]="serverService.isServerLoading"
           nz-button fxFlex="none" [nzGhost]="!serverService.isServerRunning" nzShape="circle" nzSize="large" (click)="switchServer()">
-    <i class="anticon anticon-loading"
+    <i class="anticon"
        [ngClass]="{
        'server-running': serverService.isServerRunning,
        'anticon-database': !serverService.isServerLoading,
