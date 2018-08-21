@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { ipcRenderer, webFrame, remote } from 'electron';
 import * as childProcess from 'child_process';
 import * as fs from 'fs-extra';
+import * as yaml from 'js-yaml';
 
 @Injectable()
 export class ElectronService {
@@ -15,6 +16,7 @@ export class ElectronService {
   childProcess: typeof childProcess;
   fs: typeof fs;
   process: any;
+  yaml: typeof yaml;
 
   constructor() {
     // Conditional imports
@@ -26,6 +28,7 @@ export class ElectronService {
 
       this.childProcess = window.require('child_process');
       this.fs = window.require('fs-extra');
+      this.yaml = window.require('js-yaml');
     }
   }
 

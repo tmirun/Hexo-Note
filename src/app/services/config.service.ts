@@ -10,6 +10,7 @@ import { HexoService } from './hexo.service';
 export class ConfigService {
 
   configYml$: BehaviorSubject<string> = new BehaviorSubject('');
+  configJson$: BehaviorSubject<string> = new BehaviorSubject('');
 
   constructor(
     private electronService: ElectronService,
@@ -22,6 +23,11 @@ export class ConfigService {
       .then((confitYmlData) => {
         this.configYml$.next(confitYmlData);
         console.log('get config yml');
+
+        const configJson = this.electronService.yaml.safeLoad(confitYmlData);
+        this.configJson$.next(configJson);
+        console.log('parse config yml to json');
+
         return confitYmlData;
       })
       .catch((error) => {
