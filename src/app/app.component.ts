@@ -7,6 +7,7 @@ import { ScaffoldService } from './services/scaffold.service';
 import { timer } from 'rxjs';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/delayWhen';
+import {ConfigService} from './services/config.service';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ export class AppComponent {
     public electronService: ElectronService,
     private translate: TranslateService,
     private hexoService: HexoService,
+    private configService: ConfigService,
     private scaffoldService: ScaffoldService) {
 
     translate.setDefaultLang('en');
@@ -45,5 +47,7 @@ export class AppComponent {
       this.scaffoldService.getPostTemplate();
       this.scaffoldService.getPageTemplate();
     });
+
+    this.configService.getConfigYml();
   }
 }
