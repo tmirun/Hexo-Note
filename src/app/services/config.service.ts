@@ -3,6 +3,7 @@ import { ElectronService } from './electron.service';
 import { SystemSettingsService } from './system-settings.service';
 import { BehaviorSubject } from 'rxjs';
 import { HexoService } from './hexo.service';
+import { Config } from '../Models/Config.Interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { HexoService } from './hexo.service';
 export class ConfigService {
 
   configYml$: BehaviorSubject<string> = new BehaviorSubject('');
-  configJson$: BehaviorSubject<string> = new BehaviorSubject('');
+  configJson$: BehaviorSubject<Config> = new BehaviorSubject({});
 
   constructor(
     private electronService: ElectronService,
@@ -24,7 +25,7 @@ export class ConfigService {
         this.configYml$.next(confitYmlData);
         console.log('get config yml');
 
-        const configJson = this.electronService.yaml.safeLoad(confitYmlData);
+        const configJson = this.electronService.yaml.safeLoad(confitYmlData) as Config;
         this.configJson$.next(configJson);
         console.log('parse config yml to json');
 
