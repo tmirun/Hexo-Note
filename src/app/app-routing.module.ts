@@ -1,18 +1,17 @@
-import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PostComponent } from './pages/dashboard/post/post.component';
 import { PostDetailComponent } from './pages/dashboard/post/post-detail/post-detail.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HexoInitGuard } from './guard/hexo-init.guard';
 import { SettingsComponent } from './pages/dashboard/settings/settings.component';
 import { CanDeactivateGuard } from './guard/can-deactivate.guard';
+import { AppInitGuard } from './guard/app-init.guard';
 
 const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [ HexoInitGuard],
+    canActivate: [ AppInitGuard],
     children: [
       { path: 'settings', component: SettingsComponent },
       {

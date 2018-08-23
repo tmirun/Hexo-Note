@@ -45,6 +45,7 @@ import { UtilsService } from './services/utils.service';
 import { ServerService } from './services/server.service';
 import { NewPostFormComponent } from './components/new-post-form/new-post-form.component';
 import { CanDeactivateGuard } from './guard/can-deactivate.guard';
+import { AppInitGuard } from './guard/app-init.guard';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -91,6 +92,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     UtilsService,
     HexoInitGuard,
     CanDeactivateGuard,
+    AppInitGuard,
     ServerService,
     { provide: NZ_I18N, useValue: en_US }
   ],
