@@ -11,7 +11,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [ AppInitGuard],
+    canActivate: [ AppInitGuard ],
     children: [
       { path: 'settings', component: SettingsComponent },
       {
