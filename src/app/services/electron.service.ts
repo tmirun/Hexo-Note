@@ -6,6 +6,9 @@ import { ipcRenderer, webFrame, remote } from 'electron';
 import * as childProcess from 'child_process';
 import * as fs from 'fs-extra';
 import * as yaml from 'js-yaml';
+import * as path from 'path';
+
+import watch from 'node-watch';
 
 @Injectable()
 export class ElectronService {
@@ -17,6 +20,9 @@ export class ElectronService {
   fs: typeof fs;
   process: any;
   yaml: typeof yaml;
+  path: typeof path;
+
+  watch: typeof watch;
 
   constructor() {
     // Conditional imports
@@ -29,6 +35,9 @@ export class ElectronService {
       this.childProcess = window.require('child_process');
       this.fs = window.require('fs-extra');
       this.yaml = window.require('js-yaml');
+      this.path = window.require('path');
+
+      this.watch = window.require('node-watch');
     }
   }
 
