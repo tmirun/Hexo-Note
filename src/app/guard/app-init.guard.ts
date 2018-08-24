@@ -14,6 +14,10 @@ export class AppInitGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.configService.configYml$.map((configYmlData) => !!configYmlData);
+    return this.configService.configYml$
+      .filter(configYmlData => !!configYmlData) // only pass if not empty
+      .map((configYmlData) => {
+        return !!configYmlData;
+      });
   }
 }
