@@ -76,16 +76,24 @@ export class HexoService {
   }
 
   public deployChildProcess(): Promise<any> {
+    return this.exec(`hexo clean`)
+      .then(() => this.exec('hexo g'))
+      .then(() => this.exec('hexo d'));
+  }
+
+  public exec(command: string, options = {}, callback = (...arg: any[]) => {}): Promise<any> {
+    const customOption = {
+      cwd: this.systemSettings.getHexoPath()
+    };
     return new Promise((resolve, reject) => {
       this.electronService.childProcess
-        .exec(`hexo clean && hexo g && hexo d`, {
-            cwd: this.systemSettings.getHexoPath()
-          },
+        .exec(command, {...customOption, ...options},
           function (error, stdout, stderr) {
+            callback(error, stdout, stderr);
             console.log('stdout: ' + stdout);
-            console.log('stderr: ' + stderr);
+            console.warn('stderr: ' + stderr);
             if (error !== null) {
-              console.log('exec error: ' + error);
+              console.error('exec error: ' + error);
               reject();
             }
             resolve();
