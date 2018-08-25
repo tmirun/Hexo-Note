@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter, OnDestroy} from '@angular/core';
-import { Post } from '../../Models/Post.interface';
+import { Article } from '../../Models/Article';
 import {
   FormGroup,
   FormBuilder,
@@ -17,8 +17,8 @@ import 'rxjs/add/operator/debounceTime';
 })
 export class NewPostFormComponent implements OnInit, OnDestroy {
 
-  @Input() post: Post;
-  @Output() postChange = new EventEmitter<Post>();
+  @Input() post: Article;
+  @Output() postChange = new EventEmitter<Article>();
 
   public form: FormGroup;
   private formSubscription: Subscription;
@@ -68,7 +68,7 @@ export class NewPostFormComponent implements OnInit, OnDestroy {
     }
     this.postService.create({
       title: this.form.value.title,
-      layout: this.form.value.published ? 'post' : 'draft'
+      published: this.form.value.published
     }).then(() => {
       this.message.success('CREATE POST OK');
       this.modalService.closeAll();

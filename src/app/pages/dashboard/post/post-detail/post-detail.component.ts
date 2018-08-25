@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { PostService } from '../../../../services/post.service';
 import { Observable, Subscription } from 'rxjs';
-import { Post } from '../../../../Models/Post.interface';
+import { Article } from '../../../../Models/Article';
 import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/switchMap';
@@ -26,7 +26,7 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
   @ViewChild('editor') editor: any;
 
   public form: FormGroup;
-  public post: Post;
+  public post: Article;
   public isNewPost = false;
   public title: string;
   public tags: string;
