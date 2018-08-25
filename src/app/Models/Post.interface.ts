@@ -1,3 +1,5 @@
+// HEXO API POST INTERFACE
+
 import * as moment from 'moment';
 import { PostCategory } from './Category.interface';
 import { PostTag } from './Tag.interface';
