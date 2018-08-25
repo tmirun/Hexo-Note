@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HexoService } from './hexo.service';
 import { BehaviorSubject } from 'rxjs';
-import { Post } from '../Models/Post.interface';
 import { Article } from '../Models/Article';
 import { ElectronService } from './electron.service';
 import { SystemSettingsService } from './system-settings.service';
@@ -15,39 +14,67 @@ import 'rxjs/add/operator/combineLatest';
 })
 export class PostService {
 
-  public articles$: BehaviorSubject<Post[]> = new BehaviorSubject([]); // save posts and drafts
-  public posts$: BehaviorSubject<Post[]> = new BehaviorSubject([]); // only save posts
-  public drafts$: BehaviorSubject<Post[]> = new BehaviorSubject([]); // only save drafts
+  public articles$: BehaviorSubject<Article[]> = new BehaviorSubject([]); // save posts and drafts
+  public posts$: BehaviorSubject<Article[]> = new BehaviorSubject([]); // only save posts
+  public drafts$: BehaviorSubject<Article[]> = new BehaviorSubject([]); // only save drafts
 
   constructor(
     private hexoService: HexoService,
-    private electronService: ElectronService
+    private electronService: ElectronService,
+    private systemSettingsService: SystemSettingsService,
+    private configService: ConfigService,
+    private utilsService: UtilsService
   ) {
-    this.articles$.subscribe((articles) => {
-      const drafts: Post[] = [];
-      const posts: Post[] = [];
-
-      articles.forEach((article) => {
-        if (article.published) {
-          posts.push(article);
-        } else {
-          drafts.push(article);
-        }
-      });
-
-      this.drafts$.next(drafts);
-      this.posts$.next(posts);
+    this.posts$.combineLatest(this.drafts$).subscribe(([posts, drafts]) => {
+      this.articles$.next([...posts, ...drafts]);
     });
   }
 
   public getArticles() {
-    const _hexoArticles:  any = this.hexoService._hexo.locals.get('posts');
-    this.articles$.next(_hexoArticles.data);
-    return _hexoArticles;
+    this.getPosts();
+    this.getDrafts();
+  }
+
+  public getPosts(): Article[] {
+    const articles = this.getPostsPath().map((path) => {
+      const article = this._parseArticleFromPath(path);
+      article.published = true;
+      return article;
+    });
+    this.posts$.next(articles);
+    return articles;
+  }
+
+  public getDrafts(): Article[] {
+    const articles = this.getDraftsPath().map((path) => {
+      const article = this._parseArticleFromPath(path);
+      article.published = false;
+      return article;
+    });
+    this.drafts$.next(articles);
+    return articles;
+  }
+
+  public getPostsPath(): string[] {
+    return this.utilsService.findFilesInDir(this.getPostPath(), '.md');
+  }
+
+  public getDraftsPath(): string[] {
+    return this.utilsService.findFilesInDir(this.getDraftPath(), '.md');
   }
 
   public getArticleLocalById(postId: string) {
     return this.articles$.getValue().find( (post) => post._id === postId);
+  }
+
+  private _parseArticleFromPath(path: string): Article {
+    const title = this.electronService.path.basename(path, '.md');
+    const file = this.electronService.path.basename(path);
+    const raw =  this.electronService.fs.readFileSync(path, 'utf8');
+    const stat = this.electronService.fs.statSync(path);
+    const updated = moment(stat.mtime);
+    const created = moment(stat.ctime);
+    return new Article({ title, file, path, raw, updated, created});
   }
 
   public checkIfExistPost(articleTitle: string): boolean {
@@ -57,33 +84,33 @@ export class PostService {
     }) === -1 ? false : true;
   }
 
-  public findPostBySlug(slug: string): Post {
-    const articles = this.articles$.getValue();
-    return articles.find(article => {
-      return article.slug === slug;
-    });
+  public findArticleBySlug(slug: string): any {
+    // const articles = this.articles$.getValue();
+    // return articles.find(article => {
+    //   return article.slug === slug;
+    // });
   }
 
-  public create(post: Post): Promise<any> {
-    return this.hexoService._hexo.post.create(post, true)
-      .then((data) => {
-        console.log('create article ok');
-        this.hexoService.load().then(() => {
-          this.getArticles();
-        });
-        return data;
-      })
-      .catch((error) => {
-        console.error('create article error', error);
-        throw error;
-      });
+  public create(post: Article): any {
+    // return this.hexoService._hexo.post.create(post, true)
+    //   .then((data) => {
+    //     console.log('create article ok');
+    //     this.hexoService.load().then(() => {
+    //       this.getArticles();
+    //     });
+    //     return data;
+    //   })
+    //   .catch((error) => {
+    //     console.error('create article error', error);
+    //     throw error;
+    //   });
   }
 
-  public update(updatePost: Post): Promise<any> {
-    return this.electronService.fs.writeFile(updatePost.full_source, updatePost.raw)
+  public update(updateArticle: Article): Promise<any> {
+    return this.electronService.fs.writeFile(updateArticle.path, updateArticle.raw)
       .then(() => {
         console.log('update article ok');
-        this._updateLocalArticle(updatePost);
+        this._updateLocalArticle(updateArticle);
         return true;
       })
       .catch((error) => {
@@ -92,7 +119,7 @@ export class PostService {
       });
   }
 
-  public delete(path: string): Promise<any> {
+  public delete(path: string): any {
     // TODO Remove folder if exist
     const pathWithoutExtension = path.replace(/\.[^/.]+$/, '');
     return this.electronService.fs.unlink(path)
@@ -108,33 +135,43 @@ export class PostService {
       });
   }
 
-  public _updateLocalArticle(updatePost: Post) {
+  public _updateLocalArticle(updateArticle: Article) {
     const articles = this.articles$.getValue();
 
-    const articleIndex = articles.findIndex(article => article._id === updatePost._id);
-    articles[articleIndex] = { ...articles[articleIndex], ...updatePost};
+    const articleIndex = articles.findIndex(article => article._id === updateArticle._id);
+    articles[articleIndex] = { ...articles[articleIndex], ...updateArticle};
 
     this.articles$.next(articles);
   }
 
-  public publish(post: Post): Promise<any> {
-    return this.hexoService._hexo.post.publish({slug: post.slug}, true)
-      .then((data) => {
-        console.log('publish draft ok');
-        this.hexoService.load().then(() => {
-          this.getArticles();
-        });
-        return data;
-      })
-      .catch((error) => {
-        console.error('publish draft error', error);
-        throw error;
-      });
+  public publish(post: Article): Promise<any> {
+    // return this.hexoService._hexo.post.publish({slug: post.slug}, true)
+    //   .then((data) => {
+    //     console.log('publish draft ok');
+    //     this.hexoService.load().then(() => {
+    //       this.getArticles();
+    //     });
+    //     return data;
+    //   })
+    //   .catch((error) => {
+    //     console.error('publish draft error', error);
+    //     throw error;
+    //   });
   }
 
-  public renderArticle(post: Post) {
-    console.log(this.hexoService._hexo.post.render('test.md', {content: post.raw}).then((...arg) => {
-      console.log(arg);
-    }));
+  public getPostPath(): string {
+    const hexoPath = this.systemSettingsService.getHexoPath();
+    const sourcePath = this.configService.configJson$.getValue().source_dir;
+
+    if (!hexoPath || ! sourcePath ) { return undefined; }
+    return `${hexoPath}/${sourcePath}/_posts`;
+  }
+
+  public getDraftPath(): string {
+    const hexoPath = this.systemSettingsService.getHexoPath();
+    const sourcePath = this.configService.configJson$.getValue().source_dir;
+
+    if (!hexoPath || ! sourcePath ) { return undefined; }
+    return `${hexoPath}/${sourcePath}/_drafts`;
   }
 }
