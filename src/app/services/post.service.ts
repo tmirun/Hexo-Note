@@ -21,7 +21,7 @@ export class PostService {
   constructor(
     private hexoService: HexoService,
     private electronService: ElectronService,
-    private systemSettingsService: SystemSettingsService,
+    private systemSettings: SystemSettingsService,
     private configService: ConfigService,
     private utilsService: UtilsService
   ) {
@@ -68,13 +68,21 @@ export class PostService {
   }
 
   private _parseArticleFromPath(path: string): Article {
-    const title = this.electronService.path.basename(path, '.md');
     const file = this.electronService.path.basename(path);
+    const fileName = this.electronService.path.basename(path, '.md');
     const raw =  this.electronService.fs.readFileSync(path, 'utf8');
     const stat = this.electronService.fs.statSync(path);
     const updated = moment(stat.mtime);
     const created = moment(stat.ctime);
-    return new Article({ title, file, path, raw, updated, created});
+    const articleInfo = this.parseArticleInfo(raw);
+    return new Article({ title: fileName, file, path, raw, updated, created, ...articleInfo});
+  }
+
+  public parseArticleInfo(raw: string): Article {
+    const regex = /---([.\s\S]+?)---/g;
+    const match = regex.exec(raw);
+    const articleInfo = this.electronService.yaml.safeLoad(match[1]);
+    return articleInfo as Article;
   }
 
   public checkIfExistPost(articleTitle: string): boolean {
@@ -91,19 +99,9 @@ export class PostService {
     // });
   }
 
-  public create(post: Article): any {
-    // return this.hexoService._hexo.post.create(post, true)
-    //   .then((data) => {
-    //     console.log('create article ok');
-    //     this.hexoService.load().then(() => {
-    //       this.getArticles();
-    //     });
-    //     return data;
-    //   })
-    //   .catch((error) => {
-    //     console.error('create article error', error);
-    //     throw error;
-    //   });
+  public create(artcile: Article): Promise<any> {
+      const layout = artcile.published ? 'post' : 'draft';
+      return this.hexoService.exec(`hexo new ${layout} ${artcile.title}`);
   }
 
   public update(updateArticle: Article): Promise<any> {
@@ -144,23 +142,12 @@ export class PostService {
     this.articles$.next(articles);
   }
 
-  public publish(post: Article): Promise<any> {
-    // return this.hexoService._hexo.post.publish({slug: post.slug}, true)
-    //   .then((data) => {
-    //     console.log('publish draft ok');
-    //     this.hexoService.load().then(() => {
-    //       this.getArticles();
-    //     });
-    //     return data;
-    //   })
-    //   .catch((error) => {
-    //     console.error('publish draft error', error);
-    //     throw error;
-    //   });
+  public publish(article: Article): Promise<any> {
+    return this.hexoService.exec(`hexo publish ${article.title}`);
   }
 
   public getPostPath(): string {
-    const hexoPath = this.systemSettingsService.getHexoPath();
+    const hexoPath = this.systemSettings.getHexoPath();
     const sourcePath = this.configService.configJson$.getValue().source_dir;
 
     if (!hexoPath || ! sourcePath ) { return undefined; }
@@ -168,7 +155,7 @@ export class PostService {
   }
 
   public getDraftPath(): string {
-    const hexoPath = this.systemSettingsService.getHexoPath();
+    const hexoPath = this.systemSettings.getHexoPath();
     const sourcePath = this.configService.configJson$.getValue().source_dir;
 
     if (!hexoPath || ! sourcePath ) { return undefined; }
