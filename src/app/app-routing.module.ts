@@ -26,7 +26,7 @@ const routes: Routes = [
       },
     ]
   },
-  { path: '', redirectTo: '/dashboard/post', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard/article', pathMatch: 'full' },
 ];
 
 @NgModule({
