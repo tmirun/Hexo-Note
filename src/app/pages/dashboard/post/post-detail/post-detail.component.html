@@ -30,8 +30,7 @@
         <button nz-button nzSize="small" (click)="replaceSelection('horizontalRule')">_</button>
         <button nz-button nzSize="small" (click)="replaceSelection('readMore')">More</button>
       </nz-button-group>
-    </div>
-    <div class="post-detail-action-bar" fxFlex="none" fxFlexAlign="center center">
+
       <span>
         <nz-switch [(ngModel)]="isActivePreview"
                    [nzCheckedChildren]="tmpSwitchCheckedPreview"
@@ -41,9 +40,12 @@
         <ng-template #tmpSwitchCheckedPreview><i class="anticon anticon-eye"></i></ng-template>
         <ng-template #tmpSwitchUncheckedPreview><i class="anticon anticon-eye-o"></i></ng-template>
       </span>
-      <button nz-button (click)="publish()" *ngIf="!post?.published">
-        PUBLISH
+    </div>
+    <div class="post-detail-action-bar" fxFlex="none" fxFlexAlign="center center">
+      <button nz-button (click)="remove()" nzType="danger" nzType="danger" nzShape="circle">
+        <i class="anticon anticon-delete"></i>
       </button>
+      <button nz-button (click)="publish()" *ngIf="!article?.published"> PUBLISH </button>
       <button nz-button [nzType]="isEditorChanged ? 'primary': ''" (click)="submitForm()"> SAVE </button>
     </div>
   </div>

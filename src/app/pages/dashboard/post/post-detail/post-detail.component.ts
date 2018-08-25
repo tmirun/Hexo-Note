@@ -26,7 +26,7 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
   @ViewChild('editor') editor: any;
 
   public form: FormGroup;
-  public post: Article;
+  public article: Article;
   public isNewPost = false;
   public title: string;
   public tags: string;
@@ -77,11 +77,11 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
           this.router.navigate(['/dashboard/post']);
           return ;
         }
-        this.post = post;
-        this.path = this.post.path;
+        this.article = post;
+        this.path = this.article.path;
 
         this.form.setValue({
-          raw: this.post.raw || '',
+          raw: this.article.raw || '',
         });
 
         this.isEditorChanged = false;
@@ -107,17 +107,31 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
 
   public publish() {
     const loadingMessageId = this.message.loading('PUBLISH').messageId;
-    this.postService.publish(this.post)
+    this.postService.publish(this.article)
       .then(() => this.message.success('PUBLISH OK'))
       .catch(() => this.message.error('PUBLISH ERROR'))
       .finally( () => this.message.remove(loadingMessageId));
+  }
+
+  public remove() {
+    this.modalService.confirm({
+      nzTitle: 'REMOVE ARTICLE',
+      nzContent: 'DO YOU WANT REMOVE ARTICLE:' + this.article.title,
+      nzOnOk: () => new Promise((resolve, reject) => {
+        this.postService.delete(this.article.path).then(() => {
+          resolve();
+        }).catch((error) => {
+          reject(error);
+        });
+      }).catch((error) => console.log('ERROR REMOVE ARTICLE', error))
+    });
   }
 
   public submitForm() {
     const loadingMessageId = this.message.loading('SAVING').messageId;
     if (!this.isNewPost) { this.isNewPost = true; }
     this.postService.update({
-      ...this.post,
+      ...this.article,
       raw: this.form.value.raw
     })
       .then(() => {
