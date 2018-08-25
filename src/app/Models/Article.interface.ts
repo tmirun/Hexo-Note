@@ -8,6 +8,7 @@ export interface Article {
   asset_dir?: string;
   path?: string;
   file?: string;
+  fileName?: string;
   updated?: moment.Moment;
   created?: moment.Moment;
   date?: moment.Moment;

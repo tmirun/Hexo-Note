@@ -10,27 +10,32 @@ export class Article implements ArticleInterface {
   asset_dir?: string;
   path?: string;
   file?: string;
+  fileName?: string;
   updated?: moment.Moment;
   created?: moment.Moment;
   date?: moment.Moment;
 
   constructor(
-    { asset_dir = '',
+    { title = '',
+      raw = '',
+      published = false,
+      asset_dir = '',
       path = '',
       file = '',
-      raw = '',
-      title = '',
+      fileName = '',
       updated = moment(),
       created = moment(),
       date = moment()
     }: ArticleInterface) {
 
     this._id = uuid4();
+    this.title = title;
+    this.raw = raw;
+    this.published = published;
     this.asset_dir = asset_dir;
     this.path = path;
     this.file = file;
-    this.raw = raw;
-    this.title = title;
+    this.fileName = fileName;
     this.updated = updated;
     this.created = created;
     this.date = date;
