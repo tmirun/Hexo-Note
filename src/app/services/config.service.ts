@@ -21,15 +21,15 @@ export class ConfigService {
 
   public getConfigYml (): string {
     return this.electronService.fs.readFile(this.getConfigYmlPath(), 'utf8')
-      .then((confitYmlData) => {
-        this.configYml$.next(confitYmlData);
+      .then((configYmlData) => {
+        this.configYml$.next(configYmlData);
         console.log('get config yml');
 
-        const configJson = this.electronService.yaml.safeLoad(confitYmlData) as Config;
+        const configJson = this.electronService.yaml.safeLoad(configYmlData) as Config;
         this.configJson$.next(configJson);
         console.log('parse config yml to json');
 
-        return confitYmlData;
+        return configYmlData;
       })
       .catch((error) => {
         console.error(error);
