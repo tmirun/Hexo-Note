@@ -36,4 +36,23 @@ export class UtilsService {
         break;
     }
   }
+
+  public findFilesInDir(startPath: string, filter: string): string[] {
+    const results = [];
+    const fs = this.electronService.fs;
+    const path = this.electronService.path;
+    if (!fs.existsSync(startPath)) {
+      console.log('no dir ', startPath);
+      return results;
+    }
+
+    const files = fs.readdirSync(startPath);
+    for (let i = 0; i < files.length; i++) {
+      const filename = path.join(startPath, files[i]);
+      if (filename.indexOf(filter) >= 0) {
+        results.push(filename);
+      }
+    }
+    return results;
+  }
 }
