@@ -39,5 +39,8 @@ export class Article implements ArticleInterface {
     this.updated = updated;
     this.created = created;
     this.date = date;
+    if (! moment.isMoment(this.date)) {
+      this.date = moment(this.date);
+    }
   }
 }
