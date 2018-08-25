@@ -14,6 +14,9 @@ import 'rxjs/add/operator/combineLatest';
 })
 export class PostService {
 
+  private _draftWatcher;
+  private _postWatcher;
+
   public articles$: BehaviorSubject<Article[]> = new BehaviorSubject([]); // save posts and drafts
   public posts$: BehaviorSubject<Article[]> = new BehaviorSubject([]); // only save posts
   public drafts$: BehaviorSubject<Article[]> = new BehaviorSubject([]); // only save drafts
@@ -28,6 +31,30 @@ export class PostService {
     this.posts$.combineLatest(this.drafts$).subscribe(([posts, drafts]) => {
       this.articles$.next([...posts, ...drafts]);
     });
+  }
+
+  public startWatchArticle() {
+    const watcherOptions = {
+      filter: /\.md$/,
+      recursive: true,
+      delay: 500
+    };
+    this._draftWatcher = this.electronService.watch(this.getDraftPath(), watcherOptions ,
+      (event, name) => {
+        console.log('watch', event, name);
+        setTimeout(() => { this.getDrafts(); }, 500);
+      });
+
+    this._postWatcher = this.electronService.watch(this.getPostPath(), watcherOptions,
+      (event, name) => {
+        console.log('watch', event, name);
+        setTimeout(() => { this.getPosts(); }, 500);
+      });
+  }
+
+  public stopWatchArticle() {
+    if (this._draftWatcher) { this._draftWatcher.close(); }
+    if (this._postWatcher) { this._postWatcher.close();}
   }
 
   public getArticles() {
@@ -90,13 +117,6 @@ export class PostService {
     return articles.findIndex(article => {
       return article.title === articleTitle;
     }) === -1 ? false : true;
-  }
-
-  public findArticleBySlug(slug: string): any {
-    // const articles = this.articles$.getValue();
-    // return articles.find(article => {
-    //   return article.slug === slug;
-    // });
   }
 
   public create(artcile: Article): Promise<any> {
