@@ -1,10 +1,10 @@
 <div class="sidebar" fxLayout="column" fxFlexFill fxLayoutAlign="start center">
-  <button nzTitle="ADD NEW POST" nzPlacement="right" nz-tooltip
-          nz-button nzType="primary" fxFlex="none" nzShape="circle" nzSize="large" (click)="createModal(tplNewPost)">
+  <button fxFlex="none" nzTitle="ADD NEW POST" nzPlacement="right" nz-tooltip
+          nz-button nzShape="circle" nzSize="large" nzGhost nzType="primary" (click)="createModal(tplNewPost)">
     <i class="anticon anticon-plus"></i>
   </button>
   <hr/>
-  <ul nz-menu nzTheme="dark" nzInlineCollapsed fxFlex="none">
+  <ul nz-menu nzTheme nzInlineCollapsed fxFlex="none">
     <li nzTitle="POSTS" nzPlacement="right" nz-tooltip
         nz-menu-item routerLink="/dashboard/post" routerLinkActive="ant-menu-item-selected">
       <span title>
@@ -19,23 +19,21 @@
     </li>
   </ul>
   <hr/>
-  <button nzTitle="OPEN TERMINAL" nzPlacement="right" nz-tooltip
-          nz-button fxFlex="none" nzGhost nzShape="circle" nzSize="large" (click)="openTerminal()">
-    <i class="anticon anticon-code-o"></i>
-  </button>
-  <button nzTitle="DEPLOY" nzPlacement="right" nz-tooltip
-          nz-button fxFlex="none" nzGhost nzShape="circle" nzSize="large" (click)="deploy()">
-    <i class="anticon anticon-cloud-upload-o"></i>
-  </button>
-  <button nzTitle="HEXO SERVER" nzPlacement="right" nz-tooltip [disabled]="serverService.isServerLoading"
-          nz-button fxFlex="none" [nzGhost]="!serverService.isServerRunning" nzShape="circle" nzSize="large" (click)="switchServer()">
-    <i class="anticon"
-       [ngClass]="{
-       'server-running': serverService.isServerRunning,
-       'anticon-database': !serverService.isServerLoading,
-       'anticon-spin anticon-loading': serverService.isServerLoading}"
-    ></i>
-  </button>
+  <div fxFlex="none" fxLayout="column" fxLayoutAlign="start center" class="sidebar-actions">
+    <button nzTitle="OPEN TERMINAL" nzPlacement="right" nz-tooltip
+            nz-button fxFlex="none" nzGhost nzShape="circle" (click)="openTerminal()">
+      <i class="anticon anticon-code-o"></i>
+    </button>
+    <button nzTitle="DEPLOY" nzPlacement="right" nz-tooltip [nzLoading]="isDeploying"
+            nz-button fxFlex="none" nzGhost nzShape="circle" (click)="deploy()">
+      <i class="anticon anticon-cloud-upload-o"></i>
+    </button>
+    <button nzTitle="HEXO SERVER" nzPlacement="right" nz-tooltip [nzLoading]="serverService.isServerLoading"
+            [ngClass]="{'server-running': serverService.isServerRunning}"
+            nz-button fxFlex="none" nzGhost nzShape="circle" (click)="switchServer()">
+      <i class="anticon anticon-database"></i>
+    </button>
+  </div>
   <ng-template #tplNewPost>
     <app-new-post-form></app-new-post-form>
   </ng-template>

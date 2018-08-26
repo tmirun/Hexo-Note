@@ -5,14 +5,15 @@
     height: 100%;
     background-color: $sidebar-color;
     padding: $spacing-m 0px;
+    border-right: $grey-6 thin solid;
 
     button {
-      margin-top: $spacing-xs;
-      margin-bottom: $spacing-xs;
-      border: none;
+      margin-top: $spacing-s;
+      margin-bottom: $spacing-s;
 
-      .server-running {
-        color: $success;
+      &.server-running {
+        color: white;
+        background-color: $success !important;
       }
     }
 
@@ -21,7 +22,7 @@
       display: block;
       height: 1px;
       border: 0;
-      border-top: thin solid $grey-6;
+      border-top: thin solid $border-color;
       margin-left: auto;
       margin-right: auto;
       padding: 0;
@@ -38,6 +39,16 @@
     outline: none;
     i {
       font-size: 18px;
+    }
+  }
+
+  .sidebar-actions {
+    button {
+      border: none;
+      color: $transparent-dark-65;
+      &:hover {
+        color: $black;
+      }
     }
   }
 }

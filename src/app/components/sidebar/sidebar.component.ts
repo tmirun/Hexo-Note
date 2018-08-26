@@ -16,6 +16,7 @@ export class SidebarComponent implements OnInit {
 
   public tplModal: NzModalRef;
   public currentLink: string;
+  public isDeploying = false;
   private routeSubscription: Subscription;
 
   constructor(
@@ -46,14 +47,15 @@ export class SidebarComponent implements OnInit {
   }
 
   public deploy() {
+    this.isDeploying = true;
     const deployMessageId = this.message.loading('Deploy in process..', { nzDuration: 0 }).messageId;
-    this.hexoService.deployChildProcess().then(() => {
-      this.message.success('DEPLOY OK');
-      this.message.remove(deployMessageId);
-    }).catch((error) => {
-      this.message.remove(deployMessageId);
-      this.message.error(`DEPLOY ERROR ${error}`);
-    });
+    this.hexoService.deployChildProcess()
+      .then(() => this.message.success('DEPLOY OK'))
+      .catch((error) => this.message.error(`DEPLOY ERROR ${error}`))
+      .finally(() => {
+        this.isDeploying = false;
+        this.message.remove(deployMessageId);
+      });
   }
 
   public switchServer() {
