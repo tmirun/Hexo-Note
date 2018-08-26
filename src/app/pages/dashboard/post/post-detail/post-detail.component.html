@@ -49,14 +49,15 @@
       </span>
     </div>
     <div class="post-detail-action-bar" fxFlex="none" fxFlexAlign="center center">
-      <button nz-button (click)="remove()" nzType="danger" nzType="danger" nzShape="circle">
+      <button nz-button (click)="remove()" nzType="danger" nzShape="circle" nzGhost>
         <i class="anticon anticon-delete"></i>
       </button>
       <button nz-button (click)="publish()" *ngIf="!article?.published" [nzLoading]="isPublishing">
-        <i class="anticon anticon-to-top"></i> PUBLISH
+        <i class="anticon anticon-to-top"></i>
       </button>
-      <button nz-button [nzType]="isEditorChanged ? 'primary': ''" (click)="submitForm()" [nzLoading]="isSaving">
-        <i class="anticon anticon-save"></i> SAVE
+      <button nz-button [nzType]="isEditorChanged ? 'primary': ''" [nzGhost]="isEditorChanged"
+              (click)="submitForm()" [nzLoading]="isSaving">
+        <i class="anticon anticon-save"></i>
       </button>
     </div>
   </div>

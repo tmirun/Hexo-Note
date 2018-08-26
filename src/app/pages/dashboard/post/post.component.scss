@@ -4,21 +4,20 @@
   .post-sidebar {
     overflow-y: auto;
     width: $help-sidebar-width;
-    border-right: $grey-3 solid thin;
+    border-right: $border-color solid thin;
 
     .post-sidebar-search {
       padding: $spacing-s $spacing-m;
-      border-bottom: $grey-6 solid thin;
+      border-bottom: $border-color solid thin;
     }
 
     .post-sidebar-list-wrapper {
       overflow: scroll;
 
       .post-sidebar-list-title {
-        padding: $spacing-xs $spacing-m ;
-        border-bottom: $grey-3 solid thin;
+        padding: $spacing-m $spacing-m $spacing-xs ;
+        border-bottom: $border-color solid thin;
         font-weight: bold;
-        background-color: $grey-3;
       }
 
       & /deep/ .ant-list-item:hover {
