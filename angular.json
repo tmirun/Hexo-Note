@@ -28,7 +28,9 @@
               "src/styles.scss",
               "node_modules/ng-zorro-antd/src/ng-zorro-antd.css",
               "node_modules/prismjs/themes/prism-okaidia.css",
-              "node_modules/font-awesome/css/font-awesome.css"
+              "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
+              "node_modules/@fortawesome/fontawesome-free/scss/solid.scss",
+              "node_modules/@fortawesome/fontawesome-free/scss/brands.scss"
             ],
             "scripts": [
               "node_modules/marked/lib/marked.js",
@@ -107,7 +109,9 @@
               "src/styles.scss",
               "node_modules/ng-zorro-antd/src/ng-zorro-antd.css",
               "node_modules/prismjs/themes/prism-okaidia.css",
-              "node_modules/font-awesome/css/font-awesome.css"
+              "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
+              "node_modules/@fortawesome/fontawesome-free/scss/solid.scss",
+              "node_modules/@fortawesome/fontawesome-free/scss/brands.scss"
             ],
             "assets": [
               "src/assets",
