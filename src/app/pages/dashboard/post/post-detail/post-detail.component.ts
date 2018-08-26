@@ -42,9 +42,11 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
     lineWrapping: true,
     lineNumbers: true
   };
+  public isSaving = false;
+  public isPublishing = false;
 
-  public routeSubscription: Subscription;
-  public formSubscription: Subscription;
+  private _routeSubscription: Subscription;
+  private _formSubscription: Subscription;
 
   constructor(
     private postService: PostService,
@@ -59,7 +61,7 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
       raw:  [ '', [ Validators.required ] ]
     });
 
-    this.formSubscription = this.form.valueChanges.subscribe(() => {
+    this._formSubscription = this.form.valueChanges.subscribe(() => {
       this.isEditorChanged = true;
     });
 
@@ -67,7 +69,7 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
   }
 
   ngOnInit() {
-    this.routeSubscription = this.route.params
+    this._routeSubscription = this.route.params
       .switchMap(params => {
         return this.postService.articles$
           .map(posts => posts.find(post =>  post._id === params.id));
@@ -89,8 +91,8 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
   }
 
   ngOnDestroy() {
-    this.routeSubscription.unsubscribe();
-    this.formSubscription.unsubscribe();
+    this._routeSubscription.unsubscribe();
+    this._formSubscription.unsubscribe();
   }
 
   canDeactivate() {
@@ -107,10 +109,14 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
 
   public publish() {
     const loadingMessageId = this.message.loading('PUBLISH').messageId;
+    this.isPublishing = true;
     this.postService.publish(this.article)
       .then(() => this.message.success('PUBLISH OK'))
       .catch(() => this.message.error('PUBLISH ERROR'))
-      .finally( () => this.message.remove(loadingMessageId));
+      .finally( () => {
+        this.isPublishing = false;
+        this.message.remove(loadingMessageId);
+      });
   }
 
   public remove() {
@@ -130,6 +136,7 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
   public submitForm() {
     const loadingMessageId = this.message.loading('SAVING').messageId;
     if (!this.isNewPost) { this.isNewPost = true; }
+    this.isSaving = true;
     this.postService.update({
       ...this.article,
       raw: this.form.value.raw
@@ -139,7 +146,10 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
         this.isEditorChanged = false;
       })
       .catch(() => this.message.error('SAVING ERROR'))
-      .finally( () => this.message.remove(loadingMessageId));
+      .finally( () => {
+        this.isSaving = false;
+        this.message.remove(loadingMessageId);
+      });
   }
 
   public onPreviewClick() {

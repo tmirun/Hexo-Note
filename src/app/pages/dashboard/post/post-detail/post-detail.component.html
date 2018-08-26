@@ -45,8 +45,12 @@
       <button nz-button (click)="remove()" nzType="danger" nzType="danger" nzShape="circle">
         <i class="anticon anticon-delete"></i>
       </button>
-      <button nz-button (click)="publish()" *ngIf="!article?.published"> PUBLISH </button>
-      <button nz-button [nzType]="isEditorChanged ? 'primary': ''" (click)="submitForm()"> SAVE </button>
+      <button nz-button (click)="publish()" *ngIf="!article?.published" [nzLoading]="isPublishing">
+        <i class="anticon anticon-arrow-up"></i> PUBLISH
+      </button>
+      <button nz-button [nzType]="isEditorChanged ? 'primary': ''" (click)="submitForm()" [nzLoading]="isSaving">
+        <i class="anticon anticon-save"></i> SAVE
+      </button>
     </div>
   </div>
   <nz-divider fxFlex="none" class="post-detail-divider"></nz-divider>
