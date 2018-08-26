@@ -15,6 +15,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { SystemSettingsService } from '../../../../services/system-settings.service';
 import { CanDeactivateGuard } from '../../../../guard/can-deactivate.guard';
 import { NzModalService } from 'ng-zorro-antd';
+import { ConfigService } from '../../../../services/config.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -44,9 +45,11 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
   };
   public isSaving = false;
   public isPublishing = false;
+  public disablePostAsset = true;
 
   private _routeSubscription: Subscription;
   private _formSubscription: Subscription;
+  private _configSubscription: Subscription;
 
   constructor(
     private postService: PostService,
@@ -55,7 +58,8 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
     private fb: FormBuilder,
     private message: NzMessageService,
     private systemSettingsService: SystemSettingsService,
-    private modalService: NzModalService
+    private modalService: NzModalService,
+    private configService: ConfigService
   ) {
     this.form = this.fb.group({
       raw:  [ '', [ Validators.required ] ]
@@ -88,11 +92,16 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
 
         this.isEditorChanged = false;
       });
+
+    this._configSubscription = this.configService.configJson$.subscribe((configJson) => {
+      this.disablePostAsset = !configJson.post_asset_folder;
+    });
   }
 
   ngOnDestroy() {
     this._routeSubscription.unsubscribe();
     this._formSubscription.unsubscribe();
+    this._configSubscription.unsubscribe();
   }
 
   canDeactivate() {
@@ -195,6 +204,8 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
         break;
       case 'image':
         resultText = `![](${selectedText})`; break;
+      case 'imageLocal':
+        resultText = `{% asset_img "imagg.js" "${selectedText}"%}`; break;
       case 'table':
         resultText =
         '\nheader1 | header2 | header3\n' +
@@ -209,7 +220,6 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
     this.editor.codeMirror.replaceSelection(resultText, 'end');
     this.editor.codeMirror.focus();
   }
-
 
   private _isURL(str) {
     const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol

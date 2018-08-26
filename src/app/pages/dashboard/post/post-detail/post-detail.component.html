@@ -26,6 +26,13 @@
         <button nz-button nzSize="small" (click)="replaceSelection('quote')"><i class="fa fa-chevron-right"></i></button>
         <button nz-button nzSize="small" (click)="replaceSelection('link')"><i class="fa fa-link"></i></button>
         <button nz-button nzSize="small" (click)="replaceSelection('image')"><i class="fa fa-image"></i></button>
+        <div nz-tooltip [nzTitle]="disablePostAsset ? 'Need Active post_asset_folder property of config file for enble this option' : 'use post asset folder'" nzPlacement="bottom"
+             style="display: inline-block">
+          <button style="border-left: none; border-right: none"
+                  nz-button nzSize="small" (click)="replaceSelection('imageLocal')" [disabled]="disablePostAsset">
+            <i class="fa fa-file-image"></i>
+          </button>
+        </div>
         <button nz-button nzSize="small" (click)="replaceSelection('table')"><i class="fa fa-table"></i></button>
         <button nz-button nzSize="small" (click)="replaceSelection('horizontalRule')">_</button>
         <button nz-button nzSize="small" (click)="replaceSelection('readMore')">More</button>
@@ -46,7 +53,7 @@
         <i class="anticon anticon-delete"></i>
       </button>
       <button nz-button (click)="publish()" *ngIf="!article?.published" [nzLoading]="isPublishing">
-        <i class="anticon anticon-arrow-up"></i> PUBLISH
+        <i class="anticon anticon-to-top"></i> PUBLISH
       </button>
       <button nz-button [nzType]="isEditorChanged ? 'primary': ''" (click)="submitForm()" [nzLoading]="isSaving">
         <i class="anticon anticon-save"></i> SAVE
