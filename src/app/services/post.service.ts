@@ -14,8 +14,7 @@ import 'rxjs/add/operator/combineLatest';
 })
 export class PostService {
 
-  private _draftWatcher;
-  private _postWatcher;
+  private _articleWatcher;
 
   public articles$: BehaviorSubject<Article[]> = new BehaviorSubject([]); // save posts and drafts
   public posts$: BehaviorSubject<Article[]> = new BehaviorSubject([]); // only save posts
@@ -39,22 +38,26 @@ export class PostService {
       recursive: true,
       delay: 500
     };
-    this._draftWatcher = this.electronService.watch(this.getDraftPath(), watcherOptions ,
-      (event, name) => {
-        console.log('watch', event, name);
-        setTimeout(() => { this.getDrafts(); }, 500);
+
+    this._articleWatcher = this.electronService.watcher.watch([this.getDraftPath(), this.getPostPath()],
+      {
+        interval: 100,
+        ignoreInitial: true,
       });
 
-    this._postWatcher = this.electronService.watch(this.getPostPath(), watcherOptions,
-      (event, name) => {
-        console.log('watch', event, name);
-        setTimeout(() => { this.getPosts(); }, 500);
+    this._articleWatcher
+      .on('add', path => {
+        this.getArticles();
+        console.log(`watch file ${path} has been added`);
+      })
+      .on('unlink', path => {
+        this.getArticles();
+        console.log(`File ${path} has been removed`);
       });
   }
 
   public stopWatchArticle() {
-    if (this._draftWatcher) { this._draftWatcher.close(); }
-    if (this._postWatcher) { this._postWatcher.close();}
+    if (this._articleWatcher) { this._articleWatcher.close(); }
   }
 
   public getArticles() {
@@ -121,7 +124,7 @@ export class PostService {
 
   public create(artcile: Article): Promise<any> {
       const layout = artcile.published ? 'post' : 'draft';
-      return this.hexoService.exec(`hexo new ${layout} ${artcile.title}`);
+      return this.hexoService.exec(`hexo new ${layout} "${artcile.title}"`);
   }
 
   public update(updateArticle: Article): Promise<any> {
@@ -143,9 +146,6 @@ export class PostService {
     return this.electronService.fs.unlink(path)
       .then(() => {
         console.log('delete article ok');
-        this.hexoService.load().then(() => {
-          this.getArticles();
-        });
       })
       .catch((error) => {
         console.log('delete article error', error);
@@ -163,7 +163,7 @@ export class PostService {
   }
 
   public publish(article: Article): Promise<any> {
-    return this.hexoService.exec(`hexo publish ${article.title}`);
+    return this.hexoService.exec(`hexo publish "${article.title}"`);
   }
 
   public getPostPath(): string {

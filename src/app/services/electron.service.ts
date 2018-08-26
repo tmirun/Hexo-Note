@@ -8,7 +8,7 @@ import * as fs from 'fs-extra';
 import * as yaml from 'js-yaml';
 import * as path from 'path';
 
-import watch from 'node-watch';
+import chokidar from 'chokidar';
 
 @Injectable()
 export class ElectronService {
@@ -22,7 +22,7 @@ export class ElectronService {
   yaml: typeof yaml;
   path: typeof path;
 
-  watch: typeof watch;
+  watcher: typeof chokidar;
 
   constructor() {
     // Conditional imports
@@ -37,7 +37,7 @@ export class ElectronService {
       this.yaml = window.require('js-yaml');
       this.path = window.require('path');
 
-      this.watch = window.require('node-watch');
+      this.watcher = window.require('chokidar');
     }
   }
 
