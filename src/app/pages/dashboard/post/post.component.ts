@@ -69,7 +69,7 @@ export class PostComponent implements OnInit, OnDestroy {
       nzTitle: 'REMOVE ARTICLE',
       nzContent: 'DO YOU WANT REMOVE ARTICLE:' + article.title,
       nzOnOk: () => new Promise((resolve, reject) => {
-        this.postService.delete(article.path).then(() => {
+        this.postService.delete(article).then(() => {
           resolve();
         }).catch((error) => {
           reject(error);

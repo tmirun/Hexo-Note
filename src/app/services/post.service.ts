@@ -52,7 +52,7 @@ export class PostService {
       })
       .on('unlink', path => {
         this.getArticles();
-        console.log(`File ${path} has been removed`);
+        console.log(`watch file ${path} has been removed`);
       });
   }
 
@@ -99,13 +99,14 @@ export class PostService {
 
   private _parseArticleFromPath(path: string): Article {
     const file = this.electronService.path.basename(path);
+    const asset_dir = path.replace(/\.[^/.]+$/, '');
     const fileName = this.electronService.path.basename(path, '.md');
     const raw =  this.electronService.fs.readFileSync(path, 'utf8');
     const stat = this.electronService.fs.statSync(path);
     const updated = moment(stat.mtime);
     const created = moment(stat.ctime);
     const articleInfo = this.parseArticleInfo(raw);
-    return new Article({ title: fileName, file, path, raw, updated, created, ...articleInfo});
+    return new Article({ title: fileName, file, path, raw, updated, created, asset_dir, ...articleInfo});
   }
 
   public parseArticleInfo(raw: string): Article {
@@ -140,10 +141,13 @@ export class PostService {
       });
   }
 
-  public delete(path: string): any {
+  public delete(article: Article): any {
     // TODO Remove folder if exist
-    const pathWithoutExtension = path.replace(/\.[^/.]+$/, '');
-    return this.electronService.fs.unlink(path)
+
+    if (article.asset_dir && this.electronService.fs.existsSync(article.asset_dir)) {
+      this.utilsService.rmdir(article.asset_dir);
+    }
+    return this.electronService.fs.unlink(article.path)
       .then(() => {
         console.log('delete article ok');
       })

@@ -55,4 +55,25 @@ export class UtilsService {
     }
     return results;
   }
+
+  // https://stackoverflow.com/questions/31917891/node-how-to-remove-a-directory-if-exists
+  public rmdir (dir) {
+    const list = this.electronService.fs.readdirSync(dir);
+    for (let i = 0; i < list.length; i++) {
+      const filename = this.electronService.path.join(dir, list[i]);
+      const stat = this.electronService.fs.statSync(filename);
+
+      if (filename === '.' || filename === '..') {
+        // pass these files
+      } else if (stat.isDirectory()) {
+        // rmdir recursively
+        this.rmdir(filename);
+      } else {
+        // rm fiilename
+        this.electronService.fs.unlinkSync(filename);
+      }
+    }
+    console.log('dir delete:', dir);
+    this.electronService.fs.rmdirSync(dir);
+  }
 }

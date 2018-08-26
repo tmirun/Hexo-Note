@@ -124,7 +124,7 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
       nzTitle: 'REMOVE ARTICLE',
       nzContent: 'DO YOU WANT REMOVE ARTICLE:' + this.article.title,
       nzOnOk: () => new Promise((resolve, reject) => {
-        this.postService.delete(this.article.path).then(() => {
+        this.postService.delete(this.article).then(() => {
           resolve();
         }).catch((error) => {
           reject(error);
