@@ -25,8 +25,8 @@
               "src/favicon.512x512.png"
             ],
             "styles": [
+              "src/theme.less",
               "src/styles.scss",
-              "node_modules/ng-zorro-antd/src/ng-zorro-antd.css",
               "node_modules/prismjs/themes/prism-okaidia.css",
               "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
               "node_modules/@fortawesome/fontawesome-free/scss/solid.scss",
@@ -106,8 +106,8 @@
               "node_modules/prismjs/prism.js"
             ],
             "styles": [
+              "src/theme.less",
               "src/styles.scss",
-              "node_modules/ng-zorro-antd/src/ng-zorro-antd.css",
               "node_modules/prismjs/themes/prism-okaidia.css",
               "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
               "node_modules/@fortawesome/fontawesome-free/scss/solid.scss",

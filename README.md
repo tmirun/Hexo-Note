@@ -35,6 +35,7 @@ if you have interest to develop it together remember to contact with me!!! tmiru
 ## used tecnology / 在这项目中使用了:
 - Framework / 框架: (angular6 + electron)[https://github.com/maximegris/angular-electron]
 - UI / 设计: (ng-zorro ant design)[https://github.com/NG-ZORRO/ng-zorro-antd]
+  - you can personalize your style in `src/theme.less` / 你可以在 `src/theme.less` 自定义主题
 - Icon / 图标: (font awesome)[https://fontawesome.com/icons?from=io]
 - Editor / 写作框: (code mirror)[https://codemirror.net/]
 
