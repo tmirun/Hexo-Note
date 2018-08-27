@@ -1,0 +1,19 @@
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+
+:host {
+  .app-content-loading {
+    position: fixed;
+    height: 70px;
+    width: 70px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: rgba(200, 200, 200, 0.2);
+  }
+
+  .app-content-loading-icon {
+    font-size: 50px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

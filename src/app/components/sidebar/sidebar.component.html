@@ -1,0 +1,49 @@
+<div class="sidebar" fxLayout="column" fxFlexFill fxLayoutAlign="start center">
+  <button fxFlex="none" nzTitle="ADD NEW POST" nzPlacement="right" nz-tooltip
+          nz-button nzShape="circle" nzSize="large" nzGhost nzType="primary" (click)="createModal(tplNewPost)">
+    <i class="anticon anticon-plus"></i>
+  </button>
+  <hr/>
+  <ul nz-menu nzTheme nzInlineCollapsed fxFlex="none">
+    <li nzTitle="POSTS" nzPlacement="right" nz-tooltip
+        nz-menu-item routerLink="/dashboard/post" routerLinkActive="ant-menu-item-selected">
+      <span title>
+        <i class="anticon anticon-copy"></i>
+      </span>
+    </li>
+    <li nzTitle="SETTINGS" nzPlacement="right" nz-tooltip
+        nz-menu-item routerLink="/dashboard/settings" routerLinkActive="ant-menu-item-selected">
+      <span title>
+        <i class="anticon anticon-setting"></i>
+      </span>
+    </li>
+  </ul>
+  <hr/>
+  <div fxFlex="none" fxLayout="column" fxLayoutAlign="start center" class="sidebar-actions">
+    <button nzTitle="OPEN TERMINAL" nzPlacement="right" nz-tooltip
+            nz-button fxFlex="none" nzGhost nzShape="circle" (click)="openTerminal()">
+      <i class="anticon anticon-code-o"></i>
+    </button>
+    <button nzTitle="DEPLOY" nzPlacement="right" nz-tooltip [nzLoading]="isDeploying"
+            nz-button fxFlex="none" nzGhost nzShape="circle" (click)="deploy()">
+      <i class="anticon anticon-cloud-upload-o"></i>
+    </button>
+    <button nzTitle="HEXO SERVER" nzPlacement="right" nz-tooltip [nzLoading]="serverService.isServerLoading"
+            [ngClass]="{'server-running': serverService.isServerRunning}"
+            nz-button fxFlex="none" nzGhost nzShape="circle" (click)="switchServer()">
+      <i class="anticon anticon-database"></i>
+    </button>
+  </div>
+
+  <div fxFlex><!--fill--></div>
+
+  <div fxFlex="none">
+    <img id="sidebar-hexo-logo" src="assets/hexo-logo.svg"/>
+  </div>
+
+  <div fxFlex="none"> {{ version }} </div>
+
+  <ng-template #tplNewPost>
+    <app-new-post-form></app-new-post-form>
+  </ng-template>
+</div>
