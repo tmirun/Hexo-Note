@@ -6,6 +6,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { Subscription } from 'rxjs';
 import { HexoService } from '../../services/hexo.service';
 import { ServerService } from '../../services/server.service';
+import { AppConfig } from '../../../environments/environment';
 
 @Component({
   selector: 'app-sidebar',
@@ -17,6 +18,8 @@ export class SidebarComponent implements OnInit {
   public tplModal: NzModalRef;
   public currentLink: string;
   public isDeploying = false;
+  public version: string = AppConfig.version;
+
   private routeSubscription: Subscription;
 
   constructor(
