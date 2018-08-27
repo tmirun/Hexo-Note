@@ -27,15 +27,11 @@
             "styles": [
               "src/theme.less",
               "src/styles.scss",
-              "node_modules/prismjs/themes/prism-okaidia.css",
               "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
               "node_modules/@fortawesome/fontawesome-free/scss/solid.scss",
               "node_modules/@fortawesome/fontawesome-free/scss/brands.scss"
             ],
-            "scripts": [
-              "node_modules/marked/lib/marked.js",
-              "node_modules/prismjs/prism.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "dev": {
@@ -101,14 +97,10 @@
             "polyfills": "src/polyfills-test.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
-            "scripts": [
-              "node_modules/marked/lib/marked.js",
-              "node_modules/prismjs/prism.js"
-            ],
+            "scripts": [],
             "styles": [
               "src/theme.less",
               "src/styles.scss",
-              "node_modules/prismjs/themes/prism-okaidia.css",
               "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
               "node_modules/@fortawesome/fontawesome-free/scss/solid.scss",
               "node_modules/@fortawesome/fontawesome-free/scss/brands.scss"
