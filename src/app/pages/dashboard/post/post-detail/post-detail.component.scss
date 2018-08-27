@@ -96,11 +96,11 @@ $editor-toolbar-height: 48px;
             }
 
             .CodeMirror .CodeMirror-code .cm-header-1 {
-              font-size: 200%;
-              line-height: 200%;
+              font-size: 180%;
+              line-height: 180%;
             }
 
-            .CodeMirror .CodeMirror-code .cm-header-2:not(:first-child) { // IGNORE HEXO TAG DESCRIPTION
+            .CodeMirror .CodeMirror-code .cm-header-2 {
               font-size: 160%;
               line-height: 160%;
             }
