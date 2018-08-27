@@ -38,10 +38,10 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
   public isActivePreview = false;
   public isEditorChanged = false;
   public codeMirrorOptions = {
-    theme: 'material',
+    theme: 'hexo-note',
     mode: 'markdown',
     lineWrapping: true,
-    lineNumbers: true
+    lineNumbers: false
   };
   public isSaving = false;
   public isPublishing = false;
