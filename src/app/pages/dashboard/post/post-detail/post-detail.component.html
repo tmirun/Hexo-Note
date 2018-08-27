@@ -1,0 +1,79 @@
+<div class="post-detail" fxFill fxLayout="column">
+  <div class="post-detail-editor-toolbar" fxLayout="row" fxFlex="none">
+    <div fxFlex fxLayout fxLayoutAlign="start center">
+      <nz-button-group flex="none">
+        <button nz-button nzSize="small" (click)="replaceSelection('bold')"><i class="fa fa-bold"></i></button>
+        <button nz-button nzSize="small" (click)="replaceSelection('italic')"><i class="fa fa-italic"></i></button>
+        <button nz-button nzSize="small" (click)="replaceSelection('strikeThrough')"><i class="fa fa-strikethrough"></i></button>
+      </nz-button-group>
+
+      <nz-button-group flex="none">
+        <button nz-button nzSize="small" (click)="replaceSelection('heading1')">H1</button>
+        <button nz-button nzSize="small" (click)="replaceSelection('heading2')">H2</button>
+        <button nz-button nzSize="small" (click)="replaceSelection('heading3')">H3</button>
+        <button nz-button nzSize="small" (click)="replaceSelection('heading4')">H4</button>
+        <button nz-button nzSize="small" (click)="replaceSelection('heading5')">H5</button>
+        <button nz-button nzSize="small" (click)="replaceSelection('heading6')">H6</button>
+      </nz-button-group>
+
+      <nz-button-group flex="none">
+        <button nz-button nzSize="small" (click)="replaceSelection('orderedList')"><i class="fa fa-list-ol"></i></button>
+        <button nz-button nzSize="small" (click)="replaceSelection('unorderedList')"><i class="fa fa-list-ul"></i></button>
+      </nz-button-group>
+
+      <nz-button-group flex="none">
+        <button nz-button nzSize="small" (click)="replaceSelection('code')"><i class="fa fa-code"></i></button>
+        <button nz-button nzSize="small" (click)="replaceSelection('quote')"><i class="fa fa-chevron-right"></i></button>
+        <button nz-button nzSize="small" (click)="replaceSelection('link')"><i class="fa fa-link"></i></button>
+        <button nz-button nzSize="small" (click)="replaceSelection('image')"><i class="fa fa-image"></i></button>
+        <div nz-tooltip [nzTitle]="disablePostAsset ? 'Need Active post_asset_folder property of config file for enble this option' : 'use post asset folder'" nzPlacement="bottom"
+             style="display: inline-block">
+          <button style="border-left: none; border-right: none"
+                  nz-button nzSize="small" (click)="replaceSelection('imageLocal')" [disabled]="disablePostAsset">
+            <i class="fa fa-file-image"></i>
+          </button>
+        </div>
+        <button nz-button nzSize="small" (click)="replaceSelection('table')"><i class="fa fa-table"></i></button>
+        <button nz-button nzSize="small" (click)="replaceSelection('horizontalRule')">_</button>
+        <button nz-button nzSize="small" (click)="replaceSelection('readMore')">More</button>
+      </nz-button-group>
+
+      <span>
+        <nz-switch [(ngModel)]="isActivePreview"
+                   [nzCheckedChildren]="tmpSwitchCheckedPreview"
+                   [nzUnCheckedChildren]="tmpSwitchUncheckedPreview"
+                   (click)="onPreviewClick()"
+        ></nz-switch>
+        <ng-template #tmpSwitchCheckedPreview><i class="anticon anticon-eye"></i></ng-template>
+        <ng-template #tmpSwitchUncheckedPreview><i class="anticon anticon-eye-o"></i></ng-template>
+      </span>
+    </div>
+    <div class="post-detail-action-bar" fxFlex="none" fxFlexAlign="center center">
+      <button nz-button (click)="remove()" nzType="danger" nzShape="circle" nzGhost>
+        <i class="anticon anticon-delete"></i>
+      </button>
+      <button nz-button (click)="publish()" *ngIf="!article?.published" [nzLoading]="isPublishing">
+        <i class="anticon anticon-to-top"></i>
+      </button>
+      <button nz-button [nzType]="isEditorChanged ? 'primary': ''" [nzGhost]="isEditorChanged"
+              (click)="submitForm()" [nzLoading]="isSaving">
+        <i class="anticon anticon-save"></i>
+      </button>
+    </div>
+  </div>
+  <nz-divider fxFlex="none" class="post-detail-divider"></nz-divider>
+  <div fxLayout fxLayoutAlign="start stretch" fxFlex class="post-detail-form-wrapper">
+    <form nz-form class="post-detail-form" [formGroup]="form" fxLayout="column" fxFlex>
+      <div fxFlex class="post-detail-content-wrapper">
+        <ngx-codemirror
+          #editor
+          formControlName="raw"
+          [options]="codeMirrorOptions"
+        ></ngx-codemirror>
+      </div>
+    </form>
+
+    <markdown fxFlex *ngIf="isActivePreview" ngPreserveWhitespaces [data]="this.form.value.raw" class="post-detail-markdown-preview">
+    </markdown>
+  </div>
+</div>
