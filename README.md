@@ -60,9 +60,8 @@ TODO
     * 可自定义 toolbar
     * [x] 可以显示本地文章图片（用{% %}方法加的) DONE
     * [x] 添加 Read More DONE
-    * 黏贴 imagen: 在 post asset 自动创建如果打开的话
-    * 
-    * 打开文章的图片文件
+    * [ ]黏贴 imagen: 在 post asset 自动创建如果打开的话
+    * [ ]打开文章的图片文件
 * [ ] 分类
 * [ ] Tag
 * [ ] 搜索文章
@@ -71,7 +70,9 @@ TODO
     * [ ] 按 Tag
 * [ ] 热键
     * 保存 cmd + s / ctrl + s,
-    * 保存 cmd + s / ctrl + s,
+    * 黑体 cmd + b / ctrl + b,
+    * italic cmd + i / ctrl + i,
+    * h1-h6 cmd + [1-6] / ctrl + [1-6],
 * [x] 启动 HEXO 服务器 DONE
 * [x] 软件偏好设置 -- yml DONE
 * [x] 一键编译、发布博客 DONE
