@@ -5,6 +5,8 @@ hexojs 客户端
 
 > first of all, sorry for my English it is not my main language, if you found some mistake, tell me pliz. Thanks!
 
+![Hexo note](./hexo-note-image.png)
+
 ## Very concerned about your opinion
 
 if you have a opinion or improvement you can write in the Issue and we will discuss it all together.
@@ -81,5 +83,4 @@ TODO
 * [x] 将文章保存为草稿 DONE
 * [ ] 自动保存文章
 * [ ] 多语言
-* [x] 自动编译上传 DONE
 
