@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { ElectronService } from './electron.service';
 import { SystemSettingsService } from './system-settings.service';
 import { BehaviorSubject } from 'rxjs';
-import { HexoService } from './hexo.service';
 import { Config } from '../Models/Config.Interface';
 
 @Injectable({
@@ -16,7 +15,6 @@ export class ConfigService {
   constructor(
     private electronService: ElectronService,
     private systemSettings: SystemSettingsService,
-    private hexoService: HexoService
   ) { }
 
   public getConfigYml (): string {
@@ -47,7 +45,6 @@ export class ConfigService {
     return this.electronService.fs.writeFile(this.getConfigYmlPath(), content)
       .then(() => {
         this.configYml$.next(content);
-        this.hexoService.load();
         return content;
       });
   }

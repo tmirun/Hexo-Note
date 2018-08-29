@@ -61,7 +61,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   public submitConfigYmlForm() {
-    this.configService.updateConfigYml(this.configYmlForm.value.configYml);
     const loadingMessageId = this.message.loading('SAVING').messageId;
 
     this.configService.updateConfigYml(this.configYmlForm.value.configYml)
