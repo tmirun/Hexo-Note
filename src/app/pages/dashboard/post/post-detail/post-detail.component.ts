@@ -16,6 +16,7 @@ import { SystemSettingsService } from '../../../../services/system-settings.serv
 import { CanDeactivateGuard } from '../../../../guard/can-deactivate.guard';
 import { NzModalService } from 'ng-zorro-antd';
 import { ConfigService } from '../../../../services/config.service';
+import { UtilsService } from '../../../../services/utils.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -59,7 +60,8 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
     private message: NzMessageService,
     private systemSettingsService: SystemSettingsService,
     private modalService: NzModalService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private utilsService: UtilsService
   ) {
     this.form = this.fb.group({
       raw:  [ '', [ Validators.required ] ]
@@ -142,7 +144,7 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
     });
   }
 
-  public submitForm() {
+  public save() {
     const loadingMessageId = this.message.loading('SAVING').messageId;
     if (!this.isNewPost) { this.isNewPost = true; }
     this.isSaving = true;
@@ -219,6 +221,31 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
 
     this.editor.codeMirror.replaceSelection(resultText, 'end');
     this.editor.codeMirror.focus();
+  }
+
+  public isMac () {
+    return this.utilsService.isMac();
+  }
+
+  public onKeyDown($event): void {
+    if (this.isMac()) {
+      this.handleMacKeyEvents($event);
+    } else {
+      this.handleWindowsKeyEvents($event);
+    }
+  }
+
+  handleMacKeyEvents($event) {
+    $event.preventDefault();
+    const charCode = $event.key.toLowerCase();
+    // matekey: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/metaKey
+    if ($event.metaKey && charCode === 's') { this.save(); }
+  }
+
+  handleWindowsKeyEvents($event) {
+    $event.preventDefault();
+    const charCode = $event.key.toLowerCase();
+    if ($event.ctrlKey && charCode === 's') { this.save(); }
   }
 
   private _isURL(str) {

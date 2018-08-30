@@ -56,7 +56,8 @@
         <i class="anticon anticon-to-top"></i>
       </button>
       <button nz-button [nzType]="isEditorChanged ? 'primary': ''" [nzGhost]="isEditorChanged"
-              (click)="submitForm()" [nzLoading]="isSaving">
+              nz-tooltip [nzTitle]="isMac() ? 'cmd + s' : 'ctrl + s'" nzPlacement="bottom"
+              (click)="save()" [nzLoading]="isSaving">
         <i class="anticon anticon-save"></i>
       </button>
     </div>
@@ -69,6 +70,7 @@
           #editor
           formControlName="raw"
           [options]="codeMirrorOptions"
+          (keydown)="onKeyDown($event)"
         ></ngx-codemirror>
       </div>
     </form>

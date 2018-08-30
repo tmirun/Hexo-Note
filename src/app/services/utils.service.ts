@@ -17,6 +17,10 @@ export class UtilsService {
     return process.platform === 'win32';
   }
 
+  public isMac() {
+    return navigator.platform.match('Mac');
+  }
+
   public openTerminal() {
     const path = this.systemSettingsService.getHexoPath();
     const childProcess = this.electronService.childProcess;
