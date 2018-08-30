@@ -236,16 +236,15 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
   }
 
   handleMacKeyEvents($event) {
-    $event.preventDefault();
     const charCode = $event.key.toLowerCase();
     // matekey: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/metaKey
-    if ($event.metaKey && charCode === 's') { this.save(); }
+    if ($event.metaKey && charCode === 's') { this.save(); $event.preventDefault();}
   }
 
   handleWindowsKeyEvents($event) {
     $event.preventDefault();
     const charCode = $event.key.toLowerCase();
-    if ($event.ctrlKey && charCode === 's') { this.save(); }
+    if ($event.ctrlKey && charCode === 's') { this.save(); $event.preventDefault();}
   }
 
   private _isURL(str) {
