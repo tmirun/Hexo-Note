@@ -20,6 +20,7 @@ export class NewPostFormComponent implements OnInit, OnDestroy {
   @Input() post: Article;
   @Output() postChange = new EventEmitter<Article>();
 
+  public isCreating = false;
   public form: FormGroup;
   private formSubscription: Subscription;
   private formTitleChangeSubscription: Subscription;
@@ -60,6 +61,7 @@ export class NewPostFormComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit() {
+    this.isCreating = true;
     for (const i in this.form.controls) {
       if (this.form.controls) {
         this.form.controls[ i ].markAsDirty();
@@ -70,6 +72,7 @@ export class NewPostFormComponent implements OnInit, OnDestroy {
       title: this.form.value.title,
       published: this.form.value.published
     }).then(() => {
+      this.isCreating = false;
       this.message.success('CREATE POST OK');
       this.modalService.closeAll();
     });
