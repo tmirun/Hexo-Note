@@ -102,6 +102,5 @@
     "zone.js": "0.8.26",
     "less": "^2.7.3"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
