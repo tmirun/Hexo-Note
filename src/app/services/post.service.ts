@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HexoService } from './hexo.service';
 import { BehaviorSubject } from 'rxjs';
 import { Article } from '../Models/Article';
+import { Article as ArticleInterface } from '../Models/Article.interface';
 import { ElectronService } from './electron.service';
 import { SystemSettingsService } from './system-settings.service';
 import { ConfigService } from './config.service';
@@ -125,9 +126,9 @@ export class PostService {
     }) === -1 ? false : true;
   }
 
-  public create(artcile: Article): Promise<any> {
-      const layout = artcile.published ? 'post' : 'draft';
-      return this.hexoService.exec(`hexo new ${layout} "${artcile.title}"`);
+  public create(article: ArticleInterface): Promise<any> {
+      const layout = article.published ? 'post' : 'draft';
+      return this.hexoService.exec(`hexo new ${layout} "${article.title}"`);
   }
 
   public update(updateArticle: Article): Promise<any> {

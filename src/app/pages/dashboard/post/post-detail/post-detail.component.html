@@ -65,17 +65,29 @@
   <nz-divider fxFlex="none" class="post-detail-divider"></nz-divider>
   <div fxLayout fxLayoutAlign="start stretch" fxFlex class="post-detail-form-wrapper">
     <form nz-form class="post-detail-form" [formGroup]="form" fxLayout="column" fxFlex>
+      <div fxFlex="none" class="post-detail-info-wrapper">
+        <nz-collapse [nzBordered]="false">
+          <nz-collapse-panel [nzHeader]="'fdsafdasfda'" [nzActive]="false">
+            <ngx-codemirror
+              #editorInfo
+              formControlName="info"
+              [options]="codeMirrorOptions"
+              (keydown)="onKeyDown($event)"
+            ></ngx-codemirror>
+          </nz-collapse-panel>
+        </nz-collapse>
+      </div>
       <div fxFlex class="post-detail-content-wrapper">
         <ngx-codemirror
           #editor
-          formControlName="raw"
+          formControlName="content"
           [options]="codeMirrorOptions"
           (keydown)="onKeyDown($event)"
         ></ngx-codemirror>
       </div>
     </form>
 
-    <markdown fxFlex *ngIf="isActivePreview" ngPreserveWhitespaces [data]="this.form.value.raw" class="post-detail-markdown-preview">
+    <markdown fxFlex *ngIf="isActivePreview" ngPreserveWhitespaces [data]="this.form.value.content" class="post-detail-markdown-preview">
     </markdown>
   </div>
 </div>

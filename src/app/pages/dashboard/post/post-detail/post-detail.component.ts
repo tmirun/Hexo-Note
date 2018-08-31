@@ -25,7 +25,7 @@ import { UtilsService } from '../../../../services/utils.service';
 })
 export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuard {
 
-  @ViewChild('editor') editor: any;
+  @ViewChild('editorContent') editorContent: any;
 
   public form: FormGroup;
   public article: Article;
@@ -64,7 +64,8 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
     private utilsService: UtilsService
   ) {
     this.form = this.fb.group({
-      raw:  [ '', [ Validators.required ] ]
+      info:  [ '', [ Validators.required ] ],
+      content:  [ '', [ Validators.required ] ]
     });
 
     this._formSubscription = this.form.valueChanges.subscribe(() => {
@@ -89,7 +90,8 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
         this.path = this.article.path;
 
         this.form.setValue({
-          raw: this.article.raw || '',
+          info: this.article.info || '',
+          content: this.article.content || '',
         });
 
         this.isEditorChanged = false;
@@ -150,7 +152,8 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
     this.isSaving = true;
     this.postService.update({
       ...this.article,
-      raw: this.form.value.raw
+      info: this.form.value.info,
+      content: this.form.value.content
     })
       .then(() => {
         this.message.success('SAVING OK');
@@ -168,7 +171,7 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
   }
 
   public replaceSelection(type) {
-    const selectedText = this.editor.codeMirror.getSelection() || 'someValue';
+    const selectedText = this.editorContent.codeMirror.getSelection() || 'someValue';
     let resultText = '';
     switch (type) {
       case 'bold':
@@ -219,8 +222,8 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
         resultText = '\n<!-- more -->\n'; break;
     }
 
-    this.editor.codeMirror.replaceSelection(resultText, 'end');
-    this.editor.codeMirror.focus();
+    this.editorContent.codeMirror.replaceSelection(resultText, 'end');
+    this.editorContent.codeMirror.focus();
   }
 
   public isMac () {
