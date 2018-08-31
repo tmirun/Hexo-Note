@@ -46,7 +46,12 @@ $editor-toolbar-height: 48px;
             min-height: 150px;
             padding: 10px;
             font: inherit;
+
+            * {
+              font-weight: normal;
+            }
           }
+
         }
 
         .post-detail-info-wrapper {
@@ -70,7 +75,6 @@ $editor-toolbar-height: 48px;
           // simplemde Editor Class:
           // https://github.com/sparksuite/simplemde-markdown-editor/blob/master/src/css/simplemde.css
           /deep/ {
-
             .CodeMirror-scroll {
               min-height: 300px
             }
