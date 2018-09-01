@@ -1,11 +1,12 @@
 import * as moment from 'moment';
 import * as uuid4 from 'uuid/v4';
 import { Article as ArticleInterface } from './Article.interface';
+import * as yaml from 'js-yaml';
 
 export class Article implements ArticleInterface {
   public _id?: string;
   public title?: string;
-  public raw?: string;
+  public _raw?: string;
   private _info?: string;
   private _content?: string;
   public published?: boolean;
@@ -20,8 +21,6 @@ export class Article implements ArticleInterface {
   constructor(
     { title = '',
       raw = '',
-      info = '',
-      content = '',
       published = false,
       asset_dir = '',
       path = '',
@@ -35,8 +34,6 @@ export class Article implements ArticleInterface {
     this._id = uuid4();
     this.title = title;
     this.raw = raw;
-    this.info = info;
-    this.content = content;
     this.published = published;
     this.asset_dir = asset_dir;
     this.path = path;
@@ -50,22 +47,48 @@ export class Article implements ArticleInterface {
     }
   }
 
-  get info() {
+  get raw(): string {
+    return this._raw;
+  }
+
+  set raw(value: string) {
+    this._raw = value;
+    this._parseArticleInfoAndContent(this._raw);
+  }
+
+  get info(): string {
     return this._info;
   }
 
   set info(value: string) {
     this._info = value;
-    this.raw = this.info + this.content;
+    this._raw = this._info + this._content;
   }
 
-  get content() {
+  get content(): string {
     return this._content;
   }
 
   set content(value: string) {
     this._content = value;
-    this.raw = this.info + this.content;
+    this._raw = this._info + this._content;
   }
+
+  private _parseArticleInfoAndContent(raw: string) {
+    const regex = /(---([.\s\S]+?)---)([.\s\S]*)/g;
+    const match = regex.exec(raw);
+    const info = match[1];
+    const content = match[3];
+    const articleInfoItems = yaml.safeLoad(match[2]);
+    for (const key in articleInfoItems) {
+      if (articleInfoItems.hasOwnProperty(key)) {
+        this[key] = articleInfoItems[key];
+      }
+    }
+    this._info = info;
+    this._content = content;
+  }
+
+
 
 }

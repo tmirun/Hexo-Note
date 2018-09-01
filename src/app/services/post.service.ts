@@ -106,17 +106,7 @@ export class PostService {
     const stat = this.electronService.fs.statSync(path);
     const updated = moment(stat.mtime);
     const created = moment(stat.ctime);
-    const articleInfoAndContent = this._parseArticleInfoAndContent(raw);
-    return new Article({ title: fileName, file, path, raw, updated, created, asset_dir, ...articleInfoAndContent});
-  }
-
-  private _parseArticleInfoAndContent(raw: string): Article {
-    const regex = /(---([.\s\S]+?)---)([.\s\S]*)/g;
-    const match = regex.exec(raw);
-    const info = match[1];
-    const content = match[3];
-    const articleInfoItems = this.electronService.yaml.safeLoad(match[2]);
-    return { info, content, ...articleInfoItems} as Article;
+    return new Article({ title: fileName, file, path, raw, updated, created, asset_dir});
   }
 
   public checkIfExistPost(articleTitle: string): boolean {
@@ -164,7 +154,7 @@ export class PostService {
     const articles = this.articles$.getValue();
 
     const articleIndex = articles.findIndex(article => article._id === updateArticle._id);
-    articles[articleIndex] = { ...articles[articleIndex], ...updateArticle};
+    articles[articleIndex] = updateArticle;
 
     this.articles$.next(articles);
   }
