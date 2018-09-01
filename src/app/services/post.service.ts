@@ -120,6 +120,7 @@ export class PostService {
       .then(() => {
         console.log('update article ok');
         this._updateLocalArticle(updateArticle);
+        updateArticle.refreshInfoAndContent();
         return true;
       })
       .catch((error) => {
