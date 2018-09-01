@@ -106,7 +106,7 @@ export class PostService {
     const stat = this.electronService.fs.statSync(path);
     const updated = moment(stat.mtime);
     const created = moment(stat.ctime);
-    return new Article({ title: fileName, file, path, raw, updated, created, asset_dir});
+    return new Article({ fileName, file, path, raw, updated, created, asset_dir});
   }
 
   public checkIfExistPost(articleTitle: string): boolean {
