@@ -2,7 +2,6 @@ import * as moment from 'moment';
 
 export interface Article {
   _id?: string;
-  title?: string;
   raw?: string; // the all file content, have info part and content part
   info?: string; // extraction of hexo note part between --- ---
   content?: string; // post content part
@@ -13,5 +12,10 @@ export interface Article {
   fileName?: string;
   updated?: moment.Moment;
   created?: moment.Moment;
+
+  // hexo info
   date?: moment.Moment;
+  title?: string;
+  tags?: string[];
+  categories?: string | string[];
 }
