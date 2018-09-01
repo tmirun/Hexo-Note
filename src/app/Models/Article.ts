@@ -106,6 +106,12 @@ export class Article implements ArticleInterface {
         if (articleInfoItems[key] instanceof Date) {
           articleInfoItems[key] = moment(articleInfoItems[key]);
         }
+
+        // fix date if some article date string format is error
+        if (key === 'date' && !(articleInfoItems[key] instanceof Date)) {
+          articleInfoItems[key] = moment(articleInfoItems[key]);
+        }
+
         this[key] = articleInfoItems[key];
       }
     }
