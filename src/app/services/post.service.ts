@@ -34,12 +34,6 @@ export class PostService {
   }
 
   public startWatchArticle() {
-    const watcherOptions = {
-      filter: /\.md$/,
-      recursive: true,
-      delay: 500
-    };
-
     this._articleWatcher = this.electronService.watcher.watch([this.getDraftPath(), this.getPostPath()],
       {
         interval: 100,
