@@ -20,8 +20,8 @@ export class Article implements ArticleInterface {
   // hexo info
   public date?: moment.Moment;
   public title?: string;
-  public tags?: string[];
-  public categories?: string | string[];
+  public tags?: string[] = [];
+  public categories?: string | string[] = [];
 
   constructor(
     { title = '',
