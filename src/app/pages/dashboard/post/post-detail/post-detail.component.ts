@@ -28,13 +28,11 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
   @ViewChild('editorContent') editorContent: any;
 
   public form: FormGroup;
-  public article: Article;
+  public article: Article = {} as Article;
   public isNewPost = false;
   public title: string;
   public tags: string;
-  public categories: string;
-  public toc: boolean;
-  public path: string;
+  public categories: string | string[];
   public date: moment.Moment;
   public isActivePreview = false;
   public isEditorChanged = false;
@@ -81,13 +79,12 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
         return this.postService.articles$
           .map(posts => posts.find(post =>  post._id === params.id));
       })
-      .subscribe((post) => {
-        if (!post) {
+      .subscribe((article) => {
+        if (!article) {
           this.router.navigate(['/dashboard/post']);
           return ;
         }
-        this.article = post;
-        this.path = this.article.path;
+        this.article = article;
 
         this.form.setValue({
           info: this.article.info || '',
@@ -150,11 +147,10 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
     const loadingMessageId = this.message.loading('SAVING').messageId;
     if (!this.isNewPost) { this.isNewPost = true; }
     this.isSaving = true;
-    this.postService.update({
-      ...this.article,
-      info: this.form.value.info,
-      content: this.form.value.content
-    })
+    this.article.info = this.form.value.info;
+    this.article.content = this.form.value.content;
+
+    this.postService.update(this.article)
       .then(() => {
         this.message.success('SAVING OK');
         this.isEditorChanged = false;
@@ -248,6 +244,10 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
     $event.preventDefault();
     const charCode = $event.key.toLowerCase();
     if ($event.ctrlKey && charCode === 's') { this.save(); $event.preventDefault();}
+  }
+
+  public isArray(object){
+    return Array.isArray(object);
   }
 
   private _isURL(str) {
