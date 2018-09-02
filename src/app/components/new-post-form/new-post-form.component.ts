@@ -57,11 +57,14 @@ export class NewPostFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.formTitleChangeSubscription.unsubscribe();
     this.formSubscription.unsubscribe();
   }
 
   public onSubmit() {
     this.isCreating = true;
+
+    // validate form
     for (const i in this.form.controls) {
       if (this.form.controls) {
         this.form.controls[ i ].markAsDirty();
