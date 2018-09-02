@@ -20,57 +20,56 @@
         font-weight: bold;
       }
 
-      & /deep/ .ant-list-item:hover {
-        background-color: $blue-2;
-      }
-
       nz-list-item {
         cursor: pointer;
         padding: $spacing-m $spacing-m ;
-        &.active {
-          background: $blue-5;
-
-          * {
-            color: white;
-          }
-
-          .post-item-title, .post-item-subtitle {
-            color: white;
-          }
-        }
-
-        .post-item-post-icon, .post-item-draft-icon {
-          padding-right: $spacing-s;
-        }
-
-        .post-item-draft-icon {
-          color: $danger;
-        }
-
-        .post-item-title {
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          color: $blue-6;
-        }
-
-        .post-item-subtitle {
-          color: $grey-6;
-        }
 
         &:hover {
-          .post-item-remove {
-            display: block;
+          background-color: $grey-2;
+          .post-item-actions {
+            display: block !important;
           }
         }
 
-        .post-item-remove {
-          cursor: pointer;
-          display: none;
+        /deep/ .ant-list-item-content {
+          overflow: hidden;
+        }
 
-          &:hover {
-            color: $danger;
+        .post-item {
+          .post-item-icon {
+            padding-right: $spacing-s;
           }
+
+          .post-item-info {
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            .post-item-title {
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              color: $blue-6;
+            }
+
+            .post-item-subtitle {
+              color: $grey-6;
+            }
+          }
+
+          .post-item-actions {
+            cursor: pointer;
+            display: none;
+
+            > * {
+              margin-left:  $spacing-xxs;
+            }
+          }
+        }
+
+        &.active {
+          background: $grey-3;
         }
       }
     }

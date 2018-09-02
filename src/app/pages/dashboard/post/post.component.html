@@ -7,48 +7,43 @@
     </div>
     <div class="post-sidebar-list-wrapper" fxFlex>
       <div class="post-sidebar-list-title" > DRAFTS </div>
-      <nz-list [nzDataSource]="drafts" [nzRenderItem]="draftItemTmp" [nzItemLayout]="'horizontal'">
-        <ng-template #draftItemTmp let-item>
-          <nz-list-item [nzContent]="draftItem" [routerLink]="item._id" routerLinkActive="active">
-            <ng-template #draftItem>
-              <div fxLayout fxLayoutAlign="start center" class="post-item" fxFill>
-                <div fxLayout="row" fxFlex fxLayoutAlign="start center" fxFill>
-                  <i fxFlex="none" class="anticon anticon-exception post-item-draft-icon"></i>
-                  <div fxFlex>
-                    <div class="post-item-title"> {{item.title}} </div>
-                    <div class="post-item-subtitle"> {{item.date.format('YYYY-MM-DD')}} </div>
-                  </div>
-                </div>
-                <div fxFlex="none" fxLayout>
-                  <i class="anticon anticon-delete post-item-remove" (click)="removeArticle(item)"></i>
-                </div>
-              </div>
-            </ng-template>
-          </nz-list-item>
-        </ng-template>
-      </nz-list>
+      <nz-list [nzDataSource]="drafts" [nzRenderItem]="ArticleItemTmp" [nzItemLayout]="'horizontal'"></nz-list>
 
       <div class="post-sidebar-list-title"> POSTS </div>
-      <nz-list [nzDataSource]="posts" [nzRenderItem]="postItemTmp" [nzItemLayout]="'horizontal'">
-        <ng-template #postItemTmp let-item>
-          <nz-list-item [nzContent]="postItem" [routerLink]="item._id" routerLinkActive="active">
-            <ng-template #postItem>
-              <div fxLayout fxLayoutAlign="start center" class="post-item" fxFill>
-                <div fxLayout="row" fxFlex fxLayoutAlign="start center" fxFill >
-                  <i fxFlex="none" class="anticon anticon-file-text post-item-post-icon"></i>
-                  <div fxFlex>
-                    <div class="post-item-title"> {{item.title}} </div>
-                    <div class="post-item-subtitle"> {{item.date.format('YYYY-MM-DD')}} </div>
-                  </div>
-                </div>
-                <div fxFlex="none" fxLayout>
-                  <i class="anticon anticon-delete post-item-remove" (click)="removeArticle(item)"></i>
+      <nz-list [nzDataSource]="posts" [nzRenderItem]="ArticleItemTmp" [nzItemLayout]="'horizontal'"></nz-list>
+
+      <ng-template #ArticleItemTmp let-item>
+        <nz-list-item [nzContent]="postItem" [routerLink]="item._id" routerLinkActive="active">
+          <ng-template #postItem>
+            <div fxLayout fxLayoutAlign="start center" fxFill fxFlex
+                 class="post-item" [ngClass]="{'post-item-post': item.published, 'post-item-draft': !item.published}">
+              <i fxFlex="none" class="anticon post-item-icon" [ngClass]="{'anticon-file-text': item.published, 'anticon-exception': !item.published}"></i>
+              <div fxFlex class="post-item-info">
+                <div class="post-item-title"> {{item.title}} {{item.publish}}</div>
+                <div class="post-item-subtitle"> {{item.date.format('YYYY-MM-DD')}} </div>
+              </div>
+              <div fxFlex="none" fxLayout class="post-item-actions-wrapper">
+                <div class="post-item-actions">
+                  <nz-dropdown>
+                    <button nz-button nz-dropdown nzShape="circle" nzSize="small"><i class="anticon anticon-ellipsis"></i></button>
+                    <ul nz-menu>
+                      <li nz-menu-item>
+                        <a (click)="removeArticle(item)"><i class="anticon anticon-delete"></i> DELETE </a>
+                      </li>
+                    </ul>
+                  </nz-dropdown>
                 </div>
               </div>
-            </ng-template>
-          </nz-list-item>
-        </ng-template>
-      </nz-list>
+            </div>
+          </ng-template>
+        </nz-list-item>
+      </ng-template>
+
+      <ng-template #postItemOptions>
+        <ul nz-menu nzInDropDown>
+          <li nz-menu-item> RENAME </li>
+        </ul>
+      </ng-template>
     </div>
   </div>
   <div fxFlex>
