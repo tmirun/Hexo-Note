@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PostService } from '../../../services/post.service';
 import { Article } from '../../../Models/Article';
 import { Subscription } from 'rxjs';
-import { NzModalService } from 'ng-zorro-antd';
 import { FormControl } from '@angular/forms';
 import 'rxjs/add/operator/shareReplay';
 
@@ -23,7 +22,6 @@ export class PostComponent implements OnInit, OnDestroy {
 
   constructor(
     private postService: PostService,
-    private modalService: NzModalService
   ) {
 
     const searchFormObservable = this.searchFormControl.valueChanges.shareReplay(1).debounceTime(300);
@@ -62,20 +60,6 @@ export class PostComponent implements OnInit, OnDestroy {
     this.postsSubscription.unsubscribe();
     this.draftsSubscription.unsubscribe();
     this.postService.stopWatchArticle();
-  }
-
-  public removeArticle(article: Article) {
-    this.modalService.confirm({
-      nzTitle: 'REMOVE ARTICLE',
-      nzContent: 'DO YOU WANT REMOVE ARTICLE:' + article.title,
-      nzOnOk: () => new Promise((resolve, reject) => {
-        this.postService.delete(article).then(() => {
-          resolve();
-        }).catch((error) => {
-          reject(error);
-        });
-      }).catch((error) => console.log('ERROR REMOVE ARTICLE', error))
-    });
   }
 
 }

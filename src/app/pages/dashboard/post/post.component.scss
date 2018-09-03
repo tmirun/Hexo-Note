@@ -19,59 +19,6 @@
         border-bottom: $border-color solid thin;
         font-weight: bold;
       }
-
-      nz-list-item {
-        cursor: pointer;
-        padding: $spacing-m $spacing-m ;
-
-        &:hover {
-          background-color: $grey-2;
-          .post-item-actions {
-            display: block !important;
-          }
-        }
-
-        /deep/ .ant-list-item-content {
-          overflow: hidden;
-        }
-
-        .post-item {
-          .post-item-icon {
-            padding-right: $spacing-s;
-          }
-
-          .post-item-info {
-
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-
-            .post-item-title {
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              color: $blue-6;
-            }
-
-            .post-item-subtitle {
-              color: $grey-6;
-            }
-          }
-
-          .post-item-actions {
-            cursor: pointer;
-            display: none;
-
-            > * {
-              margin-left:  $spacing-xxs;
-            }
-          }
-        }
-
-        &.active {
-          background: $grey-3;
-        }
-      }
     }
   }
 }
