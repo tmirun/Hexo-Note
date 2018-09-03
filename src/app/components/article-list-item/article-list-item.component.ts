@@ -20,17 +20,27 @@ export class ArticleListItemComponent implements OnInit {
   ngOnInit() {
   }
 
-  public removeArticle(article: Article) {
+  public removeArticle() {
     this.modalService.confirm({
       nzTitle: 'REMOVE ARTICLE',
-      nzContent: 'DO YOU WANT REMOVE ARTICLE:' + article.title,
+      nzContent: 'DO YOU WANT REMOVE ARTICLE:' + this.article.title,
       nzOnOk: () => new Promise((resolve, reject) => {
-        this.postService.delete(article).then(() => {
+        this.postService.delete(this.article).then(() => {
           resolve();
         }).catch((error) => {
           reject(error);
         });
       }).catch((error) => console.log('ERROR REMOVE ARTICLE', error))
+    });
+  }
+
+  public rename(modalTmpl) {
+    this.modalService.create({
+      nzTitle: 'RENAME POST',
+      nzContent: modalTmpl,
+      nzFooter: null,
+      nzClosable: false,
+      nzOnOk: () => new Promise((resolve) => window.setTimeout(resolve, 1000))
     });
   }
 

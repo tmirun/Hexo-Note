@@ -52,5 +52,10 @@
     > * {
       margin-left:  $spacing-xxs;
     }
+
+    .article-list-item-actions-more {
+      border-color: transparent;
+      color: $grey-9;
+    }
   }
 }

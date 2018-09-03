@@ -10,10 +10,16 @@
   <div fxFlex="none" fxLayout class="article-list-item-actions-wrapper">
     <div class="article-list-item-actions">
       <nz-dropdown>
-        <button nz-button nz-dropdown nzShape="circle" nzSize="small"><i class="anticon anticon-ellipsis"></i></button>
+        <button nz-button nz-dropdown nzShape="circle" nzGhost nzSize="small" class="article-list-item-actions-more"><i class="anticon anticon-ellipsis"></i></button>
         <ul nz-menu>
           <li nz-menu-item>
-            <a (click)="removeArticle(article)"><i class="anticon anticon-delete"></i> DELETE </a>
+            <a (click)="rename(renameModalTmpl)"><i class="anticon anticon-edit"></i> RENAME </a>
+            <ng-template #renameModalTmpl>
+              <app-rename-post-form></app-rename-post-form>
+            </ng-template>
+          </li>
+          <li nz-menu-item>
+            <a (click)="removeArticle()"><i class="anticon anticon-delete"></i> DELETE </a>
           </li>
         </ul>
       </nz-dropdown>
