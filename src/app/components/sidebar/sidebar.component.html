@@ -1,6 +1,6 @@
 <div class="sidebar" fxLayout="column" fxFlexFill fxLayoutAlign="start center">
   <button fxFlex="none" nzTitle="ADD NEW POST" nzPlacement="right" nz-tooltip
-          nz-button nzShape="circle" nzSize="large" nzGhost nzType="primary" (click)="createModal(tplNewPost)">
+          nz-button nzShape="circle" nzSize="large" nzGhost nzType="primary" (click)="createModal(newPostModalTmpl)">
     <i class="anticon anticon-plus"></i>
   </button>
   <hr/>
@@ -43,7 +43,7 @@
 
   <div fxFlex="none"> {{ version }} </div>
 
-  <ng-template #tplNewPost>
+  <ng-template #newPostModalTmpl>
     <app-new-post-form></app-new-post-form>
   </ng-template>
 </div>

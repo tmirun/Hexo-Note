@@ -15,12 +15,8 @@ import { AppConfig } from '../../../environments/environment';
 })
 export class SidebarComponent implements OnInit {
 
-  public tplModal: NzModalRef;
-  public currentLink: string;
   public isDeploying = false;
   public version: string = AppConfig.version;
-
-  private routeSubscription: Subscription;
 
   constructor(
     private postService: PostService,
@@ -35,10 +31,10 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
   }
 
-  public createModal(tplContet): void {
+  public createModal(modalTmpl): void {
     this.modalService.create({
       nzTitle: 'NEW POST',
-      nzContent: tplContet,
+      nzContent: modalTmpl,
       nzFooter: null,
       nzClosable: false,
       nzOnOk: () => new Promise((resolve) => window.setTimeout(resolve, 1000))
@@ -69,7 +65,7 @@ export class SidebarComponent implements OnInit {
       this.message.info('STARTING SERVER');
       this.serverService.startServer().catch((error) => {
         this.message.error(`SERVER STARTING ERROR ${error}`);
-      });;
+      });
     }
   }
 }
