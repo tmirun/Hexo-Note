@@ -42,7 +42,7 @@ export class NewPostFormComponent implements OnInit, OnDestroy {
       .valueChanges
       .debounceTime(300)
       .subscribe(title => {
-        const isTitleExist = this.postService.checkIfExistPost(title);
+        const isTitleExist = this.postService.checkIfExistFileName(title);
         if (isTitleExist) {
           this.form.controls['title'].setErrors( {'exist': true});
         } else if (!this.form.controls['title'].errors) {

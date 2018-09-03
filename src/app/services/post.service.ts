@@ -107,6 +107,7 @@ export class PostService {
     const articles = this.articles$.getValue();
     return articles.findIndex(article => {
       return article.title === articleTitle;
+      return article.fileName === fileName;
     }) === -1 ? false : true;
   }
 
