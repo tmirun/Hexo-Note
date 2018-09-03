@@ -4,7 +4,7 @@
      routerLinkActive="active">
   <i fxFlex="none" class="anticon article-list-item-icon" [ngClass]="{'anticon-file-text': article.published, 'anticon-exception': !article.published}"></i>
   <div fxFlex class="article-list-item-info">
-    <div class="article-list-item-title"> {{article.title}} {{article.published}}</div>
+    <div class="article-list-item-title"> {{article.title}}</div>
     <div class="article-list-item-subtitle"> {{article.date.format('YYYY-MM-DD')}} </div>
   </div>
   <div fxFlex="none" fxLayout class="article-list-item-actions-wrapper">
