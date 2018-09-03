@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Article} from '../../Models/Article';
-import {NzModalService} from 'ng-zorro-antd';
+import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {PostService} from '../../services/post.service';
+import {RemanePostModalComponent} from '../remane-post-modal/remane-post-modal.component';
 
 @Component({
   selector: 'app-article-list-item',
@@ -14,7 +15,8 @@ export class ArticleListItemComponent implements OnInit {
 
   constructor(
     private postService: PostService,
-    private modalService: NzModalService
+    private modalService: NzModalService,
+    private message: NzMessageService,
   ) { }
 
   ngOnInit() {
@@ -30,17 +32,21 @@ export class ArticleListItemComponent implements OnInit {
         }).catch((error) => {
           reject(error);
         });
-      }).catch((error) => console.log('ERROR REMOVE ARTICLE', error))
+      }).catch((error) => {
+        console.log('ERROR REMOVE ARTICLE', error);
+        this.message.error('ERROR REMOVE ARTICLE ' + error);
+      })
     });
   }
 
-  public rename(modalTmpl) {
+  public rename() {
     this.modalService.create({
-      nzTitle: 'RENAME POST',
-      nzContent: modalTmpl,
-      nzFooter: null,
-      nzClosable: false,
-      nzOnOk: () => new Promise((resolve) => window.setTimeout(resolve, 1000))
+      nzTitle: 'RENAME FILE',
+      nzContent: RemanePostModalComponent,
+      nzComponentParams: {
+        article: this.article
+      },
+      nzFooter: null
     });
   }
 

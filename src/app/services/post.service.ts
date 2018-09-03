@@ -103,10 +103,9 @@ export class PostService {
     return new Article({ fileName, file, path, raw, updated, created, asset_dir});
   }
 
-  public checkIfExistPost(articleTitle: string): boolean {
+  public checkIfExistFileName(fileName: string): boolean {
     const articles = this.articles$.getValue();
     return articles.findIndex(article => {
-      return article.title === articleTitle;
       return article.fileName === fileName;
     }) === -1 ? false : true;
   }
@@ -174,4 +173,22 @@ export class PostService {
     if (!hexoPath || ! sourcePath ) { return undefined; }
     return `${hexoPath}/${sourcePath}/_drafts`;
   }
+
+  public rename(article: Article, newFileName: string): any {
+    const promises = [];
+    const existAssetDir = this.existArticleAssetDir(article.path);
+    const newFile = article.file.replace(article.fileName, newFileName);
+    const newFilePath = article.path.replace(article.file, newFile);
+    if (existAssetDir) {
+      const newAssetDir = article.asset_dir.replace(article.fileName, newFileName);
+      promises.push(this.electronService.fs.rename(article.asset_dir, newAssetDir));
+    }
+    promises.push(this.electronService.fs.rename(article.path, newFilePath))
+    return Promise.all(promises);
+  }
+
+  public existArticleAssetDir(path) {
+    return this.electronService.fs.existsSync(path);
+  }
+
 }

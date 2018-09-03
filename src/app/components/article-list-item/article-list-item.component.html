@@ -4,7 +4,7 @@
      routerLinkActive="active">
   <i fxFlex="none" class="anticon article-list-item-icon" [ngClass]="{'anticon-file-text': article.published, 'anticon-exception': !article.published}"></i>
   <div fxFlex class="article-list-item-info">
-    <div class="article-list-item-title"> {{article.title}}</div>
+    <div class="article-list-item-title"> {{article.file}}</div>
     <div class="article-list-item-subtitle"> {{article.date.format('YYYY-MM-DD')}} </div>
   </div>
   <div fxFlex="none" fxLayout class="article-list-item-actions-wrapper">
@@ -13,10 +13,7 @@
         <button nz-button nz-dropdown nzShape="circle" nzGhost nzSize="small" class="article-list-item-actions-more"><i class="anticon anticon-ellipsis"></i></button>
         <ul nz-menu>
           <li nz-menu-item>
-            <a (click)="rename(renameModalTmpl)"><i class="anticon anticon-edit"></i> RENAME </a>
-            <ng-template #renameModalTmpl>
-              <app-rename-post-form></app-rename-post-form>
-            </ng-template>
+            <a (click)="rename()"><i class="anticon anticon-edit"></i> RENAME </a>
           </li>
           <li nz-menu-item>
             <a (click)="removeArticle()"><i class="anticon anticon-delete"></i> DELETE </a>
