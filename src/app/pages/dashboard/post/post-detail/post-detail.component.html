@@ -92,13 +92,17 @@
     <ng-template #postInfoTitleTmpl>
       <div class="post-detail-info-title">
         {{ article.title }}
-        <span *ngIf="article && article.categories && isArray(article.categories); else showCategoriesString">
-          <nz-tag *ngFor="let category of article.categories" [nzColor]="'blue'"> {{ category }} </nz-tag>
+        <span  *ngIf="article && article.categories && article.categories.length">
+          <span *ngIf="isArray(article.categories); else showCategoriesString">
+            <nz-tag *ngFor="let category of article.categories" [nzColor]="'blue'"> {{ category }} </nz-tag>
+          </span>
         </span>
         <ng-template #showCategoriesString> <nz-tag [nzColor]="'blue'"> {{ article.categories }} </nz-tag> </ng-template>
 
-        <span *ngIf="article && article.tags && isArray(article.tags); else showTagsString">
-          <nz-tag *ngFor="let tag of article.tags"> {{ tag }} </nz-tag>
+        <span  *ngIf="article && article.tags && article.tags.length">
+          <span *ngIf="isArray(article.tags); else showTagsString">
+            <nz-tag *ngFor="let tag of article.tags"> {{ tag }} </nz-tag>
+          </span>
         </span>
         <ng-template #showTagsString> <nz-tag> {{ article.tags }} </nz-tag> </ng-template>
       </div>
