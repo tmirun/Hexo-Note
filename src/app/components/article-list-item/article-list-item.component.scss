@@ -2,60 +2,67 @@
 
 .article-list-item {
   cursor: pointer;
-  padding: $spacing-m $spacing-m ;
+  padding-left: $spacing-m;
+  padding-right: $spacing-m;
 
-  &.active {
-    outline: none;
-    background: $grey-3;
-  }
-
-  &:active {
-    outline: none;
-  }
-
-  &:hover {
-    background-color: $grey-2;
-    .article-list-item-actions {
-      display: block !important;
+    &.active {
+      outline: none;
+      background: $grey-3;
     }
-  }
 
-  /deep/ .ant-list-item-content {
-    overflow: hidden;
-  }
+    &:active {
+      outline: none;
+    }
 
-  .article-list-item-icon {
-    padding-right: $spacing-s;
-  }
+    &:hover {
+      background-color: $grey-2;
+      .article-list-item-actions {
+        display: block !important;
+      }
+    }
 
-  .article-list-item-info {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  .article-list-item-container {
+    padding-top: $spacing-m;
+    padding-bottom: $spacing-m;
+    border-bottom: thin solid $grey-3;
 
-    .article-list-item-title {
+    /deep/ .ant-list-item-content {
+      overflow: hidden;
+    }
+
+    .article-list-item-icon {
+      padding-right: $spacing-s;
+    }
+
+    .article-list-item-info {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      color: $blue-6;
+
+      .article-list-item-title {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: $blue-6;
+      }
+
+      .article-list-item-subtitle {
+        color: $grey-6;
+      }
     }
 
-    .article-list-item-subtitle {
-      color: $grey-6;
-    }
-  }
+    .article-list-item-actions {
+      cursor: pointer;
+      display: none;
 
-  .article-list-item-actions {
-    cursor: pointer;
-    display: none;
+      > * {
+        margin-left: $spacing-xxs;
+      }
 
-    > * {
-      margin-left:  $spacing-xxs;
-    }
-
-    .article-list-item-actions-more {
-      border-color: transparent;
-      color: $grey-9;
+      .article-list-item-actions-more {
+        border-color: transparent;
+        color: $grey-9;
+      }
     }
   }
 }
