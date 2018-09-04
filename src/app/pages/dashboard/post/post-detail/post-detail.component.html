@@ -26,7 +26,7 @@
         <button nz-button nzSize="small" (click)="replaceSelection('quote')"><i class="fa fa-chevron-right"></i></button>
         <button nz-button nzSize="small" (click)="replaceSelection('link')"><i class="fa fa-link"></i></button>
         <button nz-button nzSize="small" (click)="replaceSelection('image')"><i class="fa fa-image"></i></button>
-        <div nz-tooltip [nzTitle]="disablePostAsset ? 'Need Active post_asset_folder property of config file for enble this option' : 'use post asset folder'" nzPlacement="bottom"
+        <div nz-tooltip [nzTitle]="disablePostAsset ? needPostAssetFolderActiveText : 'USE POST ASSET FOLDER'" nzPlacement="bottom"
              style="display: inline-block">
           <button style="border-left: none; border-right: none"
                   nz-button nzSize="small" (click)="replaceSelection('imageLocal')" [disabled]="disablePostAsset">
@@ -36,6 +36,15 @@
         <button nz-button nzSize="small" (click)="replaceSelection('table')"><i class="fa fa-table"></i></button>
         <button nz-button nzSize="small" (click)="replaceSelection('horizontalRule')">_</button>
         <button nz-button nzSize="small" (click)="replaceSelection('readMore')">More</button>
+      </nz-button-group>
+
+      <nz-button-group flex="none">
+        <div nz-tooltip [nzTitle]="disablePostAsset ? needPostAssetFolderActiveText : 'OPEN ASSET FOLDER'" nzPlacement="bottom"
+             style="display: inline-block">
+          <button nz-button nzSize="small" (click)="openAssetFolder()" [disabled]="!article.asset_dir || disablePostAsset">
+            <i class="anticon anticon-folder-open"></i>
+          </button>
+        </div>
       </nz-button-group>
 
       <span>

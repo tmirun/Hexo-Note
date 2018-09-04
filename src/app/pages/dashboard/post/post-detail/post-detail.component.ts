@@ -31,8 +31,6 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
   public article: Article = {} as Article;
   public isNewPost = false;
   public title: string;
-  public tags: string;
-  public categories: string | string[];
   public date: moment.Moment;
   public isActivePreview = false;
   public isEditorChanged = false;
@@ -45,6 +43,7 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
   public isSaving = false;
   public isPublishing = false;
   public disablePostAsset = true;
+  public needPostAssetFolderActiveText = 'Need Active post_asset_folder property of config file for enble this option';
 
   private _routeSubscription: Subscription;
   private _formSubscription: Subscription;
@@ -246,7 +245,16 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
     if ($event.ctrlKey && charCode === 's') { this.save(); $event.preventDefault();}
   }
 
-  public isArray(object){
+  public openAssetFolder() {
+    const isOpened = this.postService.openAssetFolder(this.article.asset_dir);
+    if (isOpened) {
+      this.message.success('FOLDER IS OPENED');
+    } else {
+      this.message.error('OPEN FOLDER FAIL, MAY BE NOT EXIST');
+    }
+  }
+
+  public isArray(object) {
     return Array.isArray(object);
   }
 
