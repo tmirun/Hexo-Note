@@ -15,18 +15,18 @@ export class ConfigService {
   constructor(
     private electronService: ElectronService,
     private systemSettings: SystemSettingsService,
-  ) { }
+  ) {
+    this.configYml$.subscribe((configYmlData) => {
+      const configJson = this.electronService.yaml.safeLoad(configYmlData) as Config;
+      this.configJson$.next(configJson);
+    });
+  }
 
   public getConfigYml (): string {
     return this.electronService.fs.readFile(this.getConfigYmlPath(), 'utf8')
       .then((configYmlData) => {
         this.configYml$.next(configYmlData);
         console.log('get config yml');
-
-        const configJson = this.electronService.yaml.safeLoad(configYmlData) as Config;
-        this.configJson$.next(configJson);
-        console.log('parse config yml to json');
-
         return configYmlData;
       })
       .catch((error) => {
