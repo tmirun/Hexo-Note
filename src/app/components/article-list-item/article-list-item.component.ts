@@ -1,25 +1,38 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Article} from '../../Models/Article';
 import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {PostService} from '../../services/post.service';
 import {RemanePostModalComponent} from '../remane-post-modal/remane-post-modal.component';
+import {ConfigService} from '../../services/config.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-article-list-item',
   templateUrl: './article-list-item.component.html',
   styleUrls: ['./article-list-item.component.scss']
 })
-export class ArticleListItemComponent implements OnInit {
+export class ArticleListItemComponent implements OnInit, OnDestroy {
 
   @Input() article: Article;
+
+  public isPostAssetFolderActive = false;
+  private configJsonSubscription: Subscription;
 
   constructor(
     private postService: PostService,
     private modalService: NzModalService,
     private message: NzMessageService,
+    private configService: ConfigService
   ) { }
 
   ngOnInit() {
+    this.configJsonSubscription = this.configService.configJson$.subscribe((configJson) => {
+      this.isPostAssetFolderActive = configJson.post_asset_folder;
+    });
+  }
+
+  ngOnDestroy() {
+    this.configJsonSubscription.unsubscribe();
   }
 
   public removeArticle() {
@@ -48,6 +61,15 @@ export class ArticleListItemComponent implements OnInit {
       },
       nzFooter: null
     });
+  }
+
+  public openAssetFolder() {
+    const isOpened = this.postService.openAssetFolder(this.article.asset_dir);
+    if (isOpened) {
+      this.message.success('FOLDER IS OPENED');
+    } else {
+      this.message.error('OPEN FOLDER FAIL, MAY BE NOT EXIST');
+    }
   }
 
 }

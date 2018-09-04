@@ -12,9 +12,13 @@
       <nz-dropdown>
         <button nz-button nz-dropdown nzShape="circle" nzGhost nzSize="small" class="article-list-item-actions-more"><i class="anticon anticon-ellipsis"></i></button>
         <ul nz-menu>
+          <li nz-menu-item [nzDisabled]="!article.asset_dir || isPostAssetFolderActive" (click)="openAssetFolder()">
+            <i class="anticon anticon-folder"></i> FOLDER
+          </li>
           <li nz-menu-item>
             <a (click)="rename()"><i class="anticon anticon-edit"></i> RENAME </a>
           </li>
+          <li nz-menu-divider></li>
           <li nz-menu-item>
             <a (click)="removeArticle()"><i class="anticon anticon-delete"></i> DELETE </a>
           </li>

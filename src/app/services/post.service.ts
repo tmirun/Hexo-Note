@@ -191,4 +191,8 @@ export class PostService {
     return this.electronService.fs.existsSync(path);
   }
 
+  public openAssetFolder(assetFolder: string): boolean {
+    return this.electronService.shell.openItem(assetFolder);
+  }
+
 }
