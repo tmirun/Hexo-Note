@@ -183,16 +183,28 @@ export class PostService {
       const newAssetDir = article.asset_dir.replace(article.fileName, newFileName);
       promises.push(this.electronService.fs.rename(article.asset_dir, newAssetDir));
     }
-    promises.push(this.electronService.fs.rename(article.path, newFilePath))
-    return Promise.all(promises);
+    promises.push(this.electronService.fs.rename(article.path, newFilePath));
+    return Promise.all(promises)
+      .then((...arg) => {
+        console.log('renamed post', arg);
+      })
+      .catch((err) => {
+        console.error('rename post error', err);
+      });
   }
 
-  public existArticleAssetDir(path) {
+  public existArticleAssetDir(path: string ): boolean {
     return this.electronService.fs.existsSync(path);
   }
 
   public openAssetFolder(assetFolder: string): boolean {
-    return this.electronService.shell.openItem(assetFolder);
+    const isOpened = this.electronService.shell.openItem(assetFolder);
+    if (isOpened) {
+      console.log('open asset folder', assetFolder);
+    } else {
+      console.error('open asset folder error: may be asset folder not exist');
+    }
+    return isOpened;
   }
 
 }
