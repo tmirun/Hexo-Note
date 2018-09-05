@@ -197,10 +197,21 @@ export class PostService {
     return this.electronService.fs.existsSync(path);
   }
 
-  public openAssetFolder(assetFolder: string): boolean {
-    const isOpened = this.electronService.shell.openItem(assetFolder);
+  public ifNotExistAssetDirCreate(path: string): boolean {
+    if (this.existArticleAssetDir(path)) {
+      return true;
+    } else {
+      this.electronService.fs.mkdirSync(path);
+      console.warn('asset file is not exist, creating it!')
+      return false;
+    }
+  }
+
+  public openAssetFolder(assetFolderPah: string): boolean {
+    this.ifNotExistAssetDirCreate(assetFolderPah);
+    const isOpened = this.electronService.shell.openItem(assetFolderPah);
     if (isOpened) {
-      console.log('open asset folder', assetFolder);
+      console.log('open asset folder', assetFolderPah);
     } else {
       console.error('open asset folder error: may be asset folder not exist');
     }
