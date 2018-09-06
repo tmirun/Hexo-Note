@@ -56,8 +56,12 @@ $editor-toolbar-height: 48px;
 
         .post-detail-info-wrapper {
           /deep/ {
+            .ant-collapse-content{
+              background: $grey-3;
+            }
             .CodeMirror {
               padding: 0;
+              background: $grey-3;
             }
           }
         }
