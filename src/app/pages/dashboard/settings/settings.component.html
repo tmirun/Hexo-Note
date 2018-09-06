@@ -8,7 +8,9 @@
   <nz-divider fxFlex="none"></nz-divider>
 
   <form [formGroup]="configYmlForm" class="settings-config-yml-form"
-        nz-form fxFlex fxLayout="column" (ngSubmit)="submitConfigYmlForm()">
+        nz-form fxFlex fxLayout="column"
+        (keydown)="onKeyDown($event)"
+        (ngSubmit)="save()">
     <button nz-button nzType="primary" class="settings-config-yml-form-button"> Save </button>
     <div fxFlex class="settings-config-yml-content-wrapper">
       <ngx-codemirror

@@ -8,6 +8,7 @@ import { SystemSettingsService } from '../../../services/system-settings.service
 import { ConfigService } from '../../../services/config.service';
 import { Subscription } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd';
+import { UtilsService } from '../../../services/utils.service';
 
 @Component({
   selector: 'app-settings',
@@ -25,7 +26,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private systemSettingsService: SystemSettingsService,
     private configService: ConfigService,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private utilsService: UtilsService
   ) {
 
     this.hexoPath = this.systemSettingsService.getHexoPath();
@@ -60,7 +62,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     }
   }
 
-  public submitConfigYmlForm() {
+  public save() {
     const loadingMessageId = this.message.loading('SAVING').messageId;
 
     this.configService.updateConfigYml(this.configYmlForm.value.configYml)
@@ -69,4 +71,24 @@ export class SettingsComponent implements OnInit, OnDestroy {
       .finally( () => this.message.remove(loadingMessageId));
   }
 
+
+  public onKeyDown($event): void {
+    if (this.utilsService.isMac()) {
+      this.handleMacKeyEvents($event);
+    } else {
+      this.handleWindowsKeyEvents($event);
+    }
+  }
+
+  handleMacKeyEvents($event) {
+    const charCode = $event.key.toLowerCase();
+    // matekey: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/metaKey
+    if ($event.metaKey && charCode === 's') { this.save(); $event.preventDefault(); }
+  }
+
+  handleWindowsKeyEvents($event) {
+    $event.preventDefault();
+    const charCode = $event.key.toLowerCase();
+    if ($event.ctrlKey && charCode === 's') { this.save(); $event.preventDefault(); }
+  }
 }
