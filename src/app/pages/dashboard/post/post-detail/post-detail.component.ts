@@ -5,6 +5,7 @@ import { Article } from '../../../../Models/Article';
 import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/auditTime';
 import * as moment from 'moment';
 import {
   FormBuilder,
@@ -78,7 +79,7 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
         return this.postService.articles$
           .map(posts => posts.find(post =>  post._id === params.id));
       })
-      .subscribe((article) => {
+      .map((article) => {
         if (!article) {
           this.router.navigate(['/dashboard/post']);
           return ;
@@ -91,7 +92,18 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
         });
 
         this.isEditorChanged = false;
-      });
+
+        return article;
+      })
+      .auditTime(300)
+      .map((article) => {
+        if ( this.editorContent.codeMirror ) {
+          this.editorContent.codeMirror.clearHistory();
+        }
+
+        return article;
+      })
+      .subscribe(() => {});
 
     this._configSubscription = this.configService.configJson$.subscribe((configJson) => {
       this.disablePostAsset = !configJson.post_asset_folder;
