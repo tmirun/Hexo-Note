@@ -1,6 +1,7 @@
 {
   "name": "hexo-note",
   "version": "0.0.0Alpha",
+  "productName": "hexo-note",
   "description": "Hexo Note is a desktop client for Hexo.js",
   "homepage": "",
   "author": {
