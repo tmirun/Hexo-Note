@@ -24,11 +24,12 @@
             nz-button fxFlex="none" nzGhost nzShape="circle" (click)="openTerminal()">
       <i class="anticon anticon-code-o"></i>
     </button>
-    <button nzTitle="DEPLOY" nzPlacement="right" nz-tooltip [nzLoading]="isDeploying"
-            nz-button fxFlex="none" nzGhost nzShape="circle" (click)="deploy()">
+    <button nzTitle="DEPLOY" nzPlacement="right" nz-tooltip [nzLoading]="isDeploying" [disabled]="isDeploying"
+            nz-button fxFlex="none" nzGhost nzShape="circle" (click)="confirmDeploy()">
       <i class="anticon anticon-cloud-upload-o"></i>
     </button>
-    <button nzTitle="HEXO SERVER" nzPlacement="right" nz-tooltip [nzLoading]="serverService.isServerLoading"
+    <button nzTitle="HEXO SERVER" nzPlacement="right" nz-tooltip
+            [nzLoading]="serverService.isServerLoading" [disabled]="serverService.isServerLoading"
             [ngClass]="{'server-running': serverService.isServerRunning}"
             nz-button fxFlex="none" nzGhost nzShape="circle" (click)="switchServer()">
       <i class="anticon anticon-database"></i>

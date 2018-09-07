@@ -45,6 +45,14 @@ export class SidebarComponent implements OnInit {
     this.utilsService.openTerminal();
   }
 
+  public confirmDeploy() {
+    this.modalService.confirm({
+      nzTitle: 'DEPLOY',
+      nzContent: 'DO YOU WANT DEPLOY THE PROJECT?',
+      nzOnOk: () => { this.deploy(); }
+    });
+  }
+
   public deploy() {
     this.isDeploying = true;
     const deployMessageId = this.message.loading('Deploy in process..', { nzDuration: 0 }).messageId;
