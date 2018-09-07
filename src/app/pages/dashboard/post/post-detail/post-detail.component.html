@@ -1,4 +1,4 @@
-<div class="post-detail" fxFill fxLayout="column">
+<div class="post-detail" fxFill fxLayout="column" (keydown)="onKeyDown($event)" tabindex="0">
   <div class="post-detail-editor-toolbar" fxLayout="row" fxFlex="none">
     <div fxFlex fxLayout fxLayoutAlign="start center">
       <nz-button-group flex="none">
@@ -75,7 +75,8 @@
   </div>
   <nz-divider fxFlex="none" class="post-detail-divider"></nz-divider>
   <div fxLayout fxLayoutAlign="start stretch" fxFlex class="post-detail-form-wrapper">
-    <form nz-form class="post-detail-form" [formGroup]="form" fxLayout="column" fxFlex>
+    <form nz-form class="post-detail-form" [formGroup]="form"
+          fxLayout="column" fxFlex>
       <div fxFlex="none" class="post-detail-info-wrapper">
         <nz-collapse [nzBordered]="false">
           <nz-collapse-panel [nzHeader]="postInfoTitleTmpl" [nzActive]="false">
@@ -83,7 +84,6 @@
               #editorInfo
               formControlName="info"
               [options]="codeMirrorOptions"
-              (keydown)="onKeyDown($event)"
             ></ngx-codemirror>
           </nz-collapse-panel>
         </nz-collapse>
@@ -93,7 +93,6 @@
           #editorContent
           formControlName="content"
           [options]="codeMirrorOptions"
-          (keydown)="onKeyDown($event)"
         ></ngx-codemirror>
       </div>
     </form>

@@ -2,6 +2,11 @@
 $editor-toolbar-height: 48px;
 
 :host {
+  > *[tabindex]{
+    &:focus, &:hover{
+      outline: none;
+    }
+  }
   .post-detail {
     padding: $spacing-m;
     .post-detail-content {
