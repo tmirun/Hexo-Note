@@ -1,5 +1,7 @@
+import {AppConfigCommon} from './environment.common';
+
 export const AppConfig = {
   production: true,
   environment: 'PROD',
-  version: require('../../package.json').version
+  ...AppConfigCommon
 };
