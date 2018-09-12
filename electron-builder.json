@@ -20,19 +20,27 @@
     "!tslint.json"
   ],
   "win": {
+    "publish": ["github"],
     "icon": "dist",
+    "certificateFile": "private/hexo-note.p12",
+    "verifyUpdateCodeSignature": false,
     "target": [
-      "portable"
+      "nsis"
     ]
   },
   "mac": {
+    "publish": ["github"],
     "icon": "dist",
+    "category": "public.app-category.productivity",
     "target": [
-      "dmg"
+      "dmg",
+      "zip"
     ]
   },
   "linux": {
+    "publish": ["github"],
     "icon": "dist",
+    "category": "Office",
     "target": [
       "AppImage"
     ]
