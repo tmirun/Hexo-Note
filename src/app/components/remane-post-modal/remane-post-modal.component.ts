@@ -18,7 +18,7 @@ export class RemanePostModalComponent implements OnInit, OnDestroy {
   public isRenaming = false;
   public isSame = true;
   public form: FormGroup;
-  private formFileNameChangeSubscription: Subscription;
+  private _formFileNameChangeSubscription: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -34,7 +34,7 @@ export class RemanePostModalComponent implements OnInit, OnDestroy {
       fileName: [ '', [ Validators.required ] ]
     });
 
-    this.formFileNameChangeSubscription = this.form.controls['fileName']
+    this._formFileNameChangeSubscription = this.form.controls['fileName']
       .valueChanges
       .debounceTime(300)
       .subscribe(fileName => {
@@ -52,7 +52,7 @@ export class RemanePostModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.formFileNameChangeSubscription.unsubscribe();
+    this._formFileNameChangeSubscription.unsubscribe();
   }
 
   public onSubmit() {
