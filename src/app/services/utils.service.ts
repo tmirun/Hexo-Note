@@ -41,6 +41,21 @@ export class UtilsService {
     }
   }
 
+  public removeFileExtension(filename): string {
+    return filename.replace(/\.[^/.]+$/, '');
+  }
+
+  public clipboardHasFormat (format) {
+    const clipboard = this.electronService.clipboard;
+    const formats = clipboard.availableFormats();
+    for (let i = 0; i < formats.length; i++) {
+      if (formats[i].includes(format)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public findFilesInDir(startPath: string, filter: string): string[] {
     const results = [];
     const fs = this.electronService.fs;
