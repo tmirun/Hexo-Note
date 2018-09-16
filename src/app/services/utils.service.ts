@@ -56,7 +56,7 @@ export class UtilsService {
     return false;
   }
 
-  public findFilesInDir(startPath: string, filter: string): string[] {
+  public findFilesInDir(startPath: string, filter?: string): string[] {
     const results = [];
     const fs = this.electronService.fs;
     const path = this.electronService.path;
@@ -68,7 +68,7 @@ export class UtilsService {
     const files = fs.readdirSync(startPath);
     for (let i = 0; i < files.length; i++) {
       const filename = path.join(startPath, files[i]);
-      if (filename.indexOf(filter) >= 0) {
+      if (!filter || filename.indexOf(filter) >= 0) {
         results.push(filename);
       }
     }
