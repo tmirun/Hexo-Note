@@ -48,6 +48,7 @@ import { CanDeactivateGuard } from './guard/can-deactivate.guard';
 import { AppInitGuard } from './guard/app-init.guard';
 import { ArticleListItemComponent } from './components/article-list-item/article-list-item.component';
 import { RemanePostModalComponent } from './components/remane-post-modal/remane-post-modal.component';
+import { AssetService } from './services/asset.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -91,6 +92,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     })
   ],
   providers: [
+    AssetService,
     ElectronService,
     HexoService,
     PostService,
