@@ -176,7 +176,7 @@ export class PostService {
 
   public rename(article: Article, newFileName: string): any {
     const promises = [];
-    const existAssetDir = this.existArticleAssetDir(article.path);
+    const existAssetDir = this.electronService.fs.existsSync(article.path);
     const newFile = article.file.replace(article.fileName, newFileName);
     const newFilePath = article.path.replace(article.file, newFile);
     if (existAssetDir) {
@@ -193,22 +193,9 @@ export class PostService {
       });
   }
 
-  public existArticleAssetDir(path: string ): boolean {
-    return this.electronService.fs.existsSync(path);
-  }
-
-  public ifNotExistAssetDirCreate(path: string): boolean {
-    if (this.existArticleAssetDir(path)) {
-      return true;
-    } else {
-      this.electronService.fs.mkdirSync(path);
-      console.warn('asset file is not exist, creating it!')
-      return false;
-    }
-  }
-
   public openAssetFolder(assetFolderPah: string): boolean {
-    this.ifNotExistAssetDirCreate(assetFolderPah);
+    this.utilsService.ifNotExistDirCreate(assetFolderPah);
+    this.utilsService.createDirIfNotExist(assetFolderPah);
     const isOpened = this.electronService.shell.openItem(assetFolderPah);
     if (isOpened) {
       console.log('open asset folder', assetFolderPah);

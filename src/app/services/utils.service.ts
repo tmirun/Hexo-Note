@@ -56,6 +56,16 @@ export class UtilsService {
     return false;
   }
 
+  public createDirIfNotExist(path: string): boolean {
+    if (this.electronService.fs.existsSync(path)) {
+      return true;
+    } else {
+      this.electronService.fs.mkdirSync(path);
+      console.warn(`file is not exist, creating: ${path}`);
+      return false;
+    }
+  }
+
   public findFilesInDir(startPath: string, filter?: string): string[] {
     const results = [];
     const fs = this.electronService.fs;
