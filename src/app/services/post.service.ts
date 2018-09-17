@@ -194,7 +194,6 @@ export class PostService {
   }
 
   public openAssetFolder(assetFolderPah: string): boolean {
-    this.utilsService.ifNotExistDirCreate(assetFolderPah);
     this.utilsService.createDirIfNotExist(assetFolderPah);
     const isOpened = this.electronService.shell.openItem(assetFolderPah);
     if (isOpened) {
