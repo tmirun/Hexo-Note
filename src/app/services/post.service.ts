@@ -38,6 +38,7 @@ export class PostService {
       {
         interval: 100,
         ignoreInitial: true,
+        depth: 0
       });
 
     this._articleWatcher
