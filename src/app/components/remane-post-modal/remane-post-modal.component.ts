@@ -71,9 +71,8 @@ export class RemanePostModalComponent implements OnInit, OnDestroy {
         this.message.success('RENAME ARTICLE OK');
         this.modalService.closeAll();
       })
-      .catch((error) => {
-        console.error('ERROR REMOVE ARTICLE', error);
-        this.message.error('RENAME ARTICLE OK');
+      .catch((err) => {
+        this.message.error(`RENAME ARTICLE ERROR: ${err}`);
       });
   }
 }
