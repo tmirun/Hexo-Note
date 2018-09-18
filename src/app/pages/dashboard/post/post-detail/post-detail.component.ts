@@ -272,6 +272,10 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
 
   public onPaste($event) {
     if (this.utilsService.clipboardHasFormat('image')) {
+      if (this.disablePostAsset ) {
+        this.message.info('ENABLE post_asset_folder OF config.yml YOU CAN PASTE IMAGE');
+        return;
+      }
       this._openSaveArticleImageModal();
     }
   }
@@ -297,7 +301,9 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
     });
 
     saveArticleModal.afterClose.subscribe((file) => {
-      this.replaceSelection('imageLocal', file);
+      if (file) {
+        this.replaceSelection('imageLocal', file);
+      }
     });
   }
 
