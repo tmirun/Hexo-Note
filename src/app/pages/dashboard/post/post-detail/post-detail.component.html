@@ -93,6 +93,7 @@
           #editorContent
           formControlName="content"
           [options]="codeMirrorOptions"
+          (paste)="onPaste($event)"
         ></ngx-codemirror>
       </div>
     </form>

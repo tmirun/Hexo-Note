@@ -1,0 +1,19 @@
+@import "../../../style/index";
+
+.save-article-image-modal {
+  .save-article-image-modal-preview-wrapper {
+    background-color: $grey-3;
+    padding: $spacing-xs;
+  }
+
+  .save-article-image-modal-preview {
+    max-height: 200px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+  }
+
+  .save-article-image-modal-info {
+    font-size: $size-text-xs;
+  }
+}

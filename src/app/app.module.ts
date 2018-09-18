@@ -48,6 +48,7 @@ import { CanDeactivateGuard } from './guard/can-deactivate.guard';
 import { AppInitGuard } from './guard/app-init.guard';
 import { ArticleListItemComponent } from './components/article-list-item/article-list-item.component';
 import { RemanePostModalComponent } from './components/remane-post-modal/remane-post-modal.component';
+import { SaveArticleImageModalComponent } from './components/save-article-image-modal/save-article-image-modal.component';
 import { AssetService } from './services/asset.service';
 
 // AoT requires an exported function for factories
@@ -67,10 +68,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     SettingsComponent,
     NewPostFormComponent,
     ArticleListItemComponent,
-    RemanePostModalComponent
+    RemanePostModalComponent,
+    SaveArticleImageModalComponent
   ],
   entryComponents: [
-    RemanePostModalComponent
+    RemanePostModalComponent,
+    SaveArticleImageModalComponent
   ],
   imports: [
     BrowserModule,
