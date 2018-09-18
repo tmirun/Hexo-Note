@@ -218,7 +218,6 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
       case 'image':
         resultText = `![](${selectedText})`; break;
       case 'imageLocal':
-
         resultText = this._isImageFormat(selectedText) ?
           `{% asset_img "${selectedText}" "some description"%}` :
           `{% asset_img "imagg.js" "${selectedText}"%}`;
@@ -253,13 +252,13 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
   handleMacKeyEvents($event) {
     const charCode = $event.key.toLowerCase();
     // matekey: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/metaKey
-    if ($event.metaKey && charCode === 's') { this.save(); $event.preventDefault();}
+    if ($event.metaKey && charCode === 's') { this.save(); $event.preventDefault(); }
   }
 
   handleWindowsKeyEvents($event) {
     $event.preventDefault();
     const charCode = $event.key.toLowerCase();
-    if ($event.ctrlKey && charCode === 's') { this.save(); $event.preventDefault();}
+    if ($event.ctrlKey && charCode === 's') { this.save(); $event.preventDefault(); }
   }
 
   public openAssetFolder() {
