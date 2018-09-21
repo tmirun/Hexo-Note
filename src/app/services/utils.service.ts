@@ -41,7 +41,32 @@ export class UtilsService {
     }
   }
 
-  public findFilesInDir(startPath: string, filter: string): string[] {
+  public removeFileExtension(filename): string {
+    return filename.replace(/\.[^/.]+$/, '');
+  }
+
+  public clipboardHasFormat (format) {
+    const clipboard = this.electronService.clipboard;
+    const formats = clipboard.availableFormats();
+    for (let i = 0; i < formats.length; i++) {
+      if (formats[i].includes(format)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public createDirIfNotExist(path: string): boolean {
+    if (this.electronService.fs.existsSync(path)) {
+      return true;
+    } else {
+      this.electronService.fs.mkdirSync(path);
+      console.warn(`file is not exist, creating: ${path}`);
+      return false;
+    }
+  }
+
+  public findFilesInDir(startPath: string, filter?: string): string[] {
     const results = [];
     const fs = this.electronService.fs;
     const path = this.electronService.path;
@@ -53,7 +78,7 @@ export class UtilsService {
     const files = fs.readdirSync(startPath);
     for (let i = 0; i < files.length; i++) {
       const filename = path.join(startPath, files[i]);
-      if (filename.indexOf(filter) >= 0) {
+      if (!filter || filename.indexOf(filter) >= 0) {
         results.push(filename);
       }
     }

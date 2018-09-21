@@ -36,7 +36,7 @@ export class Article implements ArticleInterface {
       date = moment()
     }: ArticleInterface) {
 
-    this._id = uuid4();
+    this._id = `${published ? 'post' : 'draft'}-${file}`;
     this.created = created;
     this.date = date;
     if (! moment.isMoment(this.date)) {

@@ -49,7 +49,7 @@ $editor-toolbar-height: 48px;
           .CodeMirror {
             height: auto;
             min-height: 150px;
-            padding: 10px;
+            padding: $spacing-s;
             font: inherit;
 
             * {
