@@ -73,11 +73,14 @@ export class NewPostFormComponent implements OnInit, OnDestroy {
     }
     this.postService.create({
       title: this.form.value.title,
-      published: this.form.value.published
-    }).then(() => {
-      this.isCreating = false;
-      this.message.success('CREATE POST OK');
-      this.modalService.closeAll();
-    });
+      published: this.form.value.published})
+      .then(() => {
+        this.isCreating = false;
+        this.message.success('CREATE POST OK');
+        this.modalService.closeAll();
+      })
+      .catch((err) => {
+        this.message.error(`CREATE POST ERROR: ${err}`);
+      });
   }
 }

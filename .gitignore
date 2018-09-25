@@ -5,7 +5,12 @@
 /tmp
 /out-tsc
 /app-builds
+/release
 main.js
+src/**/*.js
+*.js.map
+/main/**/*.js
+/common/**/*.js
 
 # dependencies
 /node_modules

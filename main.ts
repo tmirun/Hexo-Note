@@ -1,6 +1,7 @@
 import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+import { autoUploadCheck } from './main/autoUpload';
 
 let win, serve;
 const args = process.argv.slice(1);
@@ -21,7 +22,8 @@ function createWindow() {
 
   if (serve) {
     require('electron-reload')(__dirname, {
-      electron: require(`${__dirname}/node_modules/electron`)});
+      electron: require(`${__dirname}/node_modules/electron`)
+    });
     win.loadURL('http://localhost:4200');
   } else {
     win.loadURL(url.format({
@@ -47,7 +49,12 @@ try {
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
-  app.on('ready', createWindow);
+  app.on('ready', () => {
+    createWindow();
+    setTimeout(() => {
+      autoUploadCheck();
+    }, 2000);
+  });
 
   // Quit when all windows are closed.
   app.on('window-all-closed', () => {

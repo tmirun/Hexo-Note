@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { PostService } from '../../../../services/post.service';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Article } from '../../../../Models/Article';
 import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
@@ -18,6 +18,8 @@ import { CanDeactivateGuard } from '../../../../guard/can-deactivate.guard';
 import { NzModalService } from 'ng-zorro-antd';
 import { ConfigService } from '../../../../services/config.service';
 import { UtilsService } from '../../../../services/utils.service';
+import { ElectronService } from '../../../../services/electron.service';
+import { SaveArticleImageModalComponent } from '../../../../components/save-article-image-modal/save-article-image-modal.component';
 
 @Component({
   selector: 'app-post-detail',
@@ -56,6 +58,7 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
     private router: Router,
     private fb: FormBuilder,
     private message: NzMessageService,
+    private electronService: ElectronService,
     private systemSettingsService: SystemSettingsService,
     private modalService: NzModalService,
     private configService: ConfigService,
@@ -177,8 +180,8 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
     this.systemSettingsService.saveIsActivePreview(this.isActivePreview);
   }
 
-  public replaceSelection(type) {
-    const selectedText = this.editorContent.codeMirror.getSelection() || 'someValue';
+  public replaceSelection(type: string, text?: string) {
+    const selectedText = text || this.editorContent.codeMirror.getSelection() || 'someValue';
     let resultText = '';
     switch (type) {
       case 'bold':
@@ -208,16 +211,17 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
       case 'orderedList':
         resultText = `1. ${selectedText}`; break;
       case 'link':
-        if (this._isURL(selectedText)) {
-          resultText = `[](${selectedText})`;
-        } else {
-          resultText = `[${selectedText}](https://)`;
-        }
+        resultText = this._isURL(selectedText) ?
+          `[](${selectedText})` :
+          `[${selectedText}](https://)`;
         break;
       case 'image':
         resultText = `![](${selectedText})`; break;
       case 'imageLocal':
-        resultText = `{% asset_img "imagg.js" "${selectedText}"%}`; break;
+        resultText = this._isImageFormat(selectedText) ?
+          `{% asset_img "${selectedText}" "some description"%}` :
+          `{% asset_img "imagg.js" "${selectedText}"%}`;
+        break;
       case 'table':
         resultText =
         '\nheader1 | header2 | header3\n' +
@@ -248,13 +252,13 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
   handleMacKeyEvents($event) {
     const charCode = $event.key.toLowerCase();
     // matekey: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/metaKey
-    if ($event.metaKey && charCode === 's') { this.save(); $event.preventDefault();}
+    if ($event.metaKey && charCode === 's') { this.save(); $event.preventDefault(); }
   }
 
   handleWindowsKeyEvents($event) {
     $event.preventDefault();
     const charCode = $event.key.toLowerCase();
-    if ($event.ctrlKey && charCode === 's') { this.save(); $event.preventDefault();}
+    if ($event.ctrlKey && charCode === 's') { this.save(); $event.preventDefault(); }
   }
 
   public openAssetFolder() {
@@ -266,12 +270,53 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
     }
   }
 
-  public isArray(object) {
+  public onPaste($event) {
+    if (this.utilsService.clipboardHasFormat('image')) {
+      if (this.disablePostAsset ) {
+        this.message.info('ENABLE post_asset_folder OF config.yml YOU CAN PASTE IMAGE');
+        return;
+      }
+      this._openSaveArticleImageModal();
+    }
+  }
+
+  private _openSaveArticleImageModal() {
+    const clipboard = this.electronService.clipboard;
+    const format = this.utilsService.clipboardHasFormat('jp') ? 'jpg' : 'png';
+    let fileName = 'image-' + moment().unix();
+    if (this.utilsService.clipboardHasFormat('plain')) {
+      fileName = this.utilsService.removeFileExtension(clipboard.readText());
+    }
+
+    const saveArticleModal = this.modalService.create({
+      nzTitle: 'SAVE IMAGE',
+      nzContent: SaveArticleImageModalComponent,
+      nzComponentParams: {
+        image: clipboard.readImage(),
+        fileName,
+        format,
+        article: this.article
+      },
+      nzFooter: null
+    });
+
+    saveArticleModal.afterClose.subscribe((file) => {
+      if (file) {
+        this.replaceSelection('imageLocal', file);
+      }
+    });
+  }
+
+  public isArray(object): boolean {
     return Array.isArray(object);
   }
 
-  private _isURL(str) {
+  private _isURL(str): boolean {
     const pattern = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
     return pattern.test(str);
+  }
+
+  private _isImageFormat(str): boolean {
+    return  (/\.(jpg|jpeg|png)$/i).test(str);
   }
 }

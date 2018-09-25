@@ -3,8 +3,10 @@
 // `ng build --env=prod` then `index.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
+import {AppConfigCommon} from './environment.common';
+
 export const AppConfig = {
   production: false,
   environment: 'DEV',
-  version: require('../../package.json').version
+  ...AppConfigCommon
 };
