@@ -2,6 +2,8 @@ import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import { autoUploadCheck } from './main/autoUpload';
+import { createMenu } from './main/menu';
+import { utils } from './main/utils';
 
 let win, serve;
 const args = process.argv.slice(1);
@@ -17,7 +19,10 @@ function createWindow() {
     x: 0,
     y: 0,
     width: size.width,
-    height: size.height
+    height: size.height,
+    webPreferences: {
+      devTools: true
+    }
   });
 
   if (serve) {
@@ -33,7 +38,9 @@ function createWindow() {
     }));
   }
 
-  win.webContents.openDevTools();
+  if (utils.isDev()) {
+    win.webContents.openDevTools();
+  }
 
   // Emitted when the window is closed.
   win.on('closed', () => {
@@ -51,9 +58,10 @@ try {
   // Some APIs can only be used after this event occurs.
   app.on('ready', () => {
     createWindow();
-    setTimeout(() => {
-      autoUploadCheck();
-    }, 2000);
+    createMenu();
+    if (utils.isPro()) {
+      setTimeout(autoUploadCheck, 2000);
+    }
   });
 
   // Quit when all windows are closed.

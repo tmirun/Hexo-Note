@@ -1,6 +1,6 @@
 {
   "name": "hexo-note",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "productName": "hexo-note",
   "description": "Hexo Note is a desktop client for Hexo.js",
   "homepage": "",
@@ -53,6 +53,7 @@
     "electron-reload": "1.2.2",
     "electron-settings": "^3.2.0",
     "electron-updater": "^3.1.2",
+    "fix-path": "^2.1.0",
     "fs-extra": "^7.0.0",
     "hexo": "^3.7.1",
     "jquery": "^3.3.1"

@@ -6,12 +6,18 @@ import { AppConfig } from './environments/environment';
 
 import 'codemirror/mode/markdown/markdown';
 import 'codemirror/mode/yaml/yaml';
+import * as fixPath from 'fix-path';
+import { utils } from '../common/utils';
 
 import { shim } from 'promise.prototype.finally';
 shim();
 
 if (AppConfig.production) {
   enableProdMode();
+}
+
+if (utils.isPro) {
+  fixPath();
 }
 
 platformBrowserDynamic()

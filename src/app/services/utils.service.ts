@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ElectronService } from './electron.service';
 import { SystemSettingsService } from './system-settings.service';
+import { utils } from '../../../common/utils';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UtilsService {
+export class UtilsService  {
 
   constructor(
     private electronService: ElectronService,
@@ -20,6 +21,10 @@ export class UtilsService {
   public isMac() {
     return navigator.platform.match('Mac');
   }
+
+  public isDev() { return utils.isDev(); }
+
+  public isPro() { return utils.isPro(); }
 
   public openTerminal() {
     const path = this.systemSettingsService.getHexoPath();
