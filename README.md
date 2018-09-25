@@ -1,7 +1,10 @@
 # Hexo-Note
+
 A Hexojs Client project
 
 hexojs 客户端
+
+[Download / 下载](https://github.com/tmirun/Hexo-Note/releases)
 
 > first of all, sorry for my English it is not my main language, if you found some mistake, tell me pliz. Thanks!
 
@@ -19,13 +22,13 @@ you can write it with English Spanish or Chinese
 
 # Start / 开始
 
-> if you dont have installed hexo js, pliz intall it first (install guide)[https://hexo.io/docs/index.html]
+> if you dont have installed hexo js, pliz intall it first [install guide](https://hexo.io/docs/index.html)
 
-> 如果你没有安装 hexo js 请先安装 (安装教程)[https://hexo.io/zh-tw/docs/index.html]
+> 如果你没有安装 hexo js 请先安装 [安装教程](https://hexo.io/zh-tw/docs/index.html)
 
-> if you dont have any created hexo.js blog, pliz created it first (hexo setup guide)[https://hexo.io/docs/setup.html]
+> if you dont have any created hexo.js blog, pliz created it first [hexo setup guide](https://hexo.io/docs/setup.html)
 
-> 如果你没有创建任何的 hexojs 项目请先创建 (hexojs 开始教程)[https://hexo.io/docs/setup.html]
+> 如果你没有创建任何的 hexojs 项目请先创建 [hexojs 开始教程](https://hexo.io/docs/setup.html)
 
 
 # For Developpers / For 同行:
@@ -59,11 +62,11 @@ TODO
 * [x] 删除文章 DONE
 * [ ] 强化 mk 编译器，
     * [x] 添加 toolbar DONE
-    * 可自定义 toolbar
+    * [ ] 可自定义 toolbar
     * [x] 可以显示本地文章图片（用{% %}方法加的) DONE
     * [x] 添加 Read More DONE
-    * [ ]黏贴 imagen: 在 post asset 自动创建如果打开的话
-    * [ ]打开文章的图片文件
+    * [x] 黏贴 imagen: 在 post asset 自动创建如果打开的话
+    * [x] 打开文章的图片文件
 * [ ] 分类
 * [ ] Tag
 * [ ] 搜索文章
@@ -71,10 +74,10 @@ TODO
     * [ ] 按分类
     * [ ] 按 Tag
 * [ ] 热键
-    * 保存 cmd + s / ctrl + s,
-    * 黑体 cmd + b / ctrl + b,
-    * italic cmd + i / ctrl + i,
-    * h1-h6 cmd + [1-6] / ctrl + [1-6],
+    * [x] 保存 cmd + s / ctrl + s,
+    * [ ] 黑体 cmd + b / ctrl + b,
+    * [ ] italic cmd + i / ctrl + i,
+    * [ ] h1-h6 cmd + [1-6] / ctrl + [1-6],
 * [x] 启动 HEXO 服务器 DONE
 * [x] 软件偏好设置 -- yml DONE
 * [x] 一键编译、发布博客 DONE
