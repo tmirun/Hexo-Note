@@ -27,11 +27,15 @@
             "styles": [
               "src/theme.less",
               "src/styles.scss",
+              "node_modules/prismjs/themes/prism-okaidia.css",
               "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
               "node_modules/@fortawesome/fontawesome-free/scss/solid.scss",
               "node_modules/@fortawesome/fontawesome-free/scss/brands.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/prismjs/prism.js",
+              "node_modules/marked/lib/marked.js"
+            ]
           },
           "configurations": {
             "dev": {
@@ -97,14 +101,6 @@
             "polyfills": "src/polyfills-test.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
-            "scripts": [],
-            "styles": [
-              "src/theme.less",
-              "src/styles.scss",
-              "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
-              "node_modules/@fortawesome/fontawesome-free/scss/solid.scss",
-              "node_modules/@fortawesome/fontawesome-free/scss/brands.scss"
-            ],
             "assets": [
               "src/assets",
               "src/favicon.ico",
@@ -112,6 +108,18 @@
               "src/favicon.icns",
               "src/favicon.256x256.png",
               "src/favicon.512x512.png"
+            ],
+            "styles": [
+              "src/theme.less",
+              "src/styles.scss",
+              "node_modules/prismjs/themes/prism-okaidia.css",
+              "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
+              "node_modules/@fortawesome/fontawesome-free/scss/solid.scss",
+              "node_modules/@fortawesome/fontawesome-free/scss/brands.scss"
+            ],
+            "scripts": [
+              "node_modules/prismjs/prism.js",
+              "node_modules/marked/lib/marked.js"
             ]
           }
         },
