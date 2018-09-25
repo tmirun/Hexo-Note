@@ -2,6 +2,7 @@ import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import { autoUploadCheck } from './main/autoUpload';
+import { createMenu } from './main/menu';
 
 let win, serve;
 const args = process.argv.slice(1);
@@ -51,6 +52,7 @@ try {
   // Some APIs can only be used after this event occurs.
   app.on('ready', () => {
     createWindow();
+    createMenu();
     setTimeout(() => {
       autoUploadCheck();
     }, 2000);
