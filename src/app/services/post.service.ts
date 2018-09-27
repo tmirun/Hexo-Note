@@ -155,7 +155,7 @@ export class PostService {
     this.articles$.next(articles);
   }
 
-  public publish(article: Article): Promise<article> {
+  public publish(article: Article): Promise<Article> {
     return this.hexoService.exec(`hexo publish "${article.fileName}"`)
       .then(() => {
         article.published = true;
