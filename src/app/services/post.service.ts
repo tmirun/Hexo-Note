@@ -155,8 +155,12 @@ export class PostService {
     this.articles$.next(articles);
   }
 
-  public publish(article: Article): Promise<any> {
-    return this.hexoService.exec(`hexo publish "${article.title}"`);
+  public publish(article: Article): Promise<article> {
+    return this.hexoService.exec(`hexo publish "${article.fileName}"`)
+      .then(() => {
+        article.published = true;
+        return article;
+      });
   }
 
   public getPostPath(): string {
