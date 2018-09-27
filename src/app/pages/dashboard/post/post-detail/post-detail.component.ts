@@ -29,6 +29,7 @@ import { SaveArticleImageModalComponent } from '../../../../components/save-arti
 export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuard {
 
   @ViewChild('editorContent') editorContent: any;
+  @ViewChild('editorInfo') editorInfo: any;
 
   public form: FormGroup;
   public article: Article = {} as Article;
@@ -102,6 +103,7 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
       .map((article) => {
         if ( this.editorContent.codeMirror ) {
           this.editorContent.codeMirror.clearHistory();
+          this.editorInfo.codeMirror.clearHistory();
         }
 
         return article;
