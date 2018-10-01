@@ -76,7 +76,7 @@ export class Article implements ArticleInterface {
 
   set content(value: string) {
     this._content = value;
-    this._raw = this._info + this._content;
+    this._raw = this._info + '\n' + this._content;
   }
 
   public refreshInfoAndContent() {
@@ -84,7 +84,7 @@ export class Article implements ArticleInterface {
   }
 
   private _parseArticleInfoAndContent(raw: string) {
-    const regex = /(---([.\s\S]+?)---)([.\s\S]*)/g;
+    const regex = /(---([.\s\S]+?)---)\n([.\s\S]*)/g;
     const match = regex.exec(raw);
     const info = match[1];
     const content = match[3];
