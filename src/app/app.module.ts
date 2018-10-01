@@ -34,7 +34,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { HexoService } from './services/hexo.service';
 import { PostComponent } from './pages/dashboard/post/post.component';
-import { PostService } from './services/post.service';
+import { ArticleService } from './services/article.service';
 import { HexoInitGuard } from './guard/hexo-init.guard';
 import { PostDetailComponent } from './pages/dashboard/post/post-detail/post-detail.component';
 import { SystemSettingsService } from './services/system-settings.service';
@@ -98,7 +98,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AssetService,
     ElectronService,
     HexoService,
-    PostService,
+    ArticleService,
     ConfigService,
     SystemSettingsService,
     UtilsService,

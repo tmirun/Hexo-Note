@@ -1,7 +1,7 @@
 import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
-import { autoUploadCheck } from './main/autoUpload';
+import { autoUploadCheck } from './main/autoUpdater';
 import { createMenu } from './main/menu';
 import { utils } from './main/utils';
 

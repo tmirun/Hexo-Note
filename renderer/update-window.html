@@ -63,7 +63,7 @@
       const currentWindow = electron.remote.getCurrentWindow();
 
       $('#release-version').html(currentWindow.custom.version);
-      $('#release-title').html(currentWindow.custom.releaseName);
+      $('#release-name').html(currentWindow.custom.releaseName);
       $('#release-notes').html(currentWindow.custom.releaseNotes);
       $('#button-close').click(() => currentWindow.close());
       $('#button-accept').click(() => {

@@ -13,7 +13,7 @@ import 'rxjs/add/operator/combineLatest';
 @Injectable({
   providedIn: 'root'
 })
-export class PostService {
+export class ArticleService {
 
   private _articleWatcher;
 
@@ -155,8 +155,12 @@ export class PostService {
     this.articles$.next(articles);
   }
 
-  public publish(article: Article): Promise<any> {
-    return this.hexoService.exec(`hexo publish "${article.title}"`);
+  public publish(article: Article): Promise<Article> {
+    return this.hexoService.exec(`hexo publish "${article.fileName}"`)
+      .then(() => {
+        article.published = true;
+        return article;
+      });
   }
 
   public getPostPath(): string {

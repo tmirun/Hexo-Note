@@ -6,7 +6,7 @@ import {
   Validators
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { PostService } from '../../services/post.service';
+import { ArticleService } from '../../services/article.service';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import 'rxjs/add/operator/debounceTime';
 
@@ -27,7 +27,7 @@ export class NewPostFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private postService: PostService,
+    private articleService: ArticleService,
     private modalService: NzModalService,
     private message: NzMessageService
   ) {
@@ -42,7 +42,7 @@ export class NewPostFormComponent implements OnInit, OnDestroy {
       .valueChanges
       .debounceTime(300)
       .subscribe(title => {
-        const isTitleExist = this.postService.checkIfExistFileName(title);
+        const isTitleExist = this.articleService.checkIfExistFileName(title);
         if (isTitleExist) {
           this.form.controls['title'].setErrors( {'exist': true});
         } else if (!this.form.controls['title'].errors) {
@@ -71,7 +71,7 @@ export class NewPostFormComponent implements OnInit, OnDestroy {
         this.form.controls[ i ].updateValueAndValidity();
       }
     }
-    this.postService.create({
+    this.articleService.create({
       title: this.form.value.title,
       published: this.form.value.published})
       .then(() => {

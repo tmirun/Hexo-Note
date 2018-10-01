@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from '../../services/post.service';
-import { NzModalRef, NzModalService } from 'ng-zorro-antd';
+import { NzModalService } from 'ng-zorro-antd';
 import { UtilsService } from './../../services/utils.service';
 import { NzMessageService } from 'ng-zorro-antd';
-import { Subscription } from 'rxjs';
 import { HexoService } from '../../services/hexo.service';
 import { ServerService } from '../../services/server.service';
 import { AppConfig } from '../../../environments/environment';
@@ -19,7 +17,6 @@ export class SidebarComponent implements OnInit {
   public version: string = AppConfig.version;
 
   constructor(
-    private postService: PostService,
     private modalService: NzModalService,
     private utilsService: UtilsService,
     private hexoService: HexoService,
