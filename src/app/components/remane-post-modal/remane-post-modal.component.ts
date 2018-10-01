@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, OnDestroy} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs';
-import {PostService} from '../../services/post.service';
+import {ArticleService} from '../../services/article.service';
 import {NzMessageService, NzModalRef, NzModalService} from 'ng-zorro-antd';
 import {Article} from '../../Models/Article';
 
@@ -22,7 +22,7 @@ export class RemanePostModalComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private postService: PostService,
+    private articleService: ArticleService,
     private modalService: NzModalService,
     private message: NzMessageService,
     private modal: NzModalRef
@@ -38,7 +38,7 @@ export class RemanePostModalComponent implements OnInit, OnDestroy {
       .valueChanges
       .debounceTime(300)
       .subscribe(fileName => {
-        const isFileNameExist = this.postService.checkIfExistFileName(fileName);
+        const isFileNameExist = this.articleService.checkIfExistFileName(fileName);
         if (isFileNameExist) {
           this.form.controls['fileName'].setErrors( {'exist': true});
         } else if (!this.form.controls['fileName'].errors) {
@@ -65,7 +65,7 @@ export class RemanePostModalComponent implements OnInit, OnDestroy {
         this.form.controls[i].updateValueAndValidity();
       }
     }
-    this.postService.rename(this.article, this.form.value.fileName)
+    this.articleService.rename(this.article, this.form.value.fileName)
       .then(() => {
         this.isRenaming = false;
         this.message.success('RENAME ARTICLE OK');

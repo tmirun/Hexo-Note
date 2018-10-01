@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { PostService } from '../../../../services/post.service';
+import { ArticleService } from '../../../../services/article.service';
 import { Subscription } from 'rxjs';
 import { Article } from '../../../../Models/Article';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -54,7 +54,7 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
   private _configSubscription: Subscription;
 
   constructor(
-    private postService: PostService,
+    private articleService: ArticleService,
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
@@ -80,7 +80,7 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
   ngOnInit() {
     this._routeSubscription = this.route.params
       .switchMap(params => {
-        return this.postService.articles$
+        return this.articleService.articles$
           .map(posts => posts.find(post =>  post._id === params.id));
       })
       .map((article) => {
@@ -136,7 +136,7 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
   public publish() {
     const loadingMessageId = this.message.loading('PUBLISH').messageId;
     this.isPublishing = true;
-    this.postService.publish(this.article)
+    this.articleService.publish(this.article)
       .then(() => this.message.success('PUBLISH OK'))
       .catch(() => this.message.error('PUBLISH ERROR'))
       .finally( () => {
@@ -150,7 +150,7 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
       nzTitle: 'REMOVE ARTICLE',
       nzContent: 'DO YOU WANT REMOVE ARTICLE:' + this.article.title,
       nzOnOk: () => new Promise((resolve, reject) => {
-        this.postService.delete(this.article).then(() => {
+        this.articleService.delete(this.article).then(() => {
           resolve();
         }).catch((error) => {
           reject(error);
@@ -166,7 +166,7 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
     this.article.info = this.form.value.info;
     this.article.content = this.form.value.content;
 
-    this.postService.update(this.article)
+    this.articleService.update(this.article)
       .then(() => {
         this.message.success('SAVING OK');
         this.isEditorChanged = false;
@@ -264,7 +264,7 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
   }
 
   public openAssetFolder() {
-    const isOpened = this.postService.openAssetFolder(this.article.asset_dir);
+    const isOpened = this.articleService.openAssetFolder(this.article.asset_dir);
     if (isOpened) {
       this.message.success('FOLDER IS OPENED');
     } else {

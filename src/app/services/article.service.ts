@@ -13,7 +13,7 @@ import 'rxjs/add/operator/combineLatest';
 @Injectable({
   providedIn: 'root'
 })
-export class PostService {
+export class ArticleService {
 
   private _articleWatcher;
 

@@ -1,14 +1,14 @@
 import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef } from '@angular/core';
-import {PostService} from '../../services/post.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {NzMessageService, NzModalRef, NzModalService} from 'ng-zorro-antd';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzMessageService, NzModalRef, NzModalService } from 'ng-zorro-antd';
 import * as electron from 'electron';
-import {ElectronService} from '../../services/electron.service';
-import {UtilsService} from '../../services/utils.service';
-import {Subscription} from 'rxjs';
-import {AssetService} from '../../services/asset.service';
-import {Article} from '../../Models/Article.interface';
+import { ElectronService } from '../../services/electron.service';
+import { UtilsService } from '../../services/utils.service';
+import { Subscription } from 'rxjs';
+import { AssetService } from '../../services/asset.service';
+import { Article } from '../../Models/Article.interface';
 import 'rxjs/add/operator/debounceTime';
+
 @Component({
   selector: 'app-save-article-image-modal',
   templateUrl: './save-article-image-modal.component.html',
@@ -33,7 +33,6 @@ export class SaveArticleImageModalComponent implements OnInit {
     private fb: FormBuilder,
     private assetService: AssetService,
     private electronService: ElectronService,
-    private postService: PostService,
     private modalService: NzModalService,
     private utilsService: UtilsService,
     private message: NzMessageService,

@@ -1,7 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Article} from '../../Models/Article';
 import {NzMessageService, NzModalService} from 'ng-zorro-antd';
-import {PostService} from '../../services/post.service';
+import {ArticleService} from '../../services/article.service';
 import {RemanePostModalComponent} from '../remane-post-modal/remane-post-modal.component';
 import {ConfigService} from '../../services/config.service';
 import {Subscription} from 'rxjs';
@@ -19,7 +19,7 @@ export class ArticleListItemComponent implements OnInit, OnDestroy {
   private configJsonSubscription: Subscription;
 
   constructor(
-    private postService: PostService,
+    private articleService: ArticleService,
     private modalService: NzModalService,
     private message: NzMessageService,
     private configService: ConfigService
@@ -40,7 +40,7 @@ export class ArticleListItemComponent implements OnInit, OnDestroy {
       nzTitle: 'REMOVE ARTICLE',
       nzContent: 'DO YOU WANT REMOVE ARTICLE:' + this.article.title,
       nzOnOk: () => new Promise((resolve, reject) => {
-        this.postService.delete(this.article).then(() => {
+        this.articleService.delete(this.article).then(() => {
           resolve();
         }).catch((error) => {
           reject(error);
@@ -64,7 +64,7 @@ export class ArticleListItemComponent implements OnInit, OnDestroy {
   }
 
   public openAssetFolder() {
-    const isOpened = this.postService.openAssetFolder(this.article.asset_dir);
+    const isOpened = this.articleService.openAssetFolder(this.article.asset_dir);
     if (isOpened) {
       this.message.success('FOLDER IS OPENED');
     } else {

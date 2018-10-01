@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { PostService } from '../../../services/post.service';
+import { ArticleService } from '../../../services/article.service';
 import { Article } from '../../../Models/Article';
 import { Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
@@ -21,12 +21,12 @@ export class PostComponent implements OnInit, OnDestroy {
   private draftsSubscription: Subscription;
 
   constructor(
-    private postService: PostService,
+    private articleService: ArticleService,
   ) {
 
     const searchFormObservable = this.searchFormControl.valueChanges.shareReplay(1).debounceTime(300);
 
-    this.postsSubscription = this.postService.posts$
+    this.postsSubscription = this.articleService.posts$
       .switchMap( (posts: Article[]) => {
         return searchFormObservable.map((query) => {
           return posts.filter(post => query ? post.title.toUpperCase().includes(query.toUpperCase()) : true);
@@ -37,7 +37,7 @@ export class PostComponent implements OnInit, OnDestroy {
         this.posts.sort((a, b) =>  b.date.valueOf() - a.date.valueOf());
       });
 
-    this.draftsSubscription = this.postService.drafts$
+    this.draftsSubscription = this.articleService.drafts$
       .switchMap( (drafts: Article[]) => {
         return searchFormObservable.map((query) => {
           return drafts.filter(draft =>  query ? draft.title.toUpperCase().includes(query.toUpperCase()) : true);
@@ -52,14 +52,14 @@ export class PostComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.postService.getArticles();
-    this.postService.startWatchArticle();
+    this.articleService.getArticles();
+    this.articleService.startWatchArticle();
   }
 
   ngOnDestroy() {
     this.postsSubscription.unsubscribe();
     this.draftsSubscription.unsubscribe();
-    this.postService.stopWatchArticle();
+    this.articleService.stopWatchArticle();
   }
 
 }
