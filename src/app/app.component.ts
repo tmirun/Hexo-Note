@@ -36,17 +36,7 @@ export class AppComponent {
       console.log('Mode web');
     }
 
-    // this.hexoService.isLoading$.delayWhen((isLoading) => {
-    //   return isLoading ? timer(10) : timer(1000);
-    // }).subscribe((isLoading) => {
-    //   this.isLoading = isLoading;
-    // });
-
-    // this.hexoService.init().then(() => {
-    //   this.scaffoldService.getDraftTemplate();
-    //   this.scaffoldService.getPostTemplate();
-    //   this.scaffoldService.getPageTemplate();
-    // });
+    this.hexoService.init();
 
     this.configService.getConfigYml();
   }
