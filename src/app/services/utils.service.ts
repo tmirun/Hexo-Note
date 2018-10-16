@@ -22,6 +22,15 @@ export class UtilsService  {
     return navigator.platform.match('Mac');
   }
 
+  public isURL(str: string): boolean {
+    const pattern = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+    return pattern.test(str);
+  }
+
+  public isImageFormat(str): boolean {
+    return  (/\.(jpg|jpeg|png)$/i).test(str);
+  }
+
   public isDev() { return utils.isDev(); }
 
   public isPro() { return utils.isPro(); }
