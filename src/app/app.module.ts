@@ -50,6 +50,7 @@ import { ArticleListItemComponent } from './components/article-list-item/article
 import { RemanePostModalComponent } from './components/remane-post-modal/remane-post-modal.component';
 import { SaveArticleImageModalComponent } from './components/save-article-image-modal/save-article-image-modal.component';
 import { AssetService } from './services/asset.service';
+import { ArticleMdEditorComponent } from "./components/article-md-editor/article-md-editor.component";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -69,7 +70,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     NewPostFormComponent,
     ArticleListItemComponent,
     RemanePostModalComponent,
-    SaveArticleImageModalComponent
+    SaveArticleImageModalComponent,
+    ArticleMdEditorComponent
   ],
   entryComponents: [
     RemanePostModalComponent,
