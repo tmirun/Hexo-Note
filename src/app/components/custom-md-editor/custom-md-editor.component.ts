@@ -34,14 +34,23 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
   public onKeyDown($event: KeyboardEvent): void {
     const charCode = $event.key.toLowerCase();
     const ctrlCmdKey = this.utils.isMac() ? $event.metaKey : $event.ctrlKey;
+    const alt = $event.altKey;
+    const shift = $event.shiftKey;
+
+    if (ctrlCmdKey && shift && charCode === 'i') { this.image(); $event.preventDefault(); return; }
+    if (ctrlCmdKey && shift && charCode === 'c') { this.codeBlock(); $event.preventDefault(); return; }
+
     if (ctrlCmdKey && charCode === 's') { $event.preventDefault(); }
-    if (ctrlCmdKey && charCode === '1') { this.header(1); $event.preventDefault(); }
-    if (ctrlCmdKey && charCode === '2') { this.header(2); $event.preventDefault(); }
-    if (ctrlCmdKey && charCode === '3') { this.header(3); $event.preventDefault(); }
-    if (ctrlCmdKey && charCode === '4') { this.header(4); $event.preventDefault(); }
-    if (ctrlCmdKey && charCode === '5') { this.header(5); $event.preventDefault(); }
-    if (ctrlCmdKey && charCode === '6') { this.header(6); $event.preventDefault(); }
-    if (ctrlCmdKey && charCode === 'b') { this.bold(); $event.preventDefault(); }
+    if (ctrlCmdKey && charCode === '1') { this.header(1); $event.preventDefault(); return; }
+    if (ctrlCmdKey && charCode === '2') { this.header(2); $event.preventDefault(); return; }
+    if (ctrlCmdKey && charCode === '3') { this.header(3); $event.preventDefault(); return; }
+    if (ctrlCmdKey && charCode === '4') { this.header(4); $event.preventDefault(); return; }
+    if (ctrlCmdKey && charCode === '5') { this.header(5); $event.preventDefault(); return; }
+    if (ctrlCmdKey && charCode === '6') { this.header(6); $event.preventDefault(); return; }
+    if (ctrlCmdKey && charCode === 'b') { this.bold(); $event.preventDefault(); return; }
+    if (ctrlCmdKey && charCode === 'i') { this.italic(); $event.preventDefault(); return; }
+    if (ctrlCmdKey && charCode === 'l') { this.listUl(); $event.preventDefault(); return; }
+    if (ctrlCmdKey && charCode === 'k') { this.link(); $event.preventDefault(); return; }
   }
 
 
@@ -171,7 +180,7 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
     cm.replaceSelection(`[](${selection})`);
 
     if (selection === '') {
-      cm.setCursor(cursor.line, cursor.ch + 1);
+      cm.setCursor(cursor.line, cursor.ch + 3);
     }
   }
 
@@ -183,7 +192,7 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
     cm.replaceSelection(`![](${selection})`);
 
     if (selection === '') {
-      cm.setCursor(cursor.line, cursor.ch + 1);
+      cm.setCursor(cursor.line, cursor.ch + 4);
     }
   }
 
@@ -196,6 +205,18 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
 
     if (selection === '') {
       cm.setCursor(cursor.line, cursor.ch + 1);
+    }
+  }
+
+  public codeBlock () {
+    const cm        = this.codeMirror
+    const cursor    = cm.getCursor();
+    const selection = cm.getSelection();
+
+    cm.replaceSelection('```\n' + selection + '\n```');
+
+    if (selection === '') {
+      cm.setCursor(cursor.line + 1, 0);
     }
   }
 
