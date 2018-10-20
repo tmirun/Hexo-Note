@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CustomEditorComponent } from './custom-editor.component';
+import { CustomMdEditorComponent } from './custom-md-editor.component';
 
-describe('CustomEditorComponent', () => {
-  let component: CustomEditorComponent;
-  let fixture: ComponentFixture<CustomEditorComponent>;
+describe('CustomMdEditorComponent', () => {
+  let component: CustomMdEditorComponent;
+  let fixture: ComponentFixture<CustomMdEditorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CustomEditorComponent ]
+      declarations: [ CustomMdEditorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CustomEditorComponent);
+    fixture = TestBed.createComponent(CustomMdEditorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

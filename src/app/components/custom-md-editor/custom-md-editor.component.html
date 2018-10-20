@@ -1,9 +1,10 @@
-<textarea
-  (keydown)="onKeyDown($event)"
-  [name]="name"
-  class="ngx-codemirror {{ className }}"
-  [class.ngx-codemirror--focused]="isFocused"
-  autocomplete="off"
-  [autofocus]="autoFocus"
-  #ref>
-</textarea>
+<div (keydown)="onKeyDown($event)" class="custom-md-editor-wrapper">
+  <textarea
+    [name]="name"
+    class="ngx-codemirror {{ className }} custom-md-editor no-style"
+    [class.ngx-codemirror--focused]="isFocused"
+    autocomplete="off"
+    [autofocus]="autoFocus"
+    #ref>
+  </textarea>
+</div>
