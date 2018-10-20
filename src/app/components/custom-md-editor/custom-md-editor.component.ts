@@ -197,7 +197,7 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
   }
 
   public code () {
-    const cm        = this.codeMirror
+    const cm        = this.codeMirror;
     const cursor    = cm.getCursor();
     const selection = cm.getSelection();
 
