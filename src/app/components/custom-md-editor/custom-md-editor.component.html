@@ -1,0 +1,9 @@
+<textarea
+  (keydown)="onKeyDown($event)"
+  [name]="name"
+  class="ngx-codemirror {{ className }}"
+  [class.ngx-codemirror--focused]="isFocused"
+  autocomplete="off"
+  [autofocus]="autoFocus"
+  #ref>
+</textarea>

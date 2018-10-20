@@ -51,7 +51,7 @@ import { RemanePostModalComponent } from './components/remane-post-modal/remane-
 import { SaveArticleImageModalComponent } from './components/save-article-image-modal/save-article-image-modal.component';
 import { AssetService } from './services/asset.service';
 import { ArticleMdEditorComponent } from "./components/article-md-editor/article-md-editor.component";
-import { CustomEditorComponent } from './components/custom-editor/custom-editor.component';
+import { CustomMdEditorComponent } from './components/custom-md-editor/custom-md-editor.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -73,7 +73,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     RemanePostModalComponent,
     SaveArticleImageModalComponent,
     ArticleMdEditorComponent,
-    CustomEditorComponent
+    CustomMdEditorComponent
   ],
   entryComponents: [
     RemanePostModalComponent,
