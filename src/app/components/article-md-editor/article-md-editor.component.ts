@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { ArticleService } from '../../services/article.service';
 import { Subscription } from 'rxjs';
 import { Article } from '../../Models/Article';
@@ -18,6 +18,7 @@ import { ConfigService } from '../../services/config.service';
 import { UtilsService } from '../../services/utils.service';
 import { ElectronService } from '../../services/electron.service';
 import { SaveArticleImageModalComponent } from '../save-article-image-modal/save-article-image-modal.component';
+import { CustomMdEditorComponent } from '../custom-md-editor/custom-md-editor.component';
 
 @Component({
   selector: 'app-article-md-editor',
@@ -26,12 +27,15 @@ import { SaveArticleImageModalComponent } from '../save-article-image-modal/save
 })
 export class ArticleMdEditorComponent implements OnInit, OnDestroy {
 
-  @ViewChild('editorContent') editorContent: any;
-  @ViewChild('editorInfo') editorInfo: any;
+  @Input() article: Article = {} as Article;
+  @Output() articleChange = new EventEmitter<Article>();
+
+  @Output() isEdit = new EventEmitter<boolean>();
+
+  @ViewChild('editorContent') editorContent: CustomMdEditorComponent;
+  @ViewChild('editorInfo') editorInfo: CustomMdEditorComponent;
 
   public form: FormGroup;
-  public article: Article = {} as Article;
-  public isNewPost = false;
   public title: string;
   public isActivePreview = false;
   public isEditorChanged = false;
@@ -57,21 +61,25 @@ export class ArticleMdEditorComponent implements OnInit, OnDestroy {
     private systemSettingsService: SystemSettingsService,
     private modalService: NzModalService,
     private configService: ConfigService,
-    private utilsService: UtilsService
+    public utils: UtilsService
   ) {
     this.form = this.fb.group({
-      info:  [ '', [ Validators.required ] ],
-      content:  [ '', [ Validators.required ] ]
+      info:  [ 'test', [ Validators.required ] ],
+      content:  [ 'test', [ Validators.required ] ]
     });
 
     this._formSubscription = this.form.valueChanges.subscribe(() => {
       this.isEditorChanged = true;
     });
-
     this.isActivePreview = this.systemSettingsService.getIsActivePreview();
   }
 
   ngOnInit() {
+    this.form.setValue({
+      info: this.article.info,
+      content: this.article.content
+    });
+
     this._configSubscription = this.configService.configJson$.subscribe((configJson) => {
       this.disablePostAsset = !configJson.post_asset_folder;
     });
@@ -81,6 +89,21 @@ export class ArticleMdEditorComponent implements OnInit, OnDestroy {
     this._formSubscription.unsubscribe();
     this._configSubscription.unsubscribe();
   }
+
+  public header(headerNumber: number) { this.editorContent.header(headerNumber); }
+  public bold() { this.editorContent.bold(); }
+  public del() { this.editorContent.del(); }
+  public italic() { this.editorContent.italic(); }
+  public quote() { this.editorContent.quote(); }
+  public listUl() { this.editorContent.listUl(); }
+  public listOl() { this.editorContent.listOl(); }
+  public hr() { this.editorContent.hr(); }
+  public link() { this.editorContent.link(); }
+  public image() { this.editorContent.image(); }
+  public code() { this.editorContent.code(); }
+  public codeBlock() { this.editorContent.codeBlock(); }
+  public table() { this.editorContent.table(); }
+  public readMore() { this.editorContent.readMore(); }
 
   public publish() {
     const loadingMessageId = this.message.loading('PUBLISH').messageId;
@@ -109,91 +132,30 @@ export class ArticleMdEditorComponent implements OnInit, OnDestroy {
   }
 
   public save() {
+    const loadingMessageId = this.message.loading('SAVING').messageId;
+    this.isSaving = true;
+    this.article.info = this.form.value.info;
+    this.article.content = this.form.value.content;
+
+    this.articleService.update(this.article)
+      .then(() => {
+        this.message.success('SAVING OK');
+        this.isEditorChanged = false;
+      })
+      .catch(() => this.message.error('SAVING ERROR'))
+      .finally( () => {
+        this.isSaving = false;
+        this.message.remove(loadingMessageId);
+      });
+
+    this.articleChange.emit(this.article);
   }
+
+
+  public isMac() { return this.utils.isMac(); }
 
   public onPreviewClick() {
     this.systemSettingsService.saveIsActivePreview(this.isActivePreview);
-  }
-
-  public replaceSelection(type: string, text?: string) {
-    const selectedText = text || this.editorContent.codeMirror.getSelection() || 'someValue';
-    let resultText = '';
-    switch (type) {
-      case 'bold':
-        resultText = `**${selectedText}**`; break;
-      case 'italic':
-        resultText = `*${selectedText}*`; break;
-      case 'strikeThrough':
-        resultText = `~~${selectedText}~~`; break;
-      case 'heading1':
-        resultText = `# ${selectedText}`; break;
-      case 'heading2':
-        resultText = `## ${selectedText}`; break;
-      case 'heading3':
-        resultText = `### ${selectedText}`; break;
-      case 'heading4':
-        resultText = `#### ${selectedText}`; break;
-      case 'heading5':
-        resultText = `###### ${selectedText}`; break;
-      case 'heading6':
-        resultText = `####### ${selectedText}`; break;
-      case 'code':
-        resultText = '\n``` language\n' + selectedText + '\n```\n'; break;
-      case 'quote':
-        resultText = `> ${selectedText}`; break;
-      case 'unorderedList':
-        resultText = `- ${selectedText}`; break;
-      case 'orderedList':
-        resultText = `1. ${selectedText}`; break;
-      case 'link':
-        resultText = this.utilsService.isURL(selectedText) ?
-          `[](${selectedText})` :
-          `[${selectedText}](https://)`;
-        break;
-      case 'image':
-        resultText = `![](${selectedText})`; break;
-      case 'imageLocal':
-        resultText = this.utilsService.isImageFormat(selectedText) ?
-          `{% asset_img "${selectedText}" "some description"%}` :
-          `{% asset_img "imagg.js" "${selectedText}"%}`;
-        break;
-      case 'table':
-        resultText =
-          '\nheader1 | header2 | header3\n' +
-          '--- | --- | ---\n' +
-          'text1 | text2 | text3\n'; break;
-      case 'horizontalRule':
-        resultText = `---`; break;
-      case 'readMore':
-        resultText = '\n<!-- more -->\n'; break;
-    }
-
-    this.editorContent.codeMirror.replaceSelection(resultText, 'end');
-    this.editorContent.codeMirror.focus();
-  }
-
-  public isMac () {
-    return this.utilsService.isMac();
-  }
-
-  public onKeyDown($event): void {
-    if (this.isMac()) {
-      this.handleMacKeyEvents($event);
-    } else {
-      this.handleWindowsKeyEvents($event);
-    }
-  }
-
-  handleMacKeyEvents($event) {
-    const charCode = $event.key.toLowerCase();
-    // matekey: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/metaKey
-    if ($event.metaKey && charCode === 's') { this.save(); $event.preventDefault(); }
-  }
-
-  handleWindowsKeyEvents($event) {
-    $event.preventDefault();
-    const charCode = $event.key.toLowerCase();
-    if ($event.ctrlKey && charCode === 's') { this.save(); $event.preventDefault(); }
   }
 
   public openAssetFolder() {
@@ -206,7 +168,7 @@ export class ArticleMdEditorComponent implements OnInit, OnDestroy {
   }
 
   public onPaste($event) {
-    if (this.utilsService.clipboardHasFormat('image')) {
+    if (this.utils.clipboardHasFormat('image')) {
       if (this.disablePostAsset ) {
         this.message.info('ENABLE post_asset_folder OF config.yml YOU CAN PASTE IMAGE');
         return;
@@ -217,10 +179,10 @@ export class ArticleMdEditorComponent implements OnInit, OnDestroy {
 
   private _openSaveArticleImageModal() {
     const clipboard = this.electronService.clipboard;
-    const format = this.utilsService.clipboardHasFormat('jp') ? 'jpg' : 'png';
+    const format = this.utils.clipboardHasFormat('jp') ? 'jpg' : 'png';
     let fileName = 'image-' + moment().unix();
-    if (this.utilsService.clipboardHasFormat('plain')) {
-      fileName = this.utilsService.removeFileExtension(clipboard.readText());
+    if (this.utils.clipboardHasFormat('plain')) {
+      fileName = this.utils.removeFileExtension(clipboard.readText());
     }
 
     const saveArticleModal = this.modalService.create({
@@ -237,7 +199,7 @@ export class ArticleMdEditorComponent implements OnInit, OnDestroy {
 
     saveArticleModal.afterClose.subscribe((file) => {
       if (file) {
-        this.replaceSelection('imageLocal', file);
+        this.editorContent.imageLocal(file);
       }
     });
   }
