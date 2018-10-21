@@ -97,7 +97,6 @@ export class ArticleMdEditorComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   public emitIsChanged () {
-    console.log('change')
     this.isChangedChange.emit(true);
   }
 
