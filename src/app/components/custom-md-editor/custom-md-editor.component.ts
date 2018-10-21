@@ -212,8 +212,6 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
 
   public imageLocal(text = '') {
     const cm        = this.codeMirror;
-    const cursor    = cm.getCursor();
-    const selection = cm.getSelection();
 
     const resultText = this.utils.isImageFormat(text) ?
       `{% asset_img "${text}" "some description"%}` :
