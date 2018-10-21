@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { ArticleService } from '../../services/article.service';
 import { Subscription } from 'rxjs';
 import { Article } from '../../Models/Article';
@@ -25,12 +25,13 @@ import { CustomMdEditorComponent } from '../custom-md-editor/custom-md-editor.co
   templateUrl: './article-md-editor.component.html',
   styleUrls: ['./article-md-editor.component.scss']
 })
-export class ArticleMdEditorComponent implements OnInit, OnDestroy {
+export class ArticleMdEditorComponent implements OnInit, OnDestroy, OnChanges {
 
   @Input() article: Article = {} as Article;
   @Output() articleChange = new EventEmitter<Article>();
 
-  @Output() isEdit = new EventEmitter<boolean>();
+  @Input() isChanged  = false;
+  @Output() isChangedChange = new EventEmitter<boolean>();
 
   @ViewChild('editorContent') editorContent: CustomMdEditorComponent;
   @ViewChild('editorInfo') editorInfo: CustomMdEditorComponent;
@@ -38,7 +39,6 @@ export class ArticleMdEditorComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   public title: string;
   public isActivePreview = false;
-  public isEditorChanged = false;
   public codeMirrorOptions = {
     theme: 'hexo-note',
     mode: 'markdown',
@@ -64,13 +64,10 @@ export class ArticleMdEditorComponent implements OnInit, OnDestroy {
     public utils: UtilsService
   ) {
     this.form = this.fb.group({
-      info:  [ 'test', [ Validators.required ] ],
-      content:  [ 'test', [ Validators.required ] ]
+      info:  [ '', [ Validators.required ] ],
+      content:  [ '', [ Validators.required ] ]
     });
 
-    this._formSubscription = this.form.valueChanges.subscribe(() => {
-      this.isEditorChanged = true;
-    });
     this.isActivePreview = this.systemSettingsService.getIsActivePreview();
   }
 
@@ -88,6 +85,20 @@ export class ArticleMdEditorComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this._formSubscription.unsubscribe();
     this._configSubscription.unsubscribe();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.article) {
+      this.form.setValue({
+        info: this.article.info,
+        content: this.article.content
+      });
+    }
+  }
+
+  public emitIsChanged () {
+    console.log('change')
+    this.isChangedChange.emit(true);
   }
 
   public publish() {
@@ -125,7 +136,7 @@ export class ArticleMdEditorComponent implements OnInit, OnDestroy {
     this.articleService.update(this.article)
       .then(() => {
         this.message.success('SAVING OK');
-        this.isEditorChanged = false;
+        this.isChangedChange.emit(false);
       })
       .catch(() => this.message.error('SAVING ERROR'))
       .finally( () => {

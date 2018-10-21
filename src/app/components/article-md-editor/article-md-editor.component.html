@@ -1,4 +1,4 @@
-<div class="article-md-editor" fxFill fxLayout="column">
+<div class="article-md-editor" fxFill fxLayout="column" (keydown)="emitIsChanged()">
   <div class="article-md-editor-editor-toolbar" fxLayout="row" fxFlex="none">
     <div fxFlex fxLayout fxLayoutAlign="start center">
       <nz-button-group flex="none">
@@ -68,7 +68,7 @@
               nz-tooltip nzTitle="PUBLISH" nzPlacement="bottom" >
         <i class="anticon anticon-to-top"></i>
       </button>
-      <button nz-button [nzType]="isEditorChanged ? 'primary': ''" [nzGhost]="isEditorChanged"
+      <button nz-button [nzType]="isChanged ? 'primary': ''"
               nz-tooltip [nzTitle]="utils.isMac() ? 'cmd + s' : 'ctrl + s'" nzPlacement="bottom"
               [nzLoading]="isSaving"
               (click)="save()">
