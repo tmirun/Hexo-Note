@@ -23,7 +23,7 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
   constructor(
     _differs: KeyValueDiffers,
     _ngZone: NgZone,
-    private utils: UtilsService,
+    public utils: UtilsService,
   ) {
     super(_differs, _ngZone);
   }
@@ -60,7 +60,7 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
 
   public redo() { this.codeMirror.redo(); }
 
-  public header (headerNumber = 1) {
+  public header(headerNumber = 1) {
     const cm        = this.codeMirror;
     const cursor    = cm.getCursor();
     const selection = cm.getSelection();
@@ -99,7 +99,7 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
     }
   }
 
-  public italic () {
+  public italic() {
     const cm        = this.codeMirror;
     const cursor    = cm.getCursor();
     const selection = cm.getSelection();
@@ -111,7 +111,7 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
     }
   }
 
-  public quote () {
+  public quote() {
     const cm        = this.codeMirror;
     const cursor    = cm.getCursor();
     const selection = cm.getSelection();
@@ -128,7 +128,7 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
     cm.setCursor(cursor.line, (selection === '') ? cursor.ch + 2 : cursor.ch + selection.length + 2);
   }
 
-  public listUl () {
+  public listUl() {
     const cm        = this.codeMirror;
     const cursor    = cm.getCursor();
     const selection = cm.getSelection();
@@ -146,7 +146,7 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
     }
   }
 
-  public listOl () {
+  public listOl() {
     const cm        = this.codeMirror;
     const cursor    = cm.getCursor();
     const selection = cm.getSelection();
@@ -164,7 +164,7 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
     }
   }
 
-  hr () {
+  public hr() {
     const cm        = this.codeMirror;
     const cursor    = cm.getCursor();
 
@@ -172,7 +172,7 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
   }
 
 
-  public link () {
+  public link() {
     const cm        = this.codeMirror;
     const cursor    = cm.getCursor();
     const selection = cm.getSelection();
@@ -184,7 +184,7 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
     }
   }
 
-  public image () {
+  public image() {
     const cm        = this.codeMirror;
     const cursor    = cm.getCursor();
     const selection = cm.getSelection();
@@ -196,7 +196,17 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
     }
   }
 
-  public code () {
+  public imageLocal(text = '') {
+    const cm        = this.codeMirror;
+    const cursor    = cm.getCursor();
+    const selection = cm.getSelection();
+
+    const resultText = this.utils.isImageFormat(text) ?
+      `{% asset_img "${text}" "some description"%}` :
+      `{% asset_img "image.jpeg" "sime description"%}`;
+  }
+
+  public code() {
     const cm        = this.codeMirror;
     const cursor    = cm.getCursor();
     const selection = cm.getSelection();
@@ -208,8 +218,8 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
     }
   }
 
-  public codeBlock () {
-    const cm        = this.codeMirror
+  public codeBlock() {
+    const cm        = this.codeMirror;
     const cursor    = cm.getCursor();
     const selection = cm.getSelection();
 
@@ -219,6 +229,22 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
       cm.setCursor(cursor.line + 1, 0);
     }
   }
+
+  public table() {
+    const cm        = this.codeMirror;
+    const tableText =
+      '\nheader1 | header2 | header3\n' +
+      '--- | --- | ---\n' +
+      'text1 | text2 | text3\n';
+
+    cm.replaceSelection(tableText);
+  }
+
+  public readMore() {
+    const cm        = this.codeMirror;
+    cm.replaceSelection('\n<!-- more -->\n');
+  }
+
 
 
 }
