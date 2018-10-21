@@ -3,6 +3,10 @@ import { CodemirrorComponent } from '@ctrl/ngx-codemirror';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { UtilsService } from '../../services/utils.service';
 
+/**
+ * This Component creating all md editor action
+ * */
+
 @Component({
   selector: 'app-custom-md-editor',
   templateUrl: './custom-md-editor.component.html',
