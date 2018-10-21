@@ -90,21 +90,6 @@ export class ArticleMdEditorComponent implements OnInit, OnDestroy {
     this._configSubscription.unsubscribe();
   }
 
-  public header(headerNumber: number) { this.editorContent.header(headerNumber); }
-  public bold() { this.editorContent.bold(); }
-  public del() { this.editorContent.del(); }
-  public italic() { this.editorContent.italic(); }
-  public quote() { this.editorContent.quote(); }
-  public listUl() { this.editorContent.listUl(); }
-  public listOl() { this.editorContent.listOl(); }
-  public hr() { this.editorContent.hr(); }
-  public link() { this.editorContent.link(); }
-  public image() { this.editorContent.image(); }
-  public code() { this.editorContent.code(); }
-  public codeBlock() { this.editorContent.codeBlock(); }
-  public table() { this.editorContent.table(); }
-  public readMore() { this.editorContent.readMore(); }
-
   public publish() {
     const loadingMessageId = this.message.loading('PUBLISH').messageId;
     this.isPublishing = true;

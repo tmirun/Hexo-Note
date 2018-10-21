@@ -2,30 +2,30 @@
   <div class="article-md-editor-editor-toolbar" fxLayout="row" fxFlex="none">
     <div fxFlex fxLayout fxLayoutAlign="start center">
       <nz-button-group flex="none">
-        <button nz-button nzSize="small" (click)="bold()"><i class="fa fa-bold"></i></button>
-        <button nz-button nzSize="small" (click)="italic()"><i class="fa fa-italic"></i></button>
-        <button nz-button nzSize="small" (click)="del()"><i class="fa fa-strikethrough"></i></button>
+        <button nz-button nzSize="small" (click)="editorContent.bold()"><i class="fa fa-bold"></i></button>
+        <button nz-button nzSize="small" (click)="editorContent.italic()"><i class="fa fa-italic"></i></button>
+        <button nz-button nzSize="small" (click)="editorContent.del()"><i class="fa fa-strikethrough"></i></button>
       </nz-button-group>
 
       <nz-button-group flex="none">
-        <button nz-button nzSize="small" (click)="header(1)">H1</button>
-        <button nz-button nzSize="small" (click)="header(2)">H2</button>
-        <button nz-button nzSize="small" (click)="header(3)">H3</button>
-        <button nz-button nzSize="small" (click)="header(4)">H4</button>
-        <button nz-button nzSize="small" (click)="header(5)">H5</button>
-        <button nz-button nzSize="small" (click)="header(6)">H6</button>
+        <button nz-button nzSize="small" (click)="editorContent.header(1)">H1</button>
+        <button nz-button nzSize="small" (click)="editorContent.header(2)">H2</button>
+        <button nz-button nzSize="small" (click)="editorContent.header(3)">H3</button>
+        <button nz-button nzSize="small" (click)="editorContent.header(4)">H4</button>
+        <button nz-button nzSize="small" (click)="editorContent.header(5)">H5</button>
+        <button nz-button nzSize="small" (click)="editorContent.header(6)">H6</button>
       </nz-button-group>
 
       <nz-button-group flex="none">
-        <button nz-button nzSize="small" (click)="listOl()"><i class="fa fa-list-ol"></i></button>
-        <button nz-button nzSize="small" (click)="listUl()"><i class="fa fa-list-ul"></i></button>
+        <button nz-button nzSize="small" (click)="editorContent.listOl()"><i class="fa fa-list-ol"></i></button>
+        <button nz-button nzSize="small" (click)="editorContent.listUl()"><i class="fa fa-list-ul"></i></button>
       </nz-button-group>
 
       <nz-button-group flex="none">
-        <button nz-button nzSize="small" (click)="code()"><i class="fa fa-code"></i></button>
-        <button nz-button nzSize="small" (click)="codeBlock()"><i class="fa fa-chevron-right"></i></button>
-        <button nz-button nzSize="small" (click)="link()"><i class="fa fa-link"></i></button>
-        <button nz-button nzSize="small" (click)="image()"><i class="fa fa-image"></i></button>
+        <button nz-button nzSize="small" (click)="editorContent.code()"><i class="fa fa-code"></i></button>
+        <button nz-button nzSize="small" (click)="editorContent.codeBlock()"><i class="fa fa-chevron-right"></i></button>
+        <button nz-button nzSize="small" (click)="editorContent.link()"><i class="fa fa-link"></i></button>
+        <button nz-button nzSize="small" (click)="editorContent.image()"><i class="fa fa-image"></i></button>
         <div nz-tooltip [nzTitle]="disablePostAsset ? needPostAssetFolderActiveText : 'USE POST ASSET FOLDER'" nzPlacement="bottom"
              style="display: inline-block">
           <button style="border-left: none; border-right: none"
@@ -35,9 +35,9 @@
             <i class="fa fa-file-image"></i>
           </button>
         </div>
-        <button nz-button nzSize="small" (click)="table()"><i class="fa fa-table"></i></button>
-        <button nz-button nzSize="small" (click)="hr()">_</button>
-        <button nz-button nzSize="small" (click)="readMore()">More</button>
+        <button nz-button nzSize="small" (click)="editorContent.table()"><i class="fa fa-table"></i></button>
+        <button nz-button nzSize="small" (click)="editorContent.hr()">_</button>
+        <button nz-button nzSize="small" (click)="editorContent.readMore()">More</button>
       </nz-button-group>
 
       <nz-button-group flex="none">
