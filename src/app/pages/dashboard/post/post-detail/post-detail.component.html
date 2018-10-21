@@ -1,3 +1,3 @@
-<div class="post-detail" fxFill fxLayout="column" (keydown)="onKeyDown($event)" tabindex="0">
-  <app-article-md-editor></app-article-md-editor>
+<div class="post-detail" fxFill fxLayout="column">
+  <app-article-md-editor [(article)]="article" fxFlexFill [(isChanged)]="isEditorChanged"></app-article-md-editor>
 </div>
