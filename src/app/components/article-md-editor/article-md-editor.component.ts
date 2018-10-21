@@ -146,8 +146,15 @@ export class ArticleMdEditorComponent implements OnInit, OnDestroy, OnChanges {
     this.articleChange.emit(this.article);
   }
 
+  public onKeyDown($event): void {
+    const charCode = $event.key.toLowerCase();
+    // matekey: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/metaKey
+    const ctrlCmdKey = this.utils.isMac() ? $event.metaKey : $event.ctrlKey;
 
-  public isMac() { return this.utils.isMac(); }
+    if (ctrlCmdKey && charCode === 's') { this.save(); $event.preventDefault(); }
+
+    this.emitIsChanged();
+  }
 
   public onPreviewClick() {
     this.systemSettingsService.saveIsActivePreview(this.isActivePreview);
