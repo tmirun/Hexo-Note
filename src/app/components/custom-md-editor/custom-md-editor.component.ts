@@ -77,6 +77,7 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
     } else {
       cm.replaceSelection(`${prefix} ${selection}` );
     }
+    cm.focus();
   }
 
   public bold() {
@@ -89,6 +90,7 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
     if (selection === '') {
       cm.setCursor(cursor.line, cursor.ch + 2);
     }
+    cm.focus();
   }
 
   public del() {
@@ -101,6 +103,7 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
     if (selection === '') {
       cm.setCursor(cursor.line, cursor.ch + 2);
     }
+    cm.focus();
   }
 
   public italic() {
@@ -113,6 +116,7 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
     if (selection === '') {
       cm.setCursor(cursor.line, cursor.ch + 1);
     }
+    cm.focus();
   }
 
   public quote() {
@@ -130,6 +134,7 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
 
     cm.replaceSelection('> ' + selection);
     cm.setCursor(cursor.line, (selection === '') ? cursor.ch + 2 : cursor.ch + selection.length + 2);
+    cm.focus();
   }
 
   public listUl() {
@@ -148,6 +153,7 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
 
       cm.replaceSelection(selectionText.join('\n'));
     }
+    cm.focus();
   }
 
   public listOl() {
@@ -166,6 +172,7 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
 
       cm.replaceSelection(selectionText.join('\n'));
     }
+    cm.focus();
   }
 
   public hr() {
@@ -173,6 +180,7 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
     const cursor    = cm.getCursor();
 
     cm.replaceSelection(((cursor.ch !== 0) ? '\n\n' : '\n') + '------------\n\n');
+    cm.focus();
   }
 
 
@@ -186,6 +194,7 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
     if (selection === '') {
       cm.setCursor(cursor.line, cursor.ch + 3);
     }
+    cm.focus();
   }
 
   public image() {
@@ -198,6 +207,7 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
     if (selection === '') {
       cm.setCursor(cursor.line, cursor.ch + 4);
     }
+    cm.focus();
   }
 
   public imageLocal(text = '') {
@@ -208,6 +218,9 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
     const resultText = this.utils.isImageFormat(text) ?
       `{% asset_img "${text}" "some description"%}` :
       `{% asset_img "image.jpeg" "sime description"%}`;
+
+    cm.replaceSelection(resultText);
+    cm.focus();
   }
 
   public code() {
@@ -220,6 +233,7 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
     if (selection === '') {
       cm.setCursor(cursor.line, cursor.ch + 1);
     }
+    cm.focus();
   }
 
   public codeBlock() {
@@ -232,6 +246,7 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
     if (selection === '') {
       cm.setCursor(cursor.line + 1, 0);
     }
+    cm.focus();
   }
 
   public table() {
@@ -242,11 +257,13 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
       'text1 | text2 | text3\n';
 
     cm.replaceSelection(tableText);
+    cm.focus();
   }
 
   public readMore() {
     const cm        = this.codeMirror;
     cm.replaceSelection('\n<!-- more -->\n');
+    cm.focus();
   }
 
 
