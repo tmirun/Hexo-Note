@@ -50,7 +50,6 @@ export class ArticleMdEditorComponent implements OnInit, OnDestroy, OnChanges {
   public disablePostAsset = true;
   public needPostAssetFolderActiveText = 'Need Active post_asset_folder property of config file for enble this option';
 
-  private _formSubscription: Subscription;
   private _configSubscription: Subscription;
 
   constructor(
@@ -83,7 +82,6 @@ export class ArticleMdEditorComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy() {
-    this._formSubscription.unsubscribe();
     this._configSubscription.unsubscribe();
   }
 

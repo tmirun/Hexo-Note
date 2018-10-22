@@ -29,7 +29,6 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
   public isEditorChanged = false;
 
   private _routeSubscription: Subscription;
-  private _configSubscription: Subscription;
 
   constructor(
     private articleService: ArticleService,
@@ -65,7 +64,6 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
 
   ngOnDestroy() {
     this._routeSubscription.unsubscribe();
-    this._configSubscription.unsubscribe();
   }
 
   canDeactivate() {
