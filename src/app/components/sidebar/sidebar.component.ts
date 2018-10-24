@@ -5,6 +5,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { HexoService } from '../../services/hexo.service';
 import { ServerService } from '../../services/server.service';
 import { AppConfig } from '../../../environments/environment';
+import { ElectronService } from '../../services/electron.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -21,6 +22,7 @@ export class SidebarComponent implements OnInit {
     private utilsService: UtilsService,
     private hexoService: HexoService,
     private message: NzMessageService,
+    private electronService: ElectronService,
     public serverService: ServerService
   ) {
   }
@@ -72,5 +74,9 @@ export class SidebarComponent implements OnInit {
         this.message.error(`SERVER STARTING ERROR ${error}`);
       });
     }
+  }
+
+  public openIssuePage() {
+    this.electronService.shell.openExternal('https://github.com/tmirun/Hexo-Note/issues');
   }
 }
