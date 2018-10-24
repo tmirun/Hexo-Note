@@ -60,7 +60,7 @@ export class RemanePostModalComponent implements OnInit, OnDestroy {
 
     // validate form
     for (const i in this.form.controls) {
-      if (this.form.controls) {
+      if (this.form.controls[i]) {
         this.form.controls[i].markAsDirty();
         this.form.controls[i].updateValueAndValidity();
       }

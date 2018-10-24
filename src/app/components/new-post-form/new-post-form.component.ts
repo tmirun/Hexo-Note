@@ -66,9 +66,9 @@ export class NewPostFormComponent implements OnInit, OnDestroy {
 
     // validate form
     for (const i in this.form.controls) {
-      if (this.form.controls) {
-        this.form.controls[ i ].markAsDirty();
-        this.form.controls[ i ].updateValueAndValidity();
+      if (this.form.controls[i]) {
+        this.form.controls[i].markAsDirty();
+        this.form.controls[i].updateValueAndValidity();
       }
     }
     this.articleService.create({
