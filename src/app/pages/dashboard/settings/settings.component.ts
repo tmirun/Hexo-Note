@@ -26,7 +26,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     private systemSettingsService: SystemSettingsService,
     private configService: ConfigService,
     private message: NzMessageService,
-    private utilsService: UtilsService
+    private utils: UtilsService
   ) {
 
     this.hexoPath = this.systemSettingsService.getHexoPath();
@@ -50,13 +50,13 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   public showSelectHexoPath() {
-    const path = this.utilsService.openDirectoryDialog();
+    const path = this.utils.openDirectoryDialog();
     if (!path) { return; }
-    if (this.utilsService.isHexoProjectFolder(path)) {
+    if (this.utils.isHexoProjectFolder(path)) {
       this.hexoPath = path;
       location.reload();
     } else {
-      this.utilsService.showNotHexoProjectPathAlert();
+      this.utils.showNotHexoProjectPathAlert();
       this.showSelectHexoPath();
     }
   }
@@ -72,7 +72,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
 
   public onKeyDown($event): void {
-    if (this.utilsService.isMac()) {
+    if (this.utils.isMac()) {
       this.handleMacKeyEvents($event);
     } else {
       this.handleWindowsKeyEvents($event);
