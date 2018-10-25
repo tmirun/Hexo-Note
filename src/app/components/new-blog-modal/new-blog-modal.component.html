@@ -1,0 +1,17 @@
+<form [formGroup]="form" class="new-blog-modal new-blog-modal-form" (submit)="submitForm()">
+  <nz-form-item fxLayout="row">
+    <nz-form-label fxFlex="none" nzFor="directory"> PATH </nz-form-label>
+    <nz-form-control fxFlex>
+      <input fxFlex nz-input name="directory" formControlName="directory" disabled>
+      <nz-form-explain *ngIf="form.get('directory').dirty && form.controls['directory'].errors?.required">REQUIRE</nz-form-explain>
+      <button fxFlex="none" nz-button nzGhost nzType="primary" class="new-blog-modal-form-open-folder-button" (click)="changePath()">
+        <i nz-icon type="folder-open" theme="outline"></i>
+      </button>
+    </nz-form-control>
+  </nz-form-item >
+  <nz-form-item>
+    <nz-form-control>
+      <button nz-button nzType="primary" type="submit" [disabled]="!form.valid"> NEW BLOG </button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
