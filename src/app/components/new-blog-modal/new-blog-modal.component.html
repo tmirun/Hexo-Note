@@ -2,11 +2,9 @@
   <nz-form-item fxLayout="row">
     <nz-form-label fxFlex="none" nzFor="directory"> PATH </nz-form-label>
     <nz-form-control fxFlex>
-      <input fxFlex nz-input name="directory" formControlName="directory" disabled>
+      <input fxFlex nz-input name="directory" formControlName="directory" disabled (click)="changePath()">
       <nz-form-explain *ngIf="form.get('directory').dirty && form.controls['directory'].errors?.required">REQUIRE</nz-form-explain>
-      <button fxFlex="none" nz-button nzGhost nzType="primary" class="new-blog-modal-form-open-folder-button" (click)="changePath()">
-        <i nz-icon type="folder-open" theme="outline"></i>
-      </button>
+      <i nz-icon type="folder-open" theme="outline" class="new-blog-modal-form-open-folder-icon" (click)="changePath()"></i>
     </nz-form-control>
   </nz-form-item >
   <nz-form-item>

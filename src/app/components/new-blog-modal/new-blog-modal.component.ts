@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ElectronService } from '../../services/electron.service';
 import {UtilsService} from '../../services/utils.service';
+import {HexoService} from '../../services/hexo.service';
 
 
 @Component({
@@ -11,10 +12,12 @@ import {UtilsService} from '../../services/utils.service';
 })
 export class NewBlogModalComponent implements OnInit {
 
-  form: FormGroup;
+  public form: FormGroup;
+  private isCreating = false;
 
   constructor(
     private fb: FormBuilder,
+    private hexoService: HexoService,
     private electronService: ElectronService,
     private utils: UtilsService
   ) {
@@ -40,5 +43,9 @@ export class NewBlogModalComponent implements OnInit {
         this.form.controls[i].updateValueAndValidity();
       }
     }
+
+    this.isCreating = true;
+
+    this.hexoService.newBlog(this.form.value.directory);
   }
 }
