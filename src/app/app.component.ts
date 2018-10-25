@@ -8,6 +8,7 @@ import { timer } from 'rxjs';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/delayWhen';
 import {ConfigService} from './services/config.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -20,24 +21,24 @@ export class AppComponent {
 
   constructor(
     public electronService: ElectronService,
-    private translate: TranslateService,
     private hexoService: HexoService,
-    private configService: ConfigService,
-    private scaffoldService: ScaffoldService) {
+    private router: Router,
+    private translate: TranslateService) {
 
     translate.setDefaultLang('en');
     console.log('AppConfig', AppConfig);
 
     if (electronService.isElectron()) {
       console.log('Mode electron');
-      console.log('Electron ipcRenderer', electronService.ipcRenderer);
-      console.log('NodeJS childProcess', electronService.childProcess);
     } else {
       console.log('Mode web');
     }
 
-    this.hexoService.init();
+    if (this.hexoService.isCurrentDirectoryProjectForder()) {
+      this.router.navigate(['/dashboard']);
+    } else {
+      this.router.navigate(['/not-project-found']);
+    }
 
-    this.configService.getConfigYml();
   }
 }

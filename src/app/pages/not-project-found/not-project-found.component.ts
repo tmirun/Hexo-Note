@@ -4,6 +4,7 @@ import { NzModalService } from 'ng-zorro-antd';
 import { NewBlogModalComponent } from '../../components/new-blog-modal/new-blog-modal.component';
 import { ElectronService } from '../../services/electron.service';
 import { Route, Router } from '@angular/router';
+import {SystemSettingsService} from '../../services/system-settings.service';
 
 @Component({
   selector: 'app-not-project-found',
@@ -16,6 +17,7 @@ export class NotProjectFoundComponent implements OnInit {
     private hexoService: HexoService,
     private modalService: NzModalService,
     private electronService: ElectronService,
+    private system: SystemSettingsService,
     private router: Router
   ) { }
 
@@ -33,7 +35,8 @@ export class NotProjectFoundComponent implements OnInit {
   public openExistingProjectDialog() {
     const path = this.hexoService.openSelectHexoPathDialog();
     if (path) {
-      this.router.navigate(['/dashboard']);
+      this.system.saveHexoPath(path);
+      this.electronService.remote.getCurrentWindow().reload();
     }
   }
 

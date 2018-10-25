@@ -11,7 +11,7 @@ import { NotProjectFoundComponent } from './pages/not-project-found/not-project-
 const routes: Routes = [
   {
     path: 'not-project-found',
-    component: NotProjectFoundComponent
+    component: NotProjectFoundComponent,
   },
   {
     path: 'dashboard',
@@ -35,7 +35,7 @@ const routes: Routes = [
       },
     ]
   },
-  { path: '', redirectTo: '/dashboard/post', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 ];
 
 @NgModule({
