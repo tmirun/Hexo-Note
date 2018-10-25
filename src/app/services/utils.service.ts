@@ -55,6 +55,21 @@ export class UtilsService  {
     }
   }
 
+  public openDirectoryDialog(): string | undefined {
+    const remote = this.electronService.remote;
+    const dialog = remote.dialog;
+
+    const paths = dialog.showOpenDialog({
+      properties: ['openDirectory']
+    });
+
+    if (!paths) {
+      return paths as undefined;
+    }
+
+    return paths[0];
+  }
+
   public removeFileExtension(filename): string {
     return filename.replace(/\.[^/.]+$/, '');
   }
