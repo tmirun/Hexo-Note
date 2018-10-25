@@ -1,12 +1,18 @@
-<div fxFill fxLayout fxLayoutAlign="center center">
-  <div fxFlex>
-    <button nz-button nzSize="large" (click)="openNewBlogDialog()">
-      INIT NEW PROJECT
+<div fxFill fxLayout class="not-project-found">
+  <!--<div fxFlex>-->
+    <!--<button nz-button nzSize="large" (click)="openNewBlogDialog()">-->
+      <!--INIT NEW PROJECT-->
+    <!--</button>-->
+  <!--</div>-->
+  <div fxFlex fxLayout="column" fxLayoutAlign="start center">
+    <img src="assets/hexo-note-logo.svg" width="200">
+    <br/>
+    <button nz-button nzSize="large" nzType="primary" (click)="openExistingProjectDialog()">
+      OPEN EXISTING PROJECT
     </button>
-  </div>
-  <div fxFlex>
-    <button nz-button nzSize="large" nzType="primary">
-    OPEN EXISTING PROJECT
-  </button>
+    <nz-divider></nz-divider>
+    <a (click)="openHexoSetupPage()"> HOW SETUP ? </a>
+    <br/>
+    <button nz-button routerLink="/dashboard"> GO DASHBOARD > </button>
   </div>
 </div>
