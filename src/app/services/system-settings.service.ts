@@ -47,7 +47,8 @@ export class SystemSettingsService {
       });
   }
 
-  public isHexoProjectPath(path): boolean {
+  public isHexoProjectPath(path: string): boolean {
+    if (!path) { return false; }
     return this.electronService.fs.existsSync(`${path}/_config.yml`);
   }
 
