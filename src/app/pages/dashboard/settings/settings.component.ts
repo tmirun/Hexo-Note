@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   FormBuilder,
-  FormGroup,
-  Validators
+  FormGroup
 } from '@angular/forms';
 import { SystemSettingsService } from '../../../services/system-settings.service';
 import { ConfigService } from '../../../services/config.service';
@@ -51,13 +50,13 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   public showSelectHexoPath() {
-    const path = this.systemSettingsService.showSelectHexoPath();
+    const path = this.utilsService.openDirectoryDialog();
     if (!path) { return; }
-    if (this.systemSettingsService.isHexoProjectPath(path)) {
+    if (this.utilsService.isHexoProjectFolder(path)) {
       this.hexoPath = path;
       location.reload();
     } else {
-      this.systemSettingsService.showNotHexoProjectPathAlert();
+      this.utilsService.showNotHexoProjectPathAlert();
       this.showSelectHexoPath();
     }
   }
