@@ -35,6 +35,11 @@ export class UtilsService  {
 
   public isPro() { return utils.isPro(); }
 
+  public isHexoProjectFolder(path: string): boolean {
+    if (!path) { return false; }
+    return this.electronService.fs.existsSync(`${path}/_config.yml`);
+  }
+
   public openTerminal() {
     const path = this.systemSettingsService.getHexoPath();
     const childProcess = this.electronService.childProcess;
@@ -68,6 +73,18 @@ export class UtilsService  {
     }
 
     return paths[0];
+  }
+
+  public showNotHexoProjectPathAlert() {
+    const remote = this.electronService.remote;
+    const dialog = this.electronService.remote.dialog;
+    dialog.showMessageBox(
+      remote.getCurrentWindow(),
+      {
+        type: 'warning',
+        title: 'ALERT',
+        message: 'THE FOLDER DONT HEAVE _config.yml FILE, PLIZ CHOOSE THE CORRECT HEXO PROJECT FOLDER?'
+      });
   }
 
   public removeFileExtension(filename): string {
