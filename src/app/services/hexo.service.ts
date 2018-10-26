@@ -10,25 +10,26 @@ export class HexoService {
 
   constructor(
     private systemSettings: SystemSettingsService,
-    private electronService: ElectronService
-  ) { }
-
-  public init(): void {
-    this.checkHexoPath();
+    private electronService: ElectronService,
+    private utils: UtilsService
+  ) {
   }
 
-  public checkHexoPath(): boolean {
-    if (!this.systemSettings.getHexoPath() || !this.systemSettings.isHexoProjectPath(this.systemSettings.getHexoPath())) {
-      const path = this.systemSettings.showSelectHexoPath();
-      if (! path ) {
-        this.electronService.remote.getCurrentWindow().close();
-        return;
-      }
-      if (!this.systemSettings.isHexoProjectPath(path)) {
-        this.systemSettings.showNotHexoProjectPathAlert();
-      }
-      this.checkHexoPath();
+  public newBlog(directory: string): Promise<any> {
+    return this.exec('hexo init', {cwd: directory});
+  }
+
+  public isCurrentDirectoryProjectFolder(): boolean {
+    return this.utils.isHexoProjectFolder(this.systemSettings.getHexoPath());
+  }
+
+  public openSelectHexoDirectoryDialog(): string {
+    const directory = this.utils.openDirectoryDialog();
+    if (! directory) {
+      this.utils.showNotHexoProjectPathAlert();
+      return '';
     }
+    return directory;
   }
 
   public deployChildProcess(): Promise<any> {

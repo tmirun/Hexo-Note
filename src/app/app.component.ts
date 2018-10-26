@@ -34,7 +34,7 @@ export class AppComponent {
       console.log('Mode web');
     }
 
-    if (this.hexoService.isCurrentDirectoryProjectForder()) {
+    if (this.hexoService.isCurrentDirectoryProjectFolder()) {
       this.router.navigate(['/dashboard']);
     } else {
       this.router.navigate(['/not-project-found']);

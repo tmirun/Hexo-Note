@@ -33,7 +33,7 @@ export class NotProjectFoundComponent implements OnInit {
   }
 
   public openExistingProjectDialog() {
-    const path = this.hexoService.openSelectHexoPathDialog();
+    const path = this.hexoService.openSelectHexoDirectoryDialog();
     if (path) {
       this.system.saveHexoPath(path);
       this.electronService.remote.getCurrentWindow().reload();
