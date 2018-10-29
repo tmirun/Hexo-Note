@@ -28,6 +28,10 @@
       padding: 0;
       margin: $spacing-m;
     }
+
+    .sidebar-report-issue:hover {
+      color: $warning;
+    }
   }
 
   .ant-menu {

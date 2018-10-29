@@ -19,6 +19,7 @@ export class ElectronService {
   process: any;
   shell: typeof shell;
   clipboard: typeof clipboard;
+  app: typeof remote.app;
 
   childProcess: typeof childProcess;
   fs: typeof fs;
@@ -36,6 +37,7 @@ export class ElectronService {
       this.process = this.remote.process;
       this.shell = window.require('electron').shell;
       this.clipboard = window.require('electron').clipboard;
+      this.app = this.remote.app;
 
       this.childProcess = window.require('child_process');
       this.fs = window.require('fs-extra');

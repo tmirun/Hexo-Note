@@ -1,9 +1,7 @@
-export const utils = {
-  isDev() {
-    return process.mainModule.filename.indexOf('app.asar') === -1;
-  },
+import isDev from 'electron-is-dev';
 
-  isPro() {
-    return !this.isDev();
-  }
+export const utils = {
+  isDev() { return isDev; },
+
+  isPro() { return !this.isDev(); }
 };

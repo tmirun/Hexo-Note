@@ -8,6 +8,7 @@ import { timer } from 'rxjs';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/delayWhen';
 import {ConfigService} from './services/config.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -20,34 +21,24 @@ export class AppComponent {
 
   constructor(
     public electronService: ElectronService,
-    private translate: TranslateService,
     private hexoService: HexoService,
-    private configService: ConfigService,
-    private scaffoldService: ScaffoldService) {
+    private router: Router,
+    private translate: TranslateService) {
 
     translate.setDefaultLang('en');
     console.log('AppConfig', AppConfig);
 
     if (electronService.isElectron()) {
       console.log('Mode electron');
-      console.log('Electron ipcRenderer', electronService.ipcRenderer);
-      console.log('NodeJS childProcess', electronService.childProcess);
     } else {
       console.log('Mode web');
     }
 
-    // this.hexoService.isLoading$.delayWhen((isLoading) => {
-    //   return isLoading ? timer(10) : timer(1000);
-    // }).subscribe((isLoading) => {
-    //   this.isLoading = isLoading;
-    // });
+    if (this.hexoService.isCurrentDirectoryProjectFolder()) {
+      this.router.navigate(['/dashboard']);
+    } else {
+      this.router.navigate(['/not-project-found']);
+    }
 
-    // this.hexoService.init().then(() => {
-    //   this.scaffoldService.getDraftTemplate();
-    //   this.scaffoldService.getPostTemplate();
-    //   this.scaffoldService.getPageTemplate();
-    // });
-
-    this.configService.getConfigYml();
   }
 }

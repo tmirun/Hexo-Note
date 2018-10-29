@@ -18,39 +18,6 @@ export class SystemSettingsService {
     }
   }
 
-  public showSelectHexoPath(): string | undefined {
-    const remote = this.electronService.remote;
-    const dialog = remote.dialog;
-
-    const paths = dialog.showOpenDialog({
-      properties: ['openDirectory']
-    });
-
-    if (!paths) {
-      return paths as undefined;
-    }
-
-    const path = paths[0];
-    this.saveHexoPath(path);
-    return path;
-  }
-
-  public showNotHexoProjectPathAlert() {
-    const remote = this.electronService.remote;
-    const dialog = this.electronService.remote.dialog;
-    dialog.showMessageBox(
-      remote.getCurrentWindow(),
-      {
-        type: 'warning',
-        title: 'ALERT',
-        message: 'THE FOLDER DONT HEAVE _config.yml FILE, PLIZ CHOOSE THE CORRECT HEXO PROJECT FOLDER?'
-      });
-  }
-
-  public isHexoProjectPath(path): boolean {
-    return this.electronService.fs.existsSync(`${path}/_config.yml`);
-  }
-
   public getHexoPath(): string {
     return this._settings.get('hexoPath');
   }

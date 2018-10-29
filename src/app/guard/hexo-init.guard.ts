@@ -3,7 +3,7 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angul
 import { Observable } from 'rxjs';
 import { HexoService } from '../services/hexo.service';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMapTo';
+import 'rxjs/add/operator/filter';
 import {ConfigService} from '../services/config.service';
 
 @Injectable({
@@ -18,7 +18,6 @@ export class HexoInitGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.configService.configYml$
-      .switchMapTo(this.hexoService.isInit$);
+    return this.configService.configYml$.map(x => true);
   }
 }

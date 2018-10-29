@@ -16,7 +16,7 @@ if (AppConfig.production) {
   enableProdMode();
 }
 
-if (utils.isPro) {
+if (utils.isPro()) {
   fixPath();
 }
 

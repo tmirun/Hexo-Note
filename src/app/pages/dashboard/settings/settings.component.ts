@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   FormBuilder,
-  FormGroup,
-  Validators
+  FormGroup
 } from '@angular/forms';
 import { SystemSettingsService } from '../../../services/system-settings.service';
 import { ConfigService } from '../../../services/config.service';
@@ -27,7 +26,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     private systemSettingsService: SystemSettingsService,
     private configService: ConfigService,
     private message: NzMessageService,
-    private utilsService: UtilsService
+    private utils: UtilsService
   ) {
 
     this.hexoPath = this.systemSettingsService.getHexoPath();
@@ -51,13 +50,13 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   public showSelectHexoPath() {
-    const path = this.systemSettingsService.showSelectHexoPath();
+    const path = this.utils.openDirectoryDialog();
     if (!path) { return; }
-    if (this.systemSettingsService.isHexoProjectPath(path)) {
+    if (this.utils.isHexoProjectFolder(path)) {
       this.hexoPath = path;
       location.reload();
     } else {
-      this.systemSettingsService.showNotHexoProjectPathAlert();
+      this.utils.showNotHexoProjectPathAlert();
       this.showSelectHexoPath();
     }
   }
@@ -73,7 +72,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
 
   public onKeyDown($event): void {
-    if (this.utilsService.isMac()) {
+    if (this.utils.isMac()) {
       this.handleMacKeyEvents($event);
     } else {
       this.handleWindowsKeyEvents($event);

@@ -22,9 +22,23 @@ export class UtilsService  {
     return navigator.platform.match('Mac');
   }
 
+  public isURL(str: string): boolean {
+    const pattern = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+    return pattern.test(str);
+  }
+
+  public isImageFormat(str): boolean {
+    return  (/\.(jpg|jpeg|png)$/i).test(str);
+  }
+
   public isDev() { return utils.isDev(); }
 
   public isPro() { return utils.isPro(); }
+
+  public isHexoProjectFolder(path: string): boolean {
+    if (!path) { return false; }
+    return this.electronService.fs.existsSync(`${path}/_config.yml`);
+  }
 
   public openTerminal() {
     const path = this.systemSettingsService.getHexoPath();
@@ -44,6 +58,33 @@ export class UtilsService  {
         // openTerminalAtPath.on ('error', (err) => { console.log (err); });
         break;
     }
+  }
+
+  public openDirectoryDialog(): string | undefined {
+    const remote = this.electronService.remote;
+    const dialog = remote.dialog;
+
+    const paths = dialog.showOpenDialog({
+      properties: ['openDirectory']
+    });
+
+    if (!paths) {
+      return paths as undefined;
+    }
+
+    return paths[0];
+  }
+
+  public showNotHexoProjectPathAlert() {
+    const remote = this.electronService.remote;
+    const dialog = this.electronService.remote.dialog;
+    dialog.showMessageBox(
+      remote.getCurrentWindow(),
+      {
+        type: 'warning',
+        title: 'ALERT',
+        message: 'THE FOLDER DONT HEAVE _config.yml FILE, PLIZ CHOOSE THE CORRECT HEXO PROJECT FOLDER?'
+      });
   }
 
   public removeFileExtension(filename): string {

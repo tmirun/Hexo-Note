@@ -29,7 +29,6 @@ import { ElectronService } from './services/electron.service';
 import { WebviewDirective } from './directives/webview.directive';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { HexoService } from './services/hexo.service';
@@ -50,6 +49,10 @@ import { ArticleListItemComponent } from './components/article-list-item/article
 import { RemanePostModalComponent } from './components/remane-post-modal/remane-post-modal.component';
 import { SaveArticleImageModalComponent } from './components/save-article-image-modal/save-article-image-modal.component';
 import { AssetService } from './services/asset.service';
+import { ArticleMdEditorComponent } from './components/article-md-editor/article-md-editor.component';
+import { CustomMdEditorComponent } from './components/custom-md-editor/custom-md-editor.component';
+import { NotProjectFoundComponent } from './pages/not-project-found/not-project-found.component';
+import { NewBlogModalComponent } from './components/new-blog-modal/new-blog-modal.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -59,7 +62,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     WebviewDirective,
     SidebarComponent,
     DashboardComponent,
@@ -69,11 +71,16 @@ export function HttpLoaderFactory(http: HttpClient) {
     NewPostFormComponent,
     ArticleListItemComponent,
     RemanePostModalComponent,
-    SaveArticleImageModalComponent
+    SaveArticleImageModalComponent,
+    ArticleMdEditorComponent,
+    CustomMdEditorComponent,
+    NotProjectFoundComponent,
+    NewBlogModalComponent,
   ],
   entryComponents: [
     RemanePostModalComponent,
-    SaveArticleImageModalComponent
+    SaveArticleImageModalComponent,
+    NewBlogModalComponent
   ],
   imports: [
     BrowserModule,
