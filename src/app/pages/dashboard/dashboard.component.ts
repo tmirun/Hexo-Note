@@ -11,23 +11,13 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  private _configYmlSubscription: Subscription;
-
   constructor(
-    private hexoService: HexoService,
-    private configService: ConfigService,
-    private router: Router
   ) { }
 
   ngOnInit() {
-    this.configService.getConfigYml();
-    this._configYmlSubscription = this.configService.configYml$.subscribe((configYmlData) => {
-      if (configYmlData) { this.router.navigate(['/dashboard/post']); }
-    });
   }
 
   ngOnDestroy() {
-    this._configYmlSubscription.unsubscribe();
   }
 
 }

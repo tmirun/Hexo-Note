@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SettingsComponent } from './pages/dashboard/settings/settings.component';
 import { CanDeactivateGuard } from './guard/can-deactivate.guard';
 import { AppInitGuard } from './guard/app-init.guard';
+import { ConfigInitGuard} from './guard/config-init.guard';
 import { NotProjectFoundComponent } from './pages/not-project-found/not-project-found.component';
 
 const routes: Routes = [
@@ -16,16 +17,16 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    canActivate: [ AppInitGuard ],
     children: [
       {
         path: 'settings',
-        canActivate: [ AppInitGuard ],
         component: SettingsComponent
       },
       {
         path: 'post',
         component: PostComponent,
-        canActivate: [ AppInitGuard ],
+        canActivate: [ ConfigInitGuard ],
         children: [
           { path: ':id',
             component: PostDetailComponent,

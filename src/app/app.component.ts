@@ -23,6 +23,7 @@ export class AppComponent {
     public electronService: ElectronService,
     private hexoService: HexoService,
     private router: Router,
+    private configService: ConfigService,
     private translate: TranslateService) {
 
     translate.setDefaultLang('en');
@@ -35,10 +36,7 @@ export class AppComponent {
     }
 
     if (this.hexoService.isCurrentDirectoryProjectFolder()) {
-      this.router.navigate(['/dashboard']);
-    } else {
-      this.router.navigate(['/not-project-found']);
+      this.router.navigate(['dashboard/post']);
     }
-
   }
 }
