@@ -207,4 +207,8 @@ export class ArticleMdEditorComponent implements OnInit, OnDestroy, OnChanges {
   public isArray(object): boolean {
     return Array.isArray(object);
   }
+
+  public ctrlOrCmd(): string {
+    return this.utils.isMac() ? 'Cmd' : 'Ctrl';
+  }
 }
