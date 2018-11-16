@@ -8,6 +8,7 @@ export class Article implements ArticleInterface {
   private _raw?: string;
   private _info?: string;
   private _content?: string;
+  private _title?: string;
 
   public published?: boolean;
   public asset_dir?: string;
@@ -19,7 +20,6 @@ export class Article implements ArticleInterface {
 
   // hexo info
   public date?: moment.Moment;
-  public title?: string;
   public tags?: string[] = [];
   public categories?: string | string[] = [];
 
@@ -42,7 +42,7 @@ export class Article implements ArticleInterface {
     if (! moment.isMoment(this.date)) {
       this.date = moment(this.date);
     }
-    this.title = title;
+    this.title = String(title);
     this.raw = raw;
     this.published = published;
     this.asset_dir = asset_dir;
@@ -50,6 +50,14 @@ export class Article implements ArticleInterface {
     this.file = file;
     this.fileName = fileName;
     this.updated = updated;
+  }
+
+  get title(): string {
+    return this._title;
+  }
+
+  set title(value: string) {
+    this._title = String(value);
   }
 
   get raw(): string {
