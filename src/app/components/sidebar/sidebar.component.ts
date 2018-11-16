@@ -6,6 +6,8 @@ import { HexoService } from '../../services/hexo.service';
 import { ServerService } from '../../services/server.service';
 import { AppConfig } from '../../../environments/environment';
 import { ElectronService } from '../../services/electron.service';
+import {RenameArticleModalComponent} from '../rename-article-modal/rename-article-modal.component';
+import {NewArticleFormComponent} from '../new-article-form/new-article-form.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -30,13 +32,11 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
   }
 
-  public createModal(modalTmpl): void {
+  public openNewArticleModal() {
     this.modalService.create({
-      nzTitle: 'NEW POST',
-      nzContent: modalTmpl,
-      nzFooter: null,
-      nzClosable: false,
-      nzOnOk: () => new Promise((resolve) => window.setTimeout(resolve, 1000))
+      nzTitle: 'RENAME FILE',
+      nzContent: NewArticleFormComponent,
+      nzFooter: null
     });
   }
 

@@ -80,7 +80,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   entryComponents: [
     RenameArticleModalComponent,
     SaveArticleImageModalComponent,
-    NewBlogModalComponent
+    NewBlogModalComponent,
+    NewArticleFormComponent
   ],
   imports: [
     BrowserModule,
