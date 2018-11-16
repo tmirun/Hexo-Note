@@ -7,15 +7,14 @@ import 'rxjs/add/operator/shareReplay';
 
 @Component({
   selector: 'app-post',
-  templateUrl: './post.component.html',
-  styleUrls: ['./post.component.scss']
+  templateUrl: './article.component.html',
+  styleUrls: ['./article.component.scss']
 })
-export class PostComponent implements OnInit, OnDestroy {
+export class ArticleComponent implements OnInit, OnDestroy {
 
   public posts: Article[];
   public drafts: Article[];
   public searchFormControl = new FormControl('');
-  public searchOptions: string[] = [];
 
   private postsSubscription: Subscription;
   private draftsSubscription: Subscription;

@@ -32,10 +32,10 @@ import { AppComponent } from './app.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { HexoService } from './services/hexo.service';
-import { PostComponent } from './pages/dashboard/post/post.component';
+import { ArticleComponent } from './pages/dashboard/article/article.component';
 import { ArticleService } from './services/article.service';
 import { HexoInitGuard } from './guard/hexo-init.guard';
-import { PostDetailComponent } from './pages/dashboard/post/post-detail/post-detail.component';
+import { ArticleDetailComponent } from './pages/dashboard/article/article-detail/article-detail.component';
 import { SystemSettingsService } from './services/system-settings.service';
 import { SettingsComponent } from './pages/dashboard/settings/settings.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -65,8 +65,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     WebviewDirective,
     SidebarComponent,
     DashboardComponent,
-    PostComponent,
-    PostDetailComponent,
+    ArticleComponent,
+    ArticleDetailComponent,
     SettingsComponent,
     NewArticleFormComponent,
     ArticleListItemComponent,

@@ -1,6 +1,6 @@
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { PostComponent } from './pages/dashboard/post/post.component';
-import { PostDetailComponent } from './pages/dashboard/post/post-detail/post-detail.component';
+import { ArticleComponent } from './pages/dashboard/article/article.component';
+import { ArticleDetailComponent } from './pages/dashboard/article/article-detail/article-detail.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SettingsComponent } from './pages/dashboard/settings/settings.component';
@@ -25,11 +25,11 @@ const routes: Routes = [
       },
       {
         path: 'article',
-        component: PostComponent,
+        component: ArticleComponent,
         canActivate: [ ConfigInitGuard ],
         children: [
           { path: ':id',
-            component: PostDetailComponent,
+            component: ArticleDetailComponent,
             canDeactivate: [CanDeactivateGuard],
           },
         ]

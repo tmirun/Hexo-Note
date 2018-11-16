@@ -1,20 +1,20 @@
 @import "../../../../styles";
 
 :host {
-  .post-sidebar {
+  .article-sidebar {
     overflow-y: auto;
     width: $help-sidebar-width;
     border-right: $border-color solid thin;
 
-    .post-sidebar-search {
+    .article-sidebar-search {
       padding: $spacing-s $spacing-m;
       border-bottom: $border-color solid thin;
     }
 
-    .post-sidebar-list-wrapper {
+    .article-sidebar-list-wrapper {
       overflow: scroll;
 
-      .post-sidebar-list-title {
+      .article-sidebar-list-title {
         padding: $spacing-m $spacing-m $spacing-xs ;
         border-bottom: $border-color solid thin;
         font-weight: bold;
