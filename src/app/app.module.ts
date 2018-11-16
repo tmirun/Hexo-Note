@@ -42,7 +42,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfigService } from './services/config.service';
 import { UtilsService } from './services/utils.service';
 import { ServerService } from './services/server.service';
-import { NewPostFormComponent } from './components/new-post-form/new-post-form.component';
+import { NewArticleFormComponent } from './components/new-article-form/new-article-form.component';
 import { CanDeactivateGuard } from './guard/can-deactivate.guard';
 import { AppInitGuard } from './guard/app-init.guard';
 import { ArticleListItemComponent } from './components/article-list-item/article-list-item.component';
@@ -68,7 +68,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     PostComponent,
     PostDetailComponent,
     SettingsComponent,
-    NewPostFormComponent,
+    NewArticleFormComponent,
     ArticleListItemComponent,
     RemanePostModalComponent,
     SaveArticleImageModalComponent,

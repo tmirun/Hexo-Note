@@ -11,11 +11,11 @@ import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import 'rxjs/add/operator/debounceTime';
 
 @Component({
-  selector: 'app-new-post-form',
-  templateUrl: './new-post-form.component.html',
-  styleUrls: ['./new-post-form.component.scss']
+  selector: 'app-new-article-form',
+  templateUrl: './new-article-form.component.html',
+  styleUrls: ['./new-article-form.component.scss']
 })
-export class NewPostFormComponent implements OnInit, OnDestroy {
+export class NewArticleFormComponent implements OnInit, OnDestroy {
 
   @Input() post: Article;
   @Output() postChange = new EventEmitter<Article>();
