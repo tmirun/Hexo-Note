@@ -89,8 +89,12 @@ export class ArticleService {
     return this.utilsService.findFilesInDir(this.getDraftPath(), '.md');
   }
 
-  public getArticleLocalById(postId: string) {
+  public getArticleLocalById(postId: string): Article {
     return this.articles$.getValue().find( (post) => post._id === postId);
+  }
+
+  public getArticleByLocalByTitle(title: string): Article {
+    return this.articles$.getValue().find((article) => article.title === title);
   }
 
   private _parseArticleFromPath(path: string): Article {
