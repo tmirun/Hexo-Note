@@ -49,7 +49,7 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
       })
       .map((article) => {
         if (!article) {
-          this.router.navigate(['/dashboard/post']);
+          this.router.navigate(['/dashboard/article']);
           return ;
         }
         this.article = article;

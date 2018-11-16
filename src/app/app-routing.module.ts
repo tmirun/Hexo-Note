@@ -24,7 +24,7 @@ const routes: Routes = [
         component: SettingsComponent
       },
       {
-        path: 'post',
+        path: 'article',
         component: PostComponent,
         canActivate: [ ConfigInitGuard ],
         children: [

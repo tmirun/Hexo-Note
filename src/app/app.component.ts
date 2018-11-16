@@ -36,7 +36,7 @@ export class AppComponent {
     }
 
     if (this.hexoService.isCurrentDirectoryProjectFolder()) {
-      this.router.navigate(['dashboard/post']);
+      this.router.navigate(['dashboard/article']);
     }
   }
 }
