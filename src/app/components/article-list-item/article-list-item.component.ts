@@ -2,7 +2,7 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Article} from '../../Models/Article';
 import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {ArticleService} from '../../services/article.service';
-import {RemanePostModalComponent} from '../remane-post-modal/remane-post-modal.component';
+import {RenameArticleModalComponent} from '../rename-article-modal/rename-article-modal.component';
 import {ConfigService} from '../../services/config.service';
 import {Subscription} from 'rxjs';
 
@@ -55,7 +55,7 @@ export class ArticleListItemComponent implements OnInit, OnDestroy {
   public rename() {
     this.modalService.create({
       nzTitle: 'RENAME FILE',
-      nzContent: RemanePostModalComponent,
+      nzContent: RenameArticleModalComponent,
       nzComponentParams: {
         article: this.article
       },

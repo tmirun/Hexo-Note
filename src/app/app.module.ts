@@ -46,7 +46,7 @@ import { NewArticleFormComponent } from './components/new-article-form/new-artic
 import { CanDeactivateGuard } from './guard/can-deactivate.guard';
 import { AppInitGuard } from './guard/app-init.guard';
 import { ArticleListItemComponent } from './components/article-list-item/article-list-item.component';
-import { RemanePostModalComponent } from './components/remane-post-modal/remane-post-modal.component';
+import { RenameArticleModalComponent } from './components/rename-article-modal/rename-article-modal.component';
 import { SaveArticleImageModalComponent } from './components/save-article-image-modal/save-article-image-modal.component';
 import { AssetService } from './services/asset.service';
 import { ArticleMdEditorComponent } from './components/article-md-editor/article-md-editor.component';
@@ -70,7 +70,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SettingsComponent,
     NewArticleFormComponent,
     ArticleListItemComponent,
-    RemanePostModalComponent,
+    RenameArticleModalComponent,
     SaveArticleImageModalComponent,
     ArticleMdEditorComponent,
     CustomMdEditorComponent,
@@ -78,7 +78,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NewBlogModalComponent,
   ],
   entryComponents: [
-    RemanePostModalComponent,
+    RenameArticleModalComponent,
     SaveArticleImageModalComponent,
     NewBlogModalComponent
   ],
