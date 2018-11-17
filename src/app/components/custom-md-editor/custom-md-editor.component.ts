@@ -131,9 +131,6 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
     } else {
       cm.replaceSelection('> ' + selection);
     }
-
-    cm.replaceSelection('> ' + selection);
-    cm.setCursor(cursor.line, (selection === '') ? cursor.ch + 2 : cursor.ch + selection.length + 2);
     cm.focus();
   }
 

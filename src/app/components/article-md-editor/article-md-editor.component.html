@@ -38,7 +38,8 @@
 
       <nz-button-group flex="none">
         <button nz-button nzSize="small" (click)="editorContent.code()"><i class="fa fa-code"></i></button>
-        <button nz-button nzSize="small" (click)="editorContent.codeBlock()"><i class="fa fa-chevron-right"></i></button>
+        <button nz-button nzSize="small" (click)="editorContent.codeBlock()"><i class="fa fa-file-code"></i></button>
+        <button nz-button nzSize="small" (click)="editorContent.quote()"><i class="fa fa-chevron-right"></i></button>
         <button nz-button nzSize="small" (click)="editorContent.link()"
                 nz-tooltip [nzTitle]="ctrlOrCmd() + '+ k'" nzPlacement="bottom"><i class="fa fa-link"></i></button>
         <button nz-button nzSize="small" (click)="editorContent.image()"
