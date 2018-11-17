@@ -14,12 +14,18 @@
       </nz-button-group>
 
       <nz-button-group flex="none">
-        <button nz-button nzSize="small" (click)="editorContent.header(1)">H1</button>
-        <button nz-button nzSize="small" (click)="editorContent.header(2)">H2</button>
-        <button nz-button nzSize="small" (click)="editorContent.header(3)">H3</button>
-        <button nz-button nzSize="small" (click)="editorContent.header(4)">H4</button>
-        <button nz-button nzSize="small" (click)="editorContent.header(5)">H5</button>
-        <button nz-button nzSize="small" (click)="editorContent.header(6)">H6</button>
+        <button nz-button nzSize="small" (click)="editorContent.header(1)"
+                nz-tooltip [nzTitle]="ctrlOrCmd() + '+ 1'" nzPlacement="bottom">H1</button>
+        <button nz-button nzSize="small" (click)="editorContent.header(2)"
+                nz-tooltip [nzTitle]="ctrlOrCmd() + '+ 2'" nzPlacement="bottom">H2</button>
+        <button nz-button nzSize="small" (click)="editorContent.header(3)"
+                nz-tooltip [nzTitle]="ctrlOrCmd() + '+ 3'" nzPlacement="bottom">H3</button>
+        <button nz-button nzSize="small" (click)="editorContent.header(4)"
+                nz-tooltip [nzTitle]="ctrlOrCmd() + '+ 4'" nzPlacement="bottom">H4</button>
+        <button nz-button nzSize="small" (click)="editorContent.header(5)"
+                nz-tooltip [nzTitle]="ctrlOrCmd() + '+ 5'" nzPlacement="bottom">H5</button>
+        <button nz-button nzSize="small" (click)="editorContent.header(6)"
+                nz-tooltip [nzTitle]="ctrlOrCmd() + '+ 6'" nzPlacement="bottom">H6</button>
       </nz-button-group>
 
       <nz-button-group flex="none">
