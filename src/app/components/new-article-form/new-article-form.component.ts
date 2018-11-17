@@ -89,7 +89,7 @@ export class NewArticleFormComponent implements OnInit, OnDestroy {
           .toPromise()
           .then(() => {
             const currentArticle = this.articleService.getArticleByLocalByTitle(title);
-            this.router.navigate(['/dashboard', 'article', Article.generateId(currentArticle.file, published)]);
+            this.router.navigate(['/dashboard', 'article', currentArticle._id]);
             this.modal.close();
           });
       })
