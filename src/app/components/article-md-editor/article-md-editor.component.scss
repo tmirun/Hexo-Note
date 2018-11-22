@@ -32,62 +32,60 @@ $editor-toolbar-height: 48px;
       margin-bottom: $spacing-s;
     }
 
-    .article-md-editor-form-wrapper {
+    .article-md-editor-form {
       border: thin solid $grey-3;
-      .article-md-editor-form {
 
+      /deep/ {
+        .ant-collapse-item {
+          border-color: $grey-3;
+        }
+
+        .CodeMirror {
+          height: auto;
+          min-height: 150px;
+          padding: $spacing-s;
+          font: inherit;
+
+          * {
+            font-weight: normal;
+          }
+        }
+
+      }
+
+      .article-md-editor-info-wrapper {
         /deep/ {
-          .ant-collapse-item {
-            border-color: $grey-3;
+          .ant-collapse-content{
+            background: $grey-3;
           }
-
           .CodeMirror {
-            height: auto;
-            min-height: 150px;
-            padding: $spacing-s;
-            font: inherit;
-
-            * {
-              font-weight: normal;
-            }
+            padding: 0;
+            background: $grey-3;
           }
-
-        }
-
-        .article-md-editor-info-wrapper {
-          /deep/ {
-            .ant-collapse-content{
-              background: $grey-3;
-            }
-            .CodeMirror {
-              padding: 0;
-              background: $grey-3;
-            }
-          }
-        }
-
-        .article-md-editor-content-wrapper {
-          position: relative;
-          /deep/ .CodeMirror {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 100%;
-            height: 100%;
-
-            .CodeMirror-code{
-              padding-bottom: $spacing-CodeMirror-padding-scroll;
-            }
-          }
-
-
         }
       }
-      /deep/ .article-md-editor-markdown-preview {
-        background: $grey-1;
-        padding: $spacing-m;
-        overflow: scroll;
+
+      .article-md-editor-content-wrapper {
+        position: relative;
+        /deep/ .CodeMirror {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          width: 100%;
+          height: 100%;
+
+          .CodeMirror-code{
+            padding-bottom: $spacing-CodeMirror-padding-scroll;
+          }
+        }
+
+
       }
+    }
+    /deep/ .article-md-editor-markdown-preview {
+      background: $grey-1;
+      padding: $spacing-m;
+      overflow: scroll;
     }
   }
 }

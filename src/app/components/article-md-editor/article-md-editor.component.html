@@ -96,21 +96,21 @@
     </div>
   </div>
   <nz-divider fxFlex="none" class="article-md-editor-divider"></nz-divider>
-  <div fxLayout fxLayoutAlign="start stretch" fxFlex class="article-md-editor-form-wrapper">
-    <form nz-form class="article-md-editor-form" [formGroup]="form"
-          fxLayout="column" fxFlex>
-      <div fxFlex="none" class="article-md-editor-info-wrapper">
-        <nz-collapse [nzBordered]="false">
-          <nz-collapse-panel [nzHeader]="postInfoTitleTmpl" [nzActive]="false">
-            <app-custom-md-editor
-              #editorInfo
-              class="no-style"
-              formControlName="info"
-              [options]="codeMirrorOptions"
-            ></app-custom-md-editor>
-          </nz-collapse-panel>
-        </nz-collapse>
-      </div>
+  <form nz-form class="article-md-editor-form" [formGroup]="form"
+        fxFlex fxLayout="column" fxFlex>
+    <div fxFlex="none" class="article-md-editor-info-wrapper">
+      <nz-collapse [nzBordered]="false">
+        <nz-collapse-panel [nzHeader]="postInfoTitleTmpl" [nzActive]="false">
+          <app-custom-md-editor
+            #editorInfo
+            class="no-style"
+            formControlName="info"
+            [options]="codeMirrorOptions"
+          ></app-custom-md-editor>
+        </nz-collapse-panel>
+      </nz-collapse>
+    </div>
+    <div fxFlex fxLayout fxLayoutAlign="start stretch">
       <div fxFlex class="article-md-editor-content-wrapper">
         <app-custom-md-editor
           #editorContent
@@ -120,28 +120,27 @@
         >
         </app-custom-md-editor>
       </div>
-    </form>
+      <markdown fxFlex *ngIf="isActivePreview" ngPreserveWhitespaces [data]="this.form.value.content" class="article-md-editor-markdown-preview">
+      </markdown>
+    </div>
+  </form>
 
-    <ng-template #postInfoTitleTmpl>
-      <div class="article-md-editor-info-title">
-        {{ article.title }}
-        <span  *ngIf="article && article.categories && article.categories.length">
-          <span *ngIf="isArray(article.categories); else showCategoriesString">
-            <nz-tag *ngFor="let category of article.categories" [nzColor]="'blue'"> {{ category }} </nz-tag>
-          </span>
+  <ng-template #postInfoTitleTmpl>
+    <div class="article-md-editor-info-title">
+      {{ article.title }}
+      <span  *ngIf="article && article.categories && article.categories.length">
+        <span *ngIf="isArray(article.categories); else showCategoriesString">
+          <nz-tag *ngFor="let category of article.categories" [nzColor]="'blue'"> {{ category }} </nz-tag>
         </span>
-        <ng-template #showCategoriesString> <nz-tag [nzColor]="'blue'"> {{ article.categories }} </nz-tag> </ng-template>
+      </span>
+      <ng-template #showCategoriesString> <nz-tag [nzColor]="'blue'"> {{ article.categories }} </nz-tag> </ng-template>
 
-        <span  *ngIf="article && article.tags && article.tags.length">
-          <span *ngIf="isArray(article.tags); else showTagsString">
-            <nz-tag *ngFor="let tag of article.tags"> {{ tag }} </nz-tag>
-          </span>
+      <span  *ngIf="article && article.tags && article.tags.length">
+        <span *ngIf="isArray(article.tags); else showTagsString">
+          <nz-tag *ngFor="let tag of article.tags"> {{ tag }} </nz-tag>
         </span>
-        <ng-template #showTagsString> <nz-tag> {{ article.tags }} </nz-tag> </ng-template>
-      </div>
-    </ng-template>
-
-    <markdown fxFlex *ngIf="isActivePreview" ngPreserveWhitespaces [data]="this.form.value.content" class="article-md-editor-markdown-preview">
-    </markdown>
-  </div>
+      </span>
+      <ng-template #showTagsString> <nz-tag> {{ article.tags }} </nz-tag> </ng-template>
+    </div>
+  </ng-template>
 </div>
