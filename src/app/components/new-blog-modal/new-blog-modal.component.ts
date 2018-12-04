@@ -44,6 +44,10 @@ export class NewBlogModalComponent implements OnInit {
       }
     }
 
+    if (this.form.invalid) {
+      return;
+    }
+
     this.isCreating = true;
 
     this.hexoService.newBlog(this.form.value.directory);

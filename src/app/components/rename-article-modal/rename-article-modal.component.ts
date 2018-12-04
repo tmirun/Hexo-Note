@@ -64,6 +64,11 @@ export class RenameArticleModalComponent implements OnInit, OnDestroy {
         this.form.controls[i].updateValueAndValidity();
       }
     }
+
+    if (this.form.invalid) {
+      return;
+    }
+
     this.articleService.rename(this.article, this.form.value.fileName)
       .then(() => {
         this.isRenaming = false;

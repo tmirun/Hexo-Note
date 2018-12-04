@@ -76,6 +76,10 @@ export class NewArticleFormComponent implements OnInit, OnDestroy {
       }
     }
 
+    if (this.form.invalid) {
+      return;
+    }
+
     const title = this.form.value.title;
     const published = this.form.value.published;
 
