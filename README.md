@@ -10,6 +10,10 @@ hexojs 客户端
 
 ![Hexo note](./hexo-note-image.png)
 
+You Can Save Image!!!
+可以保存图片!!!
+![Hexo note](./hexo-note-image-save-image.png)
+
 ## Very concerned about your opinion
 
 if you have a opinion or improvement you can write in the Issue and we will discuss it all together.
@@ -73,11 +77,11 @@ TODO
     * [x] 标题 DONE
     * [ ] 按分类
     * [ ] 按 Tag
-* [ ] 热键
+* [x] 热键
     * [x] 保存 cmd + s / ctrl + s,
-    * [ ] 黑体 cmd + b / ctrl + b,
-    * [ ] italic cmd + i / ctrl + i,
-    * [ ] h1-h6 cmd + [1-6] / ctrl + [1-6],
+    * [x] 黑体 cmd + b / ctrl + b,
+    * [x] italic cmd + i / ctrl + i,
+    * [x] h1-h6 cmd + [1-6] / ctrl + [1-6],
 * [x] 启动 HEXO 服务器 DONE
 * [x] 软件偏好设置 -- yml DONE
 * [x] 一键编译、发布博客 DONE
