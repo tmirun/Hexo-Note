@@ -1,12 +1,12 @@
 <div class="sidebar" fxLayout="column" fxFlexFill fxLayoutAlign="start center">
   <button fxFlex="none" nzTitle="ADD NEW POST" nzPlacement="right" nz-tooltip
-          nz-button nzShape="circle" nzSize="large" nzGhost nzType="primary" (click)="createModal(newPostModalTmpl)">
+          nz-button nzShape="circle" nzSize="large" nzGhost nzType="primary" (click)="openNewArticleModal()">
     <i nz-icon type="plus" theme="outline"></i>
   </button>
   <hr/>
   <ul nz-menu nzTheme nzInlineCollapsed fxFlex="none">
     <li nzTitle="POSTS" nzPlacement="right" nz-tooltip
-        nz-menu-item routerLink="/dashboard/post" routerLinkActive="ant-menu-item-selected">
+        nz-menu-item routerLink="/dashboard/article" routerLinkActive="ant-menu-item-selected">
       <span title>
         <i nz-icon type="copy"></i>
       </span>
@@ -52,6 +52,6 @@
   <div fxFlex="none"> {{ version }} </div>
 
   <ng-template #newPostModalTmpl>
-    <app-new-post-form></app-new-post-form>
+    <app-new-article-form></app-new-article-form>
   </ng-template>
 </div>

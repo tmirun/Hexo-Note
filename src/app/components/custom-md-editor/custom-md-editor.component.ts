@@ -131,9 +131,6 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
     } else {
       cm.replaceSelection('> ' + selection);
     }
-
-    cm.replaceSelection('> ' + selection);
-    cm.setCursor(cursor.line, (selection === '') ? cursor.ch + 2 : cursor.ch + selection.length + 2);
     cm.focus();
   }
 
@@ -189,7 +186,11 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
     const cursor    = cm.getCursor();
     const selection = cm.getSelection();
 
-    cm.replaceSelection(`[](${selection})`);
+    if (this.utils.isURL(selection)) {
+      cm.replaceSelection(`[](${selection})`);
+    } else {
+      cm.replaceSelection(`[${selection}]()`);
+    }
 
     if (selection === '') {
       cm.setCursor(cursor.line, cursor.ch + 3);
@@ -202,7 +203,11 @@ export class CustomMdEditorComponent extends CodemirrorComponent implements OnIn
     const cursor    = cm.getCursor();
     const selection = cm.getSelection();
 
-    cm.replaceSelection(`![](${selection})`);
+    if (this.utils.isURL(selection)) {
+      cm.replaceSelection(`![](${selection})`);
+    } else {
+      cm.replaceSelection(`![${selection}]()`);
+    }
 
     if (selection === '') {
       cm.setCursor(cursor.line, cursor.ch + 4);

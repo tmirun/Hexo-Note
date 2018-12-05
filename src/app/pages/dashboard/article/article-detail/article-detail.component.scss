@@ -7,23 +7,23 @@ $editor-toolbar-height: 48px;
       outline: none;
     }
   }
-  .post-detail {
+  .article-detail {
     padding: $spacing-m;
-    .post-detail-content {
+    .article-detail-content {
 
     }
 
-    .post-detail-action-bar {
+    .article-detail-action-bar {
       > * {
         margin-left: $spacing-m;
       }
-      .post-detail-preview-icon {
+      .article-detail-preview-icon {
         padding-right: $spacing-xs;
         font-size: $size-icon-m;
       }
     }
 
-    .post-detail-editor-toolbar {
+    .article-detail-editor-toolbar {
       /deep/ .ant-btn-group {
         margin-right: $spacing-xs;
         > .ant-btn {
@@ -32,14 +32,14 @@ $editor-toolbar-height: 48px;
       }
     }
 
-    .post-detail-divider {
+    .article-detail-divider {
       margin-top: $spacing-s;
       margin-bottom: $spacing-s;
     }
 
-    .post-detail-form-wrapper {
+    .article-detail-form-wrapper {
       border: thin solid $grey-3;
-      .post-detail-form {
+      .article-detail-form {
 
         /deep/ {
           .ant-collapse-item {
@@ -59,7 +59,7 @@ $editor-toolbar-height: 48px;
 
         }
 
-        .post-detail-info-wrapper {
+        .article-detail-info-wrapper {
           /deep/ {
             .ant-collapse-content{
               background: $grey-3;
@@ -71,7 +71,7 @@ $editor-toolbar-height: 48px;
           }
         }
 
-        .post-detail-content-wrapper {
+        .article-detail-content-wrapper {
           position: relative;
           /deep/ .CodeMirror {
             position: absolute;
@@ -166,7 +166,7 @@ $editor-toolbar-height: 48px;
           }
         }
       }
-      /deep/ .post-detail-markdown-preview {
+      /deep/ .article-detail-markdown-preview {
         background: $grey-1;
         padding: $spacing-m;
         overflow: scroll;

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RemanePostModalComponent } from './remane-post-modal.component';
+import { RenameArticleModalComponent } from './rename-article-modal.component';
 
-describe('RemanePostModalComponent', () => {
-  let component: RemanePostModalComponent;
-  let fixture: ComponentFixture<RemanePostModalComponent>;
+describe('RenameArticleModalComponent', () => {
+  let component: RenameArticleModalComponent;
+  let fixture: ComponentFixture<RenameArticleModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RemanePostModalComponent ]
+      declarations: [ RenameArticleModalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RemanePostModalComponent);
+    fixture = TestBed.createComponent(RenameArticleModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

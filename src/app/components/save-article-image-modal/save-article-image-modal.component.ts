@@ -74,6 +74,10 @@ export class SaveArticleImageModalComponent implements OnInit {
       }
     }
 
+    if (this.form.invalid) {
+      return;
+    }
+
     let imageData = '';
     const fileName = this.form.value.fileName;
     const format = this.form.value.format;

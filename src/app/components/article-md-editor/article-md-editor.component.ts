@@ -76,6 +76,9 @@ export class ArticleMdEditorComponent implements OnInit, OnDestroy, OnChanges {
       content: this.article.content
     });
 
+    // clean history when editor init;
+    this._cleanHistory();
+
     this._configSubscription = this.configService.configJson$.subscribe((configJson) => {
       this.disablePostAsset = !configJson.post_asset_folder;
     });
@@ -91,6 +94,7 @@ export class ArticleMdEditorComponent implements OnInit, OnDestroy, OnChanges {
         info: this.article.info,
         content: this.article.content
       });
+      this._cleanHistory();
     }
   }
 
@@ -204,7 +208,29 @@ export class ArticleMdEditorComponent implements OnInit, OnDestroy, OnChanges {
     });
   }
 
+  private _cleanHistory() {
+    if (this.editorInfo.codeMirror) {
+      this.editorInfo.codeMirror.clearHistory();
+    } else {
+      setTimeout(() => {
+        return this.editorInfo.codeMirror ? this.editorInfo.codeMirror.clearHistory() : '';
+      }, 1000);
+    }
+
+    if (this.editorContent.codeMirror) {
+      this.editorContent.codeMirror.clearHistory();
+    } else {
+      setTimeout(() => {
+        return this.editorContent.codeMirror ? this.editorContent.codeMirror.clearHistory() : '';
+      }, 1000);
+    }
+  }
+
   public isArray(object): boolean {
     return Array.isArray(object);
+  }
+
+  public ctrlOrCmd(): string {
+    return this.utils.isMac() ? 'Cmd' : 'Ctrl';
   }
 }

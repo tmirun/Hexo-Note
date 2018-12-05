@@ -1,14 +1,14 @@
 <div fxLayout="row" fxLayoutAlign="start stretch" fxFlexFill class="post">
-  <div class="post-sidebar" fxLayout="column">
-    <div class="post-sidebar-search" fxFlex="none">
+  <div class="article-sidebar" fxLayout="column">
+    <div class="article-sidebar-search" fxFlex="none">
       <nz-input-group nzSuffixIcon="anticon anticon-search">
         <input type="text" nz-input [formControl]="searchFormControl" placeholder="input search text">
       </nz-input-group>
     </div>
-    <div class="post-sidebar-list-wrapper" fxFlex>
-      <div class="post-sidebar-list-title" > DRAFTS </div>
+    <div class="article-sidebar-list-wrapper" fxFlex>
+      <div class="article-sidebar-list-title" > DRAFTS </div>
       <app-article-list-item *ngFor="let draft of drafts" [article]="draft"></app-article-list-item>
-      <div class="post-sidebar-list-title"> POSTS </div>
+      <div class="article-sidebar-list-title"> POSTS </div>
       <app-article-list-item *ngFor="let draft of posts" [article]="draft"></app-article-list-item>
     </div>
   </div>

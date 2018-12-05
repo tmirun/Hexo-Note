@@ -7,15 +7,18 @@ import {
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ArticleService } from '../../services/article.service';
-import { NzModalService, NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService, NzModalRef } from 'ng-zorro-antd';
 import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/take';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-new-post-form',
-  templateUrl: './new-post-form.component.html',
-  styleUrls: ['./new-post-form.component.scss']
+  selector: 'app-new-article-form',
+  templateUrl: './new-article-form.component.html',
+  styleUrls: ['./new-article-form.component.scss']
 })
-export class NewPostFormComponent implements OnInit, OnDestroy {
+export class NewArticleFormComponent implements OnInit, OnDestroy {
 
   @Input() post: Article;
   @Output() postChange = new EventEmitter<Article>();
@@ -28,8 +31,9 @@ export class NewPostFormComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private articleService: ArticleService,
-    private modalService: NzModalService,
-    private message: NzMessageService
+    private modal: NzModalRef,
+    private message: NzMessageService,
+    private router: Router
   ) {
     this.form = this.fb.group({
       title: [ '', [ Validators.required ] ],
@@ -71,13 +75,27 @@ export class NewPostFormComponent implements OnInit, OnDestroy {
         this.form.controls[i].updateValueAndValidity();
       }
     }
-    this.articleService.create({
-      title: this.form.value.title,
-      published: this.form.value.published})
+
+    if (this.form.invalid) {
+      return;
+    }
+
+    const title = this.form.value.title;
+    const published = this.form.value.published;
+
+    this.articleService.create({ title, published})
       .then(() => {
         this.isCreating = false;
         this.message.success('CREATE POST OK');
-        this.modalService.closeAll();
+        this.articleService.articles$
+          .debounceTime(500)
+          .take(1)
+          .toPromise()
+          .then(() => {
+            const currentArticle = this.articleService.getArticleByLocalByTitle(title);
+            this.router.navigate(['/dashboard', 'article', currentArticle._id]);
+            this.modal.close();
+          });
       })
       .catch((err) => {
         this.message.error(`CREATE POST ERROR: ${err}`);

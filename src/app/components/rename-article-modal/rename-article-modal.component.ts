@@ -2,15 +2,15 @@ import {Component, Input, OnInit, OnDestroy} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {ArticleService} from '../../services/article.service';
-import {NzMessageService, NzModalRef, NzModalService} from 'ng-zorro-antd';
+import {NzMessageService, NzModalRef} from 'ng-zorro-antd';
 import {Article} from '../../Models/Article';
 
 @Component({
-  selector: 'app-remane-post-modal',
-  templateUrl: './remane-post-modal.component.html',
-  styleUrls: ['./remane-post-modal.component.scss']
+  selector: 'app-rename-article-modal',
+  templateUrl: './rename-article-modal.component.html',
+  styleUrls: ['./rename-article-modal.component.scss']
 })
-export class RemanePostModalComponent implements OnInit, OnDestroy {
+export class RenameArticleModalComponent implements OnInit, OnDestroy {
 
   @Input() article: Article;
   @Input() subtitle: string;
@@ -23,7 +23,6 @@ export class RemanePostModalComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private articleService: ArticleService,
-    private modalService: NzModalService,
     private message: NzMessageService,
     private modal: NzModalRef
   ) {
@@ -65,11 +64,16 @@ export class RemanePostModalComponent implements OnInit, OnDestroy {
         this.form.controls[i].updateValueAndValidity();
       }
     }
+
+    if (this.form.invalid) {
+      return;
+    }
+
     this.articleService.rename(this.article, this.form.value.fileName)
       .then(() => {
         this.isRenaming = false;
         this.message.success('RENAME ARTICLE OK');
-        this.modalService.closeAll();
+        this.modal.close();
       })
       .catch((err) => {
         this.message.error(`RENAME ARTICLE ERROR: ${err}`);

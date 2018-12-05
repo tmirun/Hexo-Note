@@ -15,13 +15,10 @@ import { ElectronService } from '../../../../services/electron.service';
 
 @Component({
   selector: 'app-post-detail',
-  templateUrl: './post-detail.component.html',
-  styleUrls: ['./post-detail.component.scss']
+  templateUrl: './article-detail.component.html',
+  styleUrls: ['./article-detail.component.scss']
 })
-export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuard {
-
-  @ViewChild('editorContent') editorContent: any;
-  @ViewChild('editorInfo') editorInfo: any;
+export class ArticleDetailComponent implements OnInit, OnDestroy, CanDeactivateGuard {
 
   public article: Article = {} as Article;
   public title: string;
@@ -45,11 +42,11 @@ export class PostDetailComponent implements OnInit, OnDestroy, CanDeactivateGuar
     this._routeSubscription = this.route.params
       .switchMap(params => {
         return this.articleService.articles$
-          .map(posts => posts.find(post =>  post._id === params.id));
+          .map(articles => articles.find(article =>  article._id === params.id));
       })
       .map((article) => {
         if (!article) {
-          this.router.navigate(['/dashboard/post']);
+          this.router.navigate(['/dashboard/article']);
           return ;
         }
         this.article = article;

@@ -32,21 +32,21 @@ import { AppComponent } from './app.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { HexoService } from './services/hexo.service';
-import { PostComponent } from './pages/dashboard/post/post.component';
+import { ArticleComponent } from './pages/dashboard/article/article.component';
 import { ArticleService } from './services/article.service';
 import { HexoInitGuard } from './guard/hexo-init.guard';
-import { PostDetailComponent } from './pages/dashboard/post/post-detail/post-detail.component';
+import { ArticleDetailComponent } from './pages/dashboard/article/article-detail/article-detail.component';
 import { SystemSettingsService } from './services/system-settings.service';
 import { SettingsComponent } from './pages/dashboard/settings/settings.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfigService } from './services/config.service';
 import { UtilsService } from './services/utils.service';
 import { ServerService } from './services/server.service';
-import { NewPostFormComponent } from './components/new-post-form/new-post-form.component';
+import { NewArticleFormComponent } from './components/new-article-form/new-article-form.component';
 import { CanDeactivateGuard } from './guard/can-deactivate.guard';
 import { AppInitGuard } from './guard/app-init.guard';
 import { ArticleListItemComponent } from './components/article-list-item/article-list-item.component';
-import { RemanePostModalComponent } from './components/remane-post-modal/remane-post-modal.component';
+import { RenameArticleModalComponent } from './components/rename-article-modal/rename-article-modal.component';
 import { SaveArticleImageModalComponent } from './components/save-article-image-modal/save-article-image-modal.component';
 import { AssetService } from './services/asset.service';
 import { ArticleMdEditorComponent } from './components/article-md-editor/article-md-editor.component';
@@ -65,12 +65,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     WebviewDirective,
     SidebarComponent,
     DashboardComponent,
-    PostComponent,
-    PostDetailComponent,
+    ArticleComponent,
+    ArticleDetailComponent,
     SettingsComponent,
-    NewPostFormComponent,
+    NewArticleFormComponent,
     ArticleListItemComponent,
-    RemanePostModalComponent,
+    RenameArticleModalComponent,
     SaveArticleImageModalComponent,
     ArticleMdEditorComponent,
     CustomMdEditorComponent,
@@ -78,9 +78,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     NewBlogModalComponent,
   ],
   entryComponents: [
-    RemanePostModalComponent,
+    RenameArticleModalComponent,
     SaveArticleImageModalComponent,
-    NewBlogModalComponent
+    NewBlogModalComponent,
+    NewArticleFormComponent
   ],
   imports: [
     BrowserModule,
