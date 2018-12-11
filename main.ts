@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, shell } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import { autoUploadCheck } from './main/autoUpdater';
@@ -22,6 +22,14 @@ function createWindow() {
     height: size.height,
     webPreferences: {
       devTools: true
+    }
+  });
+
+  // Open In Browser External Links
+  win.webContents.on('will-navigate', function(e, openedUrl) {
+    if (openedUrl.includes('http')) {
+      e.preventDefault();
+      shell.openExternal(openedUrl);
     }
   });
 
