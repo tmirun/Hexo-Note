@@ -4,9 +4,7 @@ A Hexojs Client project
 
 hexojs 客户端
 
-[Download / 下载](https://github.com/tmirun/Hexo-Note/releases)
-
-> first of all, sorry for my English it is not my main language, if you found some mistake, tell me pliz. Thanks!
+## Highlights / 特点
 
 ![Hexo note](./hexo-note-image.png)
 
@@ -15,49 +13,47 @@ You Can Save Image!!!
 可以保存图片!!!
 ![Hexo note](./hexo-note-image-save-image.png)
 
-## Very concerned about your opinion
+## Installation / 安装
 
-if you have a opinion or improvement you can write in the Issue and we will discuss it all together.
+Windows, Mac and AppImage binaries are available in the [Releases / 下载](https://github.com/tmirun/Hexo-Note/releases)
 
-you can write it with English Spanish or Chinese 
+Or you can also install from repo,
+1. Clone this project to a local folder / 下载项目到本地
+2. Run `npm start` / 打开执行 `npm start`
+3. More scripts are available in [package.json](package.json) / 更多命令看 [package.json](package.json)
 
-## 非常在意你的想法和意见
+## Prerequisites / 安装需求
 
-如果你有什么想法 意见 或者 改善的地方 可以直接写到 Issue 里，我们来一起讨论.
+- Hexo, see the [installation guide](https://hexo.io/docs/) / 请看 [安装教程](https://hexo.io/zh-cn/docs/)
+- At least a blog post, see the [writing guide](https://hexo.io/docs/writing) / 创建至少一篇文章，请看 [写作教程](https://hexo.io/zh-cn/docs/writing)
 
-# Start / 开始
-
-> if you dont have installed hexo js, pliz intall it first [install guide](https://hexo.io/docs/index.html)
-
-> 如果你没有安装 hexo js 请先安装 [安装教程](https://hexo.io/zh-tw/docs/index.html)
-
-> if you dont have any created hexo.js blog, pliz created it first [hexo setup guide](https://hexo.io/docs/setup.html)
-
-> 如果你没有创建任何的 hexojs 项目请先创建 [hexojs 开始教程](https://hexo.io/docs/setup.html)
-
-
-# For Developpers / For 同行:
-
-if you have interest to develop it together remember to contact with me!!! tmirun@hotmail.com
-
-如果哪位同学用兴趣一起完善这个项目，请联系我!! tmirun@hotmail.com
-
-## used tecnology / 在这项目中使用了:
+## Tech stack / 在这项目中使用了:
 - Framework / 框架: [angular6 + electron](https://github.com/maximegris/angular-electron)
 - UI / 设计: [ng-zorro ant design](https://github.com/NG-ZORRO/ng-zorro-antd)
-  - you can personalize your style in `src/theme.less` / 你可以在 `src/theme.less` 自定义主题
+  - Customize the theme in in `src/theme.less` / 你可以在 `src/theme.less` 自定义主题
 - Icon / 图标: [font awesome](https://fontawesome.com/icons?from=io)
 - Editor / 写作框: [code mirror](https://codemirror.net/)
 
-## Arquitecture / 软件框架图
+## Architecture / 软件框架图
 TODO
 
-## run for deploy / 运行
-1. Clone project to local / 下载项目到本地
-2. open and run `npm start` / 打开执行 `npm start`
-3. more scrips see `package.json` / 更多命令看 `package.json`
+## Feedback
 
-# TODO LIST
+If you have any opinion or suggestion for improvement, please raise an [Issue](https://github.com/tmirun/Hexo-Note/issues) and we will discuss it together.
+
+You can write it with English, Spanish or Chinese.
+
+如果你有什么想法 意见 或者 改善的地方 可以直接写到 [Issue](https://github.com/tmirun/Hexo-Note/issues) 里，我们来一起讨论.
+
+This documentation is work in progress, if you found any mistake, tell me please. Thanks!
+
+## Contribute / 开发:
+
+Contact me at tmirun@hotmail.com if you wish to develop this program with me.
+
+如果哪位同学用兴趣一起完善这个项目，请联系我 tmirun@hotmail.com
+
+## TODO LIST
 公开 trello [地址](https://trello.com/b/F20B7ufQ)
 
 * [x] 获取 hexo 当地地址 DONE
@@ -91,4 +87,3 @@ TODO
 * [x] 将文章保存为草稿 DONE
 * [ ] 自动保存文章
 * [ ] 多语言
-
