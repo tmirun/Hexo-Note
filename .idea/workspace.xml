@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0170f269-9d98-4a64-b9d3-13e19052f407" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/app/pages/dashboard/article/article-detail/article-detail.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/pages/dashboard/article/article-detail/article-detail.component.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>title</find>
+      <find>save</find>
+      <find>quote</find>
+      <find>article-md-editor-form-wrapper</find>
+      <find>info</find>
+      <find>preview</find>
+      <find>isActivePreview</find>
+      <find>editorInfo</find>
+      <find>md-edit</find>
+      <find>src</find>
+      <find>FormBuilder</find>
+      <find>show</find>
+      <find>submitForm</find>
+      <find>const result = Object.assign({}, this.form.value);</find>
+      <find>markAsDirty</find>
+      <find>triggerOk</find>
+      <find>result</find>
+      <find>form</find>
+      <find>updateValueAndValidity</find>
+      <find>nzOnok</find>
+      <find>ControlValueAccessor</find>
+      <find>shell.openExternal</find>
+      <find>zorro</find>
+      <find>rx</find>
+      <find>electron-settings</find>
+      <find>publish</find>
+      <find>canDeactivate</find>
+      <find>CanDeactivateGuard</find>
+      <find>canActivate</find>
+      <find>overflow: scroll</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>app-custom-md-editor</replace>
+      <replace>() {</replace>
+      <replace>if (</replace>
+      <replace>utils</replace>
+      <replace>dashboard/article</replace>
+      <replace>NewArticle</replace>
+      <replace>app-new-article</replace>
+      <replace>new-article</replace>
+      <replace>RenameArticleModalComponent</replace>
+      <replace>rename-article</replace>
+      <replace>article</replace>
+      <replace>article-</replace>
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1kuvSImWEWJ6zHvo6skNqNVzbiR" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="editor.config.ad.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.tslint" value="$PROJECT_DIR$/node_modules/tslint" />
+    <property name="nodejs.protractor.protractor_package" value="$PROJECT_DIR$/node_modules/protractor" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="ReadonlyStatusHandler">
+    <option name="SHOW_DIALOG" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/assets" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.Angular CLI Server">
+    <configuration name="Tests" type="JavaScriptTestRunnerKarma">
+      <config-file value="$PROJECT_DIR$/src/karma.conf.js" />
+      <karma-package-dir value="$PROJECT_DIR$/node_modules/@angular/cli" />
+      <working-directory value="$PROJECT_DIR$" />
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="E2E Tests" type="JavaScriptTestRunnerProtractor">
+      <config-file value="$PROJECT_DIR$/e2e/protractor.conf.js" />
+      <node-interpreter value="project" />
+      <protractor-options value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Angular Application" type="JavascriptDebugType" uri="http://localhost:4200">
+      <method v="2" />
+    </configuration>
+    <configuration name="Angular CLI Server" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="JavaScript Debug.Angular Application" />
+      <item itemvalue="Karma.Tests" />
+      <item itemvalue="npm.Angular CLI Server" />
+      <item itemvalue="Protractor.E2E Tests" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0170f269-9d98-4a64-b9d3-13e19052f407" name="Default Changelist" comment="" />
+      <created>1539803531565</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1539803531565</updated>
+      <workItem from="1539803533358" duration="4684000" />
+      <workItem from="1539975245465" duration="43906000" />
+      <workItem from="1540504555316" duration="74000" />
+      <workItem from="1540504947483" duration="6140000" />
+      <workItem from="1540558832917" duration="452000" />
+      <workItem from="1540560831101" duration="3754000" />
+      <workItem from="1540819753447" duration="8398000" />
+      <workItem from="1540924476694" duration="1569000" />
+      <workItem from="1540935515568" duration="1171000" />
+      <workItem from="1541000234497" duration="1678000" />
+      <workItem from="1541023504829" duration="11568000" />
+      <workItem from="1541249937284" duration="2245000" />
+      <workItem from="1541285924133" duration="22000" />
+      <workItem from="1541354055463" duration="2188000" />
+      <workItem from="1541362429395" duration="2030000" />
+      <workItem from="1541423908160" duration="491000" />
+      <workItem from="1542228368696" duration="92000" />
+      <workItem from="1542228533630" duration="21198000" />
+      <workItem from="1542896041725" duration="2655000" />
+      <workItem from="1543173905845" duration="173000" />
+      <workItem from="1543174131450" duration="3987000" />
+      <workItem from="1543772807496" duration="507000" />
+      <workItem from="1543785072823" duration="1359000" />
+      <workItem from="1543938391654" duration="6347000" />
+      <workItem from="1544044654186" duration="476000" />
+      <workItem from="1544095871594" duration="533000" />
+      <workItem from="1544112035217" duration="486000" />
+      <workItem from="1544468347977" duration="79000" />
+      <workItem from="1544546851243" duration="1209000" />
+      <workItem from="1546860871595" duration="1147000" />
+      <workItem from="1546947089646" duration="1000" />
+      <workItem from="1546947121166" duration="2000" />
+      <workItem from="1547211691624" duration="4375000" />
+      <workItem from="1548012693799" duration="23000" />
+      <workItem from="1553558705822" duration="1643000" />
+      <workItem from="1606563290676" duration="1715000" />
+      <workItem from="1606584279663" duration="2517000" />
+      <workItem from="1606869126736" duration="2602000" />
+      <workItem from="1607347448820" duration="5763000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/common/models/updateCheckResult.interface.js.map" />
+        <option value="$PROJECT_DIR$/common/models/updateCheckResult.interface.js" />
+        <option value="$PROJECT_DIR$/common/utils.js.map" />
+        <option value="$PROJECT_DIR$/common/utils.js" />
+        <option value="$PROJECT_DIR$/common/ipc-channels.js.map" />
+        <option value="$PROJECT_DIR$/common/ipc-channels.js" />
+        <option value="$PROJECT_DIR$/main/menu.js.map" />
+        <option value="$PROJECT_DIR$/main/menu.js" />
+        <option value="$PROJECT_DIR$/main/utils.js.map" />
+        <option value="$PROJECT_DIR$/main/utils.js" />
+        <option value="$PROJECT_DIR$/main.js.map" />
+        <option value="$PROJECT_DIR$/main.js" />
+        <option value="$PROJECT_DIR$/main/autoUpdater.js.map" />
+        <option value="$PROJECT_DIR$/main/autoUpdater.js" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+</project>

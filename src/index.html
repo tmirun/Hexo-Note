@@ -1,99 +1,12 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>Hexo Note</title>
-  <base href="">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <style>
-    html, body {
-      height: 100%;
-      width: 100%;
-      margin: 0;
-    }
-    @keyframes spinner {
-      0% {transform: rotate(0deg) scale(1)}
-      50% {transform: rotate(180deg) scale(0.9)}
-      100% {transform: rotate(360deg) scale(1)}
-    }
-
-    .app-loading{
-      position: absolute;
-      width: 200px;
-      height: 200px;
-      margin: 20px;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    .app-loading-letter {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 120px;
-      font-family: sans-serif;
-      color: white;
-    }
-
-    .app-loading-hexagon-wrapper-animation{
-      width: 100%;
-      height: 100%;
-      animation: spinner 2s ease-in-out infinite;
-    }
-
-    .app-loading-hexagon-wrapper {
-      text-align: center;
-      position: relative;
-      transform: rotate(90deg);
-      display: inline-block;
-      width: 100%;
-      height: 100%;
-    }
-
-    .app-loading-hexagon {
-      height: 100%;
-      width: calc(100% * 0.57735);
-      display: inline-block;
-      background-color: #0E83CD;
-    }
-
-    .app-loading-hexagon:before {
-      position: absolute;
-      top: 0;
-      right: calc((100% / 2) - ((100% * 0.57735) / 2));
-      background-color: inherit;
-      height: inherit;
-      width: inherit;
-      content: '';
-      transform: rotateZ(60deg);
-    }
-
-    .app-loading-hexagon:after {
-      position: absolute;
-      top: 0;
-      right: calc((100% / 2) - ((100% * 0.57735) / 2));
-      background-color: inherit;
-      height: inherit;
-      width: inherit;
-      content: '';
-      transform: rotateZ(-60deg);
-    }
-  </style>
-</head>
-<body>
-  <app-root>
-    <div class="app-loading">
-      <div class="app-loading-hexagon-wrapper-animation">
-        <div class="app-loading-hexagon-wrapper">
-          <div class="app-loading-hexagon"></div>
-        </div>
-      </div>
-      <div class="app-loading-letter">H</div>
-    </div>
-  </app-root>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="index.css">
+  </head>
+  <body>
+    <h1>💖 Hello World!</h1>
+    <p>Welcome to your Electron application.</p>
+  </body>
 </html>
