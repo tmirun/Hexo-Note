@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0170f269-9d98-4a64-b9d3-13e19052f407" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/app/pages/dashboard/article/article-detail/article-detail.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/pages/dashboard/article/article-detail/article-detail.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,6 +89,9 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/assets" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunManager" selected="npm.Angular CLI Server">
@@ -176,7 +180,7 @@
       <workItem from="1606563290676" duration="1715000" />
       <workItem from="1606584279663" duration="2517000" />
       <workItem from="1606869126736" duration="2602000" />
-      <workItem from="1607347448820" duration="5763000" />
+      <workItem from="1607347448820" duration="6136000" />
     </task>
     <servers />
   </component>
@@ -191,24 +195,6 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-    <option name="exactExcludedFiles">
-      <list>
-        <option value="$PROJECT_DIR$/common/models/updateCheckResult.interface.js.map" />
-        <option value="$PROJECT_DIR$/common/models/updateCheckResult.interface.js" />
-        <option value="$PROJECT_DIR$/common/utils.js.map" />
-        <option value="$PROJECT_DIR$/common/utils.js" />
-        <option value="$PROJECT_DIR$/common/ipc-channels.js.map" />
-        <option value="$PROJECT_DIR$/common/ipc-channels.js" />
-        <option value="$PROJECT_DIR$/main/menu.js.map" />
-        <option value="$PROJECT_DIR$/main/menu.js" />
-        <option value="$PROJECT_DIR$/main/utils.js.map" />
-        <option value="$PROJECT_DIR$/main/utils.js" />
-        <option value="$PROJECT_DIR$/main.js.map" />
-        <option value="$PROJECT_DIR$/main.js" />
-        <option value="$PROJECT_DIR$/main/autoUpdater.js.map" />
-        <option value="$PROJECT_DIR$/main/autoUpdater.js" />
-      </list>
-    </option>
   </component>
   <component name="Vcs.Log.History.Properties">
     <option name="COLUMN_ORDER">
