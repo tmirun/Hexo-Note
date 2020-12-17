@@ -1,9 +1,9 @@
 import { logger } from './logger.service';
 import { join } from 'path';
-import { ArticleLayout, Category, Page, Post, Tag } from './common/models/hexo.model';
+import { ArticleLayout, Category, Page, Post, Tag } from '../common/models/hexo.model';
 import { Server } from 'http';
 import { EventEmitter } from 'events';
-import { HEXO_EVENTS } from './common/events';
+import { HEXO_EVENTS } from '../common/events';
 
 const { readFile } = require('hexo-fs');
 const Hexo = require('hexo');

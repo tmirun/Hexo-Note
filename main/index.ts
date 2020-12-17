@@ -1,12 +1,13 @@
-import { app, BrowserWindow } from 'electron';
+import {app, BrowserWindow, dialog} from 'electron';
 import * as path from 'path';
+import {HexoService} from './hexo.service';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
   app.quit();
 }
 
-const createWindow = (): void => {
+const createWindow = async () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     height: 600,
@@ -18,6 +19,8 @@ const createWindow = (): void => {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
+
+  console.log(await HexoService.isHexoProject(dialog.showOpenDialogSync({ properties: ['openDirectory'] })[0]))
 };
 
 // This method will be called when Electron has finished

@@ -14,6 +14,7 @@
     "allowSyntheticDefaultImports": true
   },
   "include": [
-    "src/**/*"
+    "main/**/*",
+    "common/**/*"
   ]
 }
