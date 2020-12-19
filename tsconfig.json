@@ -11,7 +11,8 @@
     "paths": {
       "*": ["node_modules/*"]
     },
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2015"
   },
   "include": [
     "main/**/*",
