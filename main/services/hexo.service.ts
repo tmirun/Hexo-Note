@@ -1,9 +1,9 @@
-import { logger } from './logger.service';
+import { logger } from '../logger.service';
 import { join } from 'path';
-import { ArticleLayout, Category, Page, Post, Tag } from '../common/models/hexo.model';
+import { ArticleLayout, Category, Page, Post, Tag } from '../../common/models/hexo.model';
 import { Server } from 'http';
 import { EventEmitter } from 'events';
-import { HEXO_EVENTS } from '../common/events';
+import { HEXO_EVENTS } from '../../common/events';
 
 const { readFile } = require('hexo-fs');
 const Hexo = require('hexo');
@@ -29,11 +29,11 @@ export class HexoService {
   constructor(hexoBlogPath: string = '') {
     // TODO: to replace
     // TODO: check project and throw error
-    this.hexo = new Hexo('/Users/Admin/projects/test-blog', {});
-    this.event = this.hexo
   }
 
   async init() {
+    this.hexo = new Hexo('/Users/Admin/projects/test-blog', {});
+    this.event = this.hexo;
     await this.hexo.init();
     logger.log('initialized');
     this._initEvents();
