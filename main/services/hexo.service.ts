@@ -1,4 +1,4 @@
-import { logger } from '../logger.service';
+import { logger } from './logger.service';
 import { join } from 'path';
 import { ArticleLayout, Category, Page, Post, Tag } from '../../common/models/hexo.model';
 import { Server } from 'http';
@@ -31,8 +31,8 @@ export class HexoService {
     // TODO: check project and throw error
   }
 
-  async init() {
-    this.hexo = new Hexo('/Users/Admin/projects/test-blog', {});
+  async init (hexoProjectPath: string) {
+    this.hexo = new Hexo(hexoProjectPath, {});
     this.event = this.hexo;
     await this.hexo.init();
     logger.log('initialized');
@@ -162,3 +162,5 @@ export class HexoService {
     await this.hexo.call('deploy', {})
   }
 }
+
+export const hexoService = new HexoService();

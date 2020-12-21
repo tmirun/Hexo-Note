@@ -1,6 +1,6 @@
 import { dialog } from 'electron';
-import { HexoService } from '../services/hexo.service';
-import {store, STORE_KEY} from '../store';
+import {hexoService, HexoService} from '../services/hexo.service';
+import {storeService, STORE_KEY} from '../services/store.service';
 
 export const openHexoProject = async () => {
     const paths = dialog.showOpenDialogSync({properties: ['openDirectory']});
@@ -10,12 +10,14 @@ export const openHexoProject = async () => {
     }
 
     const hexoProjectPath = paths[0]
-    const isHexoProject = await HexoService.isHexoProject(hexoProjectPath[0]);
+    const isHexoProject = await HexoService.isHexoProject(hexoProjectPath);
 
     if (!isHexoProject) {
         dialog.showErrorBox(`no hexo project`, `${hexoProjectPath} isn't hexo project`)
         throw Error(`${hexoProjectPath} isn't hexo project`)
     }
 
-    store.set(STORE_KEY.projectPath, hexoProjectPath)
+    storeService.set(STORE_KEY.projectPath, hexoProjectPath)
+
+    await hexoService.init(hexoProjectPath);
 }
