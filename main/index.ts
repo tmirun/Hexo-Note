@@ -1,6 +1,7 @@
-import {app, BrowserWindow, dialog} from 'electron';
+import {app, BrowserWindow} from 'electron';
 import * as path from 'path';
-import {HexoService} from './hexo.service';
+import { HexoService } from './services/hexo.service';
+import './ipc-register';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
@@ -15,18 +16,32 @@ const createWindow = async () => {
   });
 
   // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, '../src/index.html'));
+  // mainWindow.loadFile(path.join(__dirname, '../src/index.html'));
+  mainWindow.loadURL('http://localhost:3000');
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 
-  console.log(await HexoService.isHexoProject(dialog.showOpenDialogSync({ properties: ['openDirectory'] })[0]))
 };
+
+const createOpenProjectWindow = async () => {
+  const mainWindow = new BrowserWindow({
+    height: 600,
+    width: 800,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  });
+
+  mainWindow.loadURL('http://localhost:3000/open-project');
+
+  mainWindow.webContents.openDevTools()
+}
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on('ready', createOpenProjectWindow);
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
