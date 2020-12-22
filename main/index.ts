@@ -1,8 +1,6 @@
-import {app, BrowserWindow} from 'electron';
-import * as path from 'path';
+import {app, BrowserWindow, screen} from 'electron';
 import { HexoService } from './services/hexo.service';
 import './ipc-register';
-import {logger} from './services/logger.service';
 import {getProjectPath} from './services/store.service';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -11,15 +9,18 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 }
 
 const createDashboardWindow = async () => {
-  // Create the browser window.
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
   const mainWindow = new BrowserWindow({
-    height: 600,
-    width: 800,
+    height: height,
+    width: width,
+    webPreferences: {
+      nodeIntegration: true
+    }
   });
 
   // and load the index.html of the app.
   // mainWindow.loadFile(path.join(__dirname, '../src/index.html'));
-  mainWindow.loadURL('http://localhost:3000');
+  mainWindow.loadURL('http://localhost:3000/dashboard');
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();

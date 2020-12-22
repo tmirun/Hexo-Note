@@ -1,11 +1,11 @@
 import {Button, message} from 'antd';
-import './openProjectPage.scss';
+import './OpenProjectPage.scss';
 import {IPC_CHANNEL} from 'common/ipc';
+import {FC} from "react";
 const electron = window.require("electron")
 const { ipcRenderer } = electron;
 
-export const OpenProjectPage = () => {
-
+export const OpenProjectPage: FC = () => {
   const handleOpenHexoProject = async () => {
     try {
       await ipcRenderer.invoke(IPC_CHANNEL.openHexoProject);
