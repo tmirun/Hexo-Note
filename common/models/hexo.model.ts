@@ -2,10 +2,14 @@ import { Moment } from 'moment';
 
 export type ArticleLayout = 'post' | 'page' | 'draft' | string;
 
-export interface Page extends Post {}
-export interface Post {
-  title: string,
+export interface Page extends PostHexo {}
+export interface Post extends Omit<PostHexo, 'date' | 'updated'> {
+  date: Date,
+  updated: Date
+}
+export interface PostHexo {
   date: Moment,
+  title: string,
   _content: string,
   source: string,
   raw: string,
