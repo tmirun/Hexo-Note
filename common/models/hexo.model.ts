@@ -3,10 +3,11 @@ import { Moment } from 'moment';
 export type ArticleLayout = 'post' | 'page' | 'draft' | string;
 
 export interface Page extends PostHexo {}
-export interface Post extends Omit<PostHexo, 'date' | 'updated'> {
+export interface Post extends Omit<PostHexo, 'date' | 'updated' | 'prev' | 'next' | 'tags' | 'categories'> {
   date: Date,
   updated: Date
 }
+
 export interface PostHexo {
   date: Moment,
   title: string,
@@ -29,17 +30,17 @@ export interface PostHexo {
   permalink: string,
   full_source: string,
   asset_dir: string,
-  tags: string[],
-  categories: string[],
+  tags: {data: TagHexo, length: string},
+  categories: {data: CategoryHexo, length: string},
   prev: Document,
   next: Document,
   __post: boolean
 }
 
-export interface Category extends Tag {
+export interface CategoryHexo extends TagHexo {
 };
 
-export interface Tag {
+export interface TagHexo {
   name: string,
   _id: string,
   slug: string,

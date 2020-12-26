@@ -1,9 +1,10 @@
 import { logger } from './logger.service';
 import { join } from 'path';
-import { ArticleLayout, Category, Page, Post, Tag } from '../../common/models/hexo.model';
+import {ArticleLayout, CategoryHexo, Page, Post, PostHexo, TagHexo} from '../../common/models/hexo.model';
 import { Server } from 'http';
 import { EventEmitter } from 'events';
 import { HEXO_EVENTS } from '../../common/events';
+import { sanitizePosts } from "../utils";
 
 const { readFile } = require('hexo-fs');
 const Hexo = require('hexo');
@@ -74,13 +75,18 @@ export class HexoService {
   }
 
   async getDrafts() {
-    // TODO
+    // TODO: it need replace late
+    await this.hexo.load();
+    const posts = this.hexo.model('Post');
+    let allPosts = posts.toArray();
+    return allPosts.filter((post: any) => post.published)
   }
 
   async getPosts (): Promise<Post[]> {
     await this.hexo.load();
     const response = await this.hexo.locals.get('posts');
-    return response.data;
+    const posts: PostHexo[] = response.data;
+    return sanitizePosts(posts);
   }
 
   async getPages (): Promise<Page[]> {
@@ -89,13 +95,13 @@ export class HexoService {
     return response.data;
   }
 
-  async getCategories (): Promise<Category> {
+  async getCategories (): Promise<CategoryHexo> {
     await this.hexo.load();
     const response =  await this.hexo.locals.get('categories');
     return response.data;
   }
 
-  async getTags (): Promise<Tag> {
+  async getTags (): Promise<TagHexo> {
     await this.hexo.load();
     const response =  await this.hexo.locals.get('tags');
     return response.data;

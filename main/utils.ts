@@ -8,11 +8,11 @@ export const utils = {
 };
 
 export const sanitizePost = (post: PostHexo): Post => {
-  return {
-    ...post,
-    date: post.date.toDate(),
-    updated: post.date.toDate(),
-  };
+  const {prev, next, date, updated, tags, categories,...newPost} = post;
+  const sanitizedPost: Post = newPost as Post;
+  sanitizedPost.date = post.date.toDate();
+  sanitizedPost.updated = post.date.toDate();
+  return newPost as any
 }
 
 export const sanitizePosts = (posts: PostHexo[]): Post[] => {
