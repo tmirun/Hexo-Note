@@ -1,9 +1,9 @@
 import {FC} from "react";
 import {Divider, Menu} from "antd";
-import {DatabaseFilled, SettingFilled} from "@ant-design/icons";
+import {FileOutlined, SettingFilled} from "@ant-design/icons";
 import { useHistory } from 'react-router-dom';
 import {ServerButton} from "./ServerButton";
-import {PATH_CONFIG_YML} from "../../../routes";
+import {PATH_CONFIG_YML, PATH_POSTS} from "../../../routes";
 import './style.scss';
 
 export const Sidebar: FC = () => {
@@ -14,9 +14,7 @@ export const Sidebar: FC = () => {
         siderCollapsed={true}
         mode='vertical'
         theme='light'>
-        <Menu.Item key="1" icon={<DatabaseFilled />}>
-          Navigation One
-        </Menu.Item>
+        <Menu.Item key="posts" icon={<FileOutlined />} onClick={() => navigator.push(PATH_POSTS)}></Menu.Item>
         <Divider/>
         <Menu.Item key="config-yml" icon={<SettingFilled/>} onClick={() => navigator.push(PATH_CONFIG_YML)}/>
       </Menu>
