@@ -6,7 +6,7 @@ export const openHexoProject = async () => {
     const paths = dialog.showOpenDialogSync({properties: ['openDirectory']});
 
     if (!paths?.length) {
-        throw Error('No hexo project selected')
+        throw Error('No hexoServer project selected')
     }
 
     const hexoProjectPath = paths[0]

@@ -1,11 +1,26 @@
-import { ipcMain } from 'electron';
-import { IPC_CHANNEL } from '../common/ipc';
-import {openHexoProject} from './controllers';
+import {ipcMain} from "electron";
+import {IPC_HANDLES} from "../common/ipc";
+import {openHexoProject} from "./controllers";
+import {Post} from "../common/models/hexo.model";
+import {hexoService} from "./services/hexo.service";
+import {logger} from "./services/logger.service";
 
-// ipcMain.handle('createNewHexoProject', async (event, { projectName: string } ) => {
-//     const path = dialog.showOpenDialogSync({ properties: ['openDirectory'] })[0];
-//     // await HexoService.isHexoProject(dialog.showOpenDialogSync({ properties: ['openDirectory'] })[0])
-// })
+ipcMain.handle(IPC_HANDLES.openHexoProject, openHexoProject)
+ipcMain.handle(IPC_HANDLES.getPosts, async (): Promise<Post[]> => {
+  return await hexoService.getPosts();
+})
 
-ipcMain.handle(IPC_CHANNEL.openHexoProject, openHexoProject)
+ipcMain.handle(IPC_HANDLES.startHexoServer, async () => {
+  logger.log('IPC:', IPC_HANDLES.startHexoServer)
+  return await hexoService.startServer();
+})
 
+ipcMain.handle(IPC_HANDLES.stopHexoServer, async () => {
+  logger.log('IPC:', IPC_HANDLES.stopHexoServer)
+  return await hexoService.stopServer();
+})
+
+ipcMain.handle(IPC_HANDLES.getHexoServerStatus, async () => {
+  logger.log('IPC:', IPC_HANDLES.getHexoServerStatus);
+  return hexoService.getServerState();
+})

@@ -1,7 +1,9 @@
 import {app, BrowserWindow, screen} from 'electron';
-import { HexoService } from './services/hexo.service';
+import {hexoService, HexoService} from './services/hexo.service';
 import './ipc-register';
+import './listeners';
 import {getProjectPath} from './services/store.service';
+import {initializeHexoIpcEvent} from "./listeners";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
@@ -48,7 +50,9 @@ app.on('ready', async () => {
   const projectPath = getProjectPath();
   const isHexoProject = HexoService.isHexoProject(projectPath);
   if(projectPath && isHexoProject) {
-    await createDashboardWindow()
+    await hexoService.init(projectPath);
+    initializeHexoIpcEvent();
+    await createDashboardWindow();
   } else {
     await createOpenProjectWindow();
   }
@@ -63,11 +67,11 @@ app.on('window-all-closed', () => {
   }
 });
 
-app.on('activate', () => {
+app.on('activate', async () => {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) {
-    createDashboardWindow();
+    await createDashboardWindow();
   }
 });
 

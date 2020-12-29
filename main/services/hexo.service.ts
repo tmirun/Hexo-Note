@@ -5,6 +5,8 @@ import { Server } from 'http';
 import { EventEmitter } from 'events';
 import { HEXO_EVENTS } from '../../common/events';
 import { sanitizePosts } from "../utils";
+import {ipcMain} from "electron";
+import {IPC_RENDER_LISTENERS} from "../../common/ipc";
 
 const { readFile } = require('hexo-fs');
 const Hexo = require('hexo');
@@ -23,9 +25,9 @@ export interface ArticleCreateResponse {
 }
 
 export class HexoService {
-  public hexo: any; // hexo is extended event emitter
+  public hexo: any; // hexoServer is extended event emitter
   private server: Server | undefined;
-  private event: EventEmitter;
+  public event: EventEmitter;
 
   constructor(hexoBlogPath: string = '') {
     // TODO: to replace
@@ -47,31 +49,35 @@ export class HexoService {
     this.hexo.on('server', () => {
       logger.log('start server')
     })
-    // this.hexo.on('deployBefore', () => {
+    // this.hexoServer.on('deployBefore', () => {
     //   socket.emit(HEXO_EVENTS.deployBefore);
     //   logger.log('deployBefore')
     // })
     this.hexo.on('deployAfter', () => {
       logger.log('deployAfter')
     })
-    // this.hexo.on('exit', () => {
+    // this.hexoServer.on('exit', () => {
     //   logger.log('exit')
     // })
-    // this.hexo.on('generateBefore', () => {
+    // this.hexoServer.on('generateBefore', () => {
     //   logger.log('generateBefore')
     // })
     this.hexo.on('generateAfter', () => {
       logger.log('generateAfter')
     })
-    // this.hexo.on('processBefore', () => {
+    // this.hexoServer.on('processBefore', () => {
     //   logger.log('processBefore')
     // })
-    // this.hexo.on('processAfter', () => {
+    // this.hexoServer.on('processAfter', () => {
     //   logger.log('processAfter')
     // })
     this.hexo.on('ready', () => {
       logger.log('ready')
     })
+  }
+
+  public getServerState(): boolean {
+    return !!this.hexoServer;
   }
 
   async getDrafts() {
@@ -149,15 +155,23 @@ export class HexoService {
   }
 
   async startServer(){
+    logger.log('start server in process')
     this.server = await this.hexo.call('server', {});
+    this.hexo.emit(HEXO_EVENTS.startServer);
+    logger.log('start server OK')
   }
 
   async stopServer() {
-    if(!this.server) {
+    logger.log('stop server in process')
+    if(!this.hexoServer) {
       this.hexo.emit(HEXO_EVENTS.stopServer)
+      logger.log('server is NOT started');
       return;
     }
-    this.server.close()
+    this.hexoServer.close();
+    this.server = undefined;
+    console.log(this.hexoServer);
+    logger.log('stop server OK')
   }
 
   async generate() {
