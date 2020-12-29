@@ -1,8 +1,8 @@
 import {OpenProjectPage} from './pages/OpenProjectPage';
 import {RouteConfig} from 'react-router-config';
-import {Dashboard} from "./pages/Dashboard";
-import {ConfigYml} from "./pages/ConfigYml";
-import {Posts} from "./pages/Posts";
+import {DashboardPage} from "./pages/DashboardPage";
+import {ConfigYmlPage} from "./pages/ConfigYmlPage";
+import {PostsPage} from "./pages/PostsPage";
 
 export const PATH_OPEN_PROJECT = '/open-project';
 export const PATH_DASHBOARD = '/dashboard';
@@ -13,15 +13,15 @@ export const PATH_POSTS = PATH_DASHBOARD + '/posts';
 export const routes: RouteConfig[] = [
   {
     path: PATH_DASHBOARD,
-    component: Dashboard,
+    component: DashboardPage,
     routes: [
       {
         path: PATH_CONFIG_YML,
-        component: ConfigYml
+        component: ConfigYmlPage
       },
       {
         path: PATH_POSTS,
-        component: Posts
+        component: PostsPage
       }
     ]
   },

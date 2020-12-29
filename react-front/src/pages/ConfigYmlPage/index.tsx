@@ -9,7 +9,7 @@ const { ipcRenderer } = electron;
 interface Props {
 }
 
-export const ConfigYml = (props: Props) => {
+export const ConfigYmlPage = (props: Props) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
@@ -25,13 +25,13 @@ export const ConfigYml = (props: Props) => {
 
   const onFinish = async (value: {content: string}) => {
     setLoading(true);
-    const content = await ipcRenderer.invoke(IPC_HANDLES.updateConfigYml, value.content);
+    const content = await ipcRenderer.invoke(IPC_HANDLES.getConfigYml, value.content);
     form.setFieldsValue({content: content})
     setLoading(false);
   }
 
   return (
-    <div className='ConfigYml'>
+    <div className='ConfigYmlPage'>
       <Form layout="vertical" form={form} onFinish={onFinish}>
         <Form.Item label="Config YML" name='content'>
           <TextArea placeholder="input placeholder" />

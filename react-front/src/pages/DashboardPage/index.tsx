@@ -8,9 +8,9 @@ interface Props {
   route?: RouteConfig | undefined
 }
 
-export const Dashboard: FC<Props> = ({route}) => {
+export const DashboardPage: FC<Props> = ({route}) => {
   return (
-    <Row className='Dashboard'>
+    <Row className='DashboardPage'>
       <Col flex='none'>
         <Sidebar/>
       </Col>

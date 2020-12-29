@@ -14,7 +14,7 @@ interface Props {
   route?: RouteConfig | undefined
 }
 
-export const Posts = ({route}: Props) => {
+export const PostsPage = ({route}: Props) => {
   const [posts, setPosts] = useState<Post[]>([])
   const dispatch = useDispatch();
   useEffect(() => {
@@ -26,7 +26,7 @@ export const Posts = ({route}: Props) => {
   }, [dispatch])
 
   return (
-    <Row className='Posts'>
+    <Row className='PostsPage'>
       <Col flex='none'>
         <List
           className='Posts__list'
