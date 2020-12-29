@@ -1,6 +1,6 @@
 import {Button, message} from 'antd';
 import './OpenProjectPage.scss';
-import {IPC_CHANNEL} from 'common/ipc';
+import {IPC_HANDLES} from 'common/ipc';
 import {FC} from "react";
 const electron = window.require("electron")
 const { ipcRenderer } = electron;
@@ -8,7 +8,7 @@ const { ipcRenderer } = electron;
 export const OpenProjectPage: FC = () => {
   const handleOpenHexoProject = async () => {
     try {
-      await ipcRenderer.invoke(IPC_CHANNEL.openHexoProject);
+      await ipcRenderer.invoke(IPC_HANDLES.openHexoProject);
     } catch (e) {
       message.error(e.message)
     }
