@@ -1,6 +1,6 @@
 import {Button, Form} from "antd";
 import TextArea from "antd/es/input/TextArea";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import {IPC_HANDLES} from "common/ipc";
 import {useDispatch} from "react-redux";
 const electron = window.require("electron")
@@ -21,7 +21,7 @@ export const ConfigYml = (props: Props) => {
     }).finally(() => {
       setLoading(false);
     })
-  }, [dispatch])
+  }, [dispatch, form])
 
   const onFinish = async (value: {content: string}) => {
     setLoading(true);

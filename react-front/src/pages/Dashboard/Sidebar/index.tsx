@@ -1,9 +1,10 @@
 import {FC} from "react";
 import {Divider, Menu} from "antd";
 import {DatabaseFilled, SettingFilled} from "@ant-design/icons";
-import {ServerButton} from "./ServerButton";
 import { useHistory } from 'react-router-dom';
-import {PATH_CONFIG_YML} from "../../routes";
+import {ServerButton} from "./ServerButton";
+import {PATH_CONFIG_YML} from "../../../routes";
+import './style.scss';
 
 export const Sidebar: FC = () => {
   const navigator = useHistory()
@@ -19,7 +20,7 @@ export const Sidebar: FC = () => {
         <Divider/>
         <Menu.Item key="config-yml" icon={<SettingFilled/>} onClick={() => navigator.push(PATH_CONFIG_YML)}/>
       </Menu>
-
+      <Divider/>
       <ServerButton/>
     </div>
   );

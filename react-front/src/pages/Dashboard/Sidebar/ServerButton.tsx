@@ -1,8 +1,8 @@
-import {DatabaseOutlined, DatabaseTwoTone} from "@ant-design/icons";
+import {DatabaseOutlined} from "@ant-design/icons";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../store";
+import {RootState} from "../../../store";
 import {Button} from "antd";
-import {toggleServerStateAction} from "../../store/hexoServer/actions";
+import {toggleServerStateAction} from "../../../store/hexoServer/actions";
 
 interface Props {
 }
