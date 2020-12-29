@@ -7,6 +7,9 @@ export const IPC_HANDLES = {
   getHexoServerStatus: 'getHexoServerStatus',
   startHexoServer: 'startHexoServer',
   stopHexoServer: 'stopHexoServer',
+
+  getConfigYml: 'getConfigYml',
+  updateConfigYml: 'updateConfigYml'
 }
 
 export const IPC_RENDER_LISTENERS = {

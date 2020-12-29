@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from "react";
-import {RouteConfig} from "react-router-config";
+import {renderRoutes, RouteConfig} from "react-router-config";
 import './style.scss';
 import {Layout, List} from "antd";
 import {IPC_HANDLES} from 'common/ipc';
@@ -40,7 +40,9 @@ export const Dashboard: FC<Props> = ({route}) => {
           )}
         />
       </Sider>
-      <Content>main content</Content>
+      <Content>
+        {renderRoutes(route?.routes)}
+      </Content>
     </Layout>
   )
 }

@@ -24,3 +24,13 @@ ipcMain.handle(IPC_HANDLES.getHexoServerStatus, async () => {
   logger.log('IPC:', IPC_HANDLES.getHexoServerStatus);
   return hexoService.getServerState();
 })
+
+ipcMain.handle(IPC_HANDLES.getConfigYml, async () => {
+  logger.log('IPC:', IPC_HANDLES.getConfigYml);
+  return hexoService.getConfigYml();
+})
+
+ipcMain.handle(IPC_HANDLES.updateConfigYml, async (event, content: string) => {
+  logger.log('IPC:', IPC_HANDLES.updateConfigYml);
+  return hexoService.updateConfigYml(content);
+})

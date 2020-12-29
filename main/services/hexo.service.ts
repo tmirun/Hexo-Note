@@ -1,12 +1,11 @@
-import { logger } from './logger.service';
-import { join } from 'path';
+import {logger} from './logger.service';
+import {join} from 'path';
 import {ArticleLayout, CategoryHexo, Page, Post, PostHexo, TagHexo} from '../../common/models/hexo.model';
-import { Server } from 'http';
-import { EventEmitter } from 'events';
-import { HEXO_EVENTS } from '../../common/events';
-import { sanitizePosts } from "../utils";
-import {ipcMain} from "electron";
-import {IPC_RENDER_LISTENERS} from "../../common/ipc";
+import {Server} from 'http';
+import {EventEmitter} from 'events';
+import {HEXO_EVENTS} from '../../common/events';
+import {sanitizePosts} from "../utils";
+import {promises as fsPromises} from 'fs';
 
 const { readFile } = require('hexo-fs');
 const Hexo = require('hexo');
@@ -28,6 +27,7 @@ export class HexoService {
   public hexo: any; // hexoServer is extended event emitter
   private server: Server | undefined;
   public event: EventEmitter;
+  public configPath: string;
 
   constructor(hexoBlogPath: string = '') {
     // TODO: to replace
@@ -39,6 +39,7 @@ export class HexoService {
     this.event = this.hexo;
     await this.hexo.init();
     logger.log('initialized');
+    this.configPath = this.hexo.config_path;
     this._initEvents();
   }
 
@@ -49,26 +50,26 @@ export class HexoService {
     this.hexo.on('server', () => {
       logger.log('start server')
     })
-    // this.hexoServer.on('deployBefore', () => {
+    // this.server.on('deployBefore', () => {
     //   socket.emit(HEXO_EVENTS.deployBefore);
     //   logger.log('deployBefore')
     // })
     this.hexo.on('deployAfter', () => {
       logger.log('deployAfter')
     })
-    // this.hexoServer.on('exit', () => {
+    // this.server.on('exit', () => {
     //   logger.log('exit')
     // })
-    // this.hexoServer.on('generateBefore', () => {
+    // this.server.on('generateBefore', () => {
     //   logger.log('generateBefore')
     // })
     this.hexo.on('generateAfter', () => {
       logger.log('generateAfter')
     })
-    // this.hexoServer.on('processBefore', () => {
+    // this.server.on('processBefore', () => {
     //   logger.log('processBefore')
     // })
-    // this.hexoServer.on('processAfter', () => {
+    // this.server.on('processAfter', () => {
     //   logger.log('processAfter')
     // })
     this.hexo.on('ready', () => {
@@ -77,7 +78,7 @@ export class HexoService {
   }
 
   public getServerState(): boolean {
-    return !!this.hexoServer;
+    return !!this.server;
   }
 
   async getDrafts() {
@@ -142,6 +143,15 @@ export class HexoService {
     return response[0]
   }
 
+  async getConfigYml (): Promise<string> {
+    return await fsPromises.readFile(this.configPath, {encoding: 'utf-8'})
+  }
+
+  async updateConfigYml(content: string): Promise<string> {
+    await fsPromises.writeFile(this.configPath, content, {encoding: 'utf-8'});
+    return await this.getConfigYml();
+  }
+
   static async isHexoProject(path: string): Promise<boolean> {
     const pkgPath = join(path, 'package.json');
     try {
@@ -163,14 +173,13 @@ export class HexoService {
 
   async stopServer() {
     logger.log('stop server in process')
-    if(!this.hexoServer) {
+    if(!this.server) {
       this.hexo.emit(HEXO_EVENTS.stopServer)
       logger.log('server is NOT started');
       return;
     }
-    this.hexoServer.close();
+    this.server.close();
     this.server = undefined;
-    console.log(this.hexoServer);
     logger.log('stop server OK')
   }
 
