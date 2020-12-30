@@ -15,7 +15,7 @@ export const DashboardPage: FC<Props> = ({route}) => {
         <Sidebar/>
       </Col>
       <Col flex='auto'>
-        {renderRoutes(route?.routes)}
+        {/*{renderRoutes(route?.routes)}*/}
       </Col>
     </Row>
   )

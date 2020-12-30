@@ -40,6 +40,7 @@ export class HexoService {
     await this.hexo.init();
     logger.log('initialized');
     this.configPath = this.hexo.config_path;
+    this.getPostById();
     this._initEvents();
   }
 
@@ -94,6 +95,11 @@ export class HexoService {
     const response = await this.hexo.locals.get('posts');
     const posts: PostHexo[] = response.data;
     return sanitizePosts(posts);
+  }
+
+  async getPostById(postId: string): Promise<void> {
+    await this.hexo.load();
+    return this.hexo.database.model('Post').findById(postId);
   }
 
   async getPages (): Promise<Page[]> {

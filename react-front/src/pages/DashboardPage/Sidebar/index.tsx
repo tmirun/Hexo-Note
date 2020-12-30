@@ -14,8 +14,7 @@ export const Sidebar: FC = () => {
         siderCollapsed={true}
         mode='vertical'
         theme='light'>
-        <Menu.Item key="posts" icon={<FileOutlined />} onClick={() => navigator.push(PATH_POSTS)}></Menu.Item>
-        <Divider/>
+        <Menu.Item key="posts" icon={<FileOutlined/>} onClick={() => navigator.push(PATH_POSTS)}/>
         <Menu.Item key="config-yml" icon={<SettingFilled/>} onClick={() => navigator.push(PATH_CONFIG_YML)}/>
       </Menu>
       <Divider/>
