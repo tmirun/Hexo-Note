@@ -30,7 +30,19 @@ ipcMain.handle(IPC_HANDLES.getConfigYml, async () => {
   return hexoService.getConfigYml();
 })
 
+ipcMain.handle(IPC_HANDLES.getPostById, async(event, postId: string) => {
+  logger.log('IPC:', IPC_HANDLES.getPostById, postId);
+  if(!postId) {
+    throw Error('postId empty');
+  }
+  const post = await hexoService.getPostById(postId);
+  return post;
+})
+
 ipcMain.handle(IPC_HANDLES.updateConfigYml, async (event, content: string) => {
   logger.log('IPC:', IPC_HANDLES.updateConfigYml);
+  if(!content) {
+    throw Error('content empty')
+  }
   return hexoService.updateConfigYml(content);
 })

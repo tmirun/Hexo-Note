@@ -1,6 +1,7 @@
 export const IPC_HANDLES = {
   openHexoProject: 'openHexoProject',
   getPosts: 'getPosts',
+  getPostById: 'getPostById',
   getDrafts: 'getDrafts',
   getTags: 'getTags',
   getCategories: 'getCategories',

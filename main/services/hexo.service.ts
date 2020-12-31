@@ -4,7 +4,7 @@ import {ArticleLayout, CategoryHexo, Page, Post, PostHexo, TagHexo} from '../../
 import {Server} from 'http';
 import {EventEmitter} from 'events';
 import {HEXO_EVENTS} from '../../common/events';
-import {sanitizePosts} from "../utils";
+import {sanitizePost, sanitizePosts} from "../utils";
 import {promises as fsPromises} from 'fs';
 
 const { readFile } = require('hexo-fs');
@@ -29,7 +29,7 @@ export class HexoService {
   public event: EventEmitter;
   public configPath: string;
 
-  constructor(hexoBlogPath: string = '') {
+  constructor() {
     // TODO: to replace
     // TODO: check project and throw error
   }
@@ -40,7 +40,6 @@ export class HexoService {
     await this.hexo.init();
     logger.log('initialized');
     this.configPath = this.hexo.config_path;
-    this.getPostById();
     this._initEvents();
   }
 
@@ -97,9 +96,10 @@ export class HexoService {
     return sanitizePosts(posts);
   }
 
-  async getPostById(postId: string): Promise<void> {
+  async getPostById(postId: string): Promise<Post> {
     await this.hexo.load();
-    return this.hexo.database.model('Post').findById(postId);
+    const hexoPost: PostHexo = this.hexo.database.model('Post').findById(postId);
+    return sanitizePost(hexoPost);
   }
 
   async getPages (): Promise<Page[]> {
