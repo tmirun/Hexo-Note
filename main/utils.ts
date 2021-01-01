@@ -12,13 +12,13 @@ export const sanitizePost = (post: PostHexo): Post => {
   const sanitizedPost: Post = newPost as Post;
   sanitizedPost.date = post.date.toDate();
   sanitizedPost.updated = post.date.toDate();
-  sanitizedPost.tags = sanitizePostTagsOrCategories(tags)
-  sanitizedPost.categories = sanitizePostTagsOrCategories(categories)
-  return newPost as any
+  sanitizedPost.tags = sanitizePostTagsOrCategories(tags);
+  sanitizedPost.categories = sanitizePostTagsOrCategories(categories);
+  return sanitizedPost;
 }
 
 export const sanitizePosts = (posts: PostHexo[]): Post[] => {
-  return posts.map((post) => sanitizePost(post))
+  return posts.map((post) => sanitizePost(post));
 }
 
 /**
@@ -55,6 +55,6 @@ export const sanitizePostTagsOrCategories = (hexoTags: any): Tag[] | Category[] 
     const sanitizedTag = tag.toObject();
     delete sanitizedTag.posts;
     delete sanitizedTag.length;
-    return sanitizedTag
+    return sanitizedTag;
   })
 }
