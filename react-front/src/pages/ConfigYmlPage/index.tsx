@@ -3,7 +3,7 @@ import TextArea from "antd/es/input/TextArea";
 import {useEffect, useState} from "react";
 import {IPC_HANDLES} from "common/ipc";
 import {useDispatch} from "react-redux";
-const electron = window.require("electron")
+const electron = window.require("electron");
 const { ipcRenderer } = electron;
 
 interface Props {
